@@ -86,4 +86,13 @@ talosctl apply-config \
 ```
 rm -fr ${BUILD_DIR}
 ```
-TODO: Can't I pipe things without temporary files on disk?
+
+## Bootstrap Argo CD
+
+```sh
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+kubectl config set-context --current --namespace=argocd
+argocd login --core
+argocd app create cluster --file cluster-app.yaml
+```
