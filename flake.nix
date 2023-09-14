@@ -12,7 +12,9 @@
       in {
       devShell = pkgs.mkShell {
         buildInputs = [
+          pkgs.argocd
           pkgs.bitwarden-cli
+          pkgs.k9s
           pkgs.kubectl
           pkgs.talosctl
         ];
