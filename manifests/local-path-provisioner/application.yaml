@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-path-provisioner
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rancher/local-path-provisioner
+    path: "deploy/chart/local-path-provisioner"
+    targetRevision: v0.0.24
+    helm:
+      values: |
+        image:
+          tag: v0.0.24 
+        nodePathMap:
+          - node: gigabyte
+            paths:
+              - "/var/mnt/local"
+        nodeSelector:
+          "kubernetes.io/hostname": gigabyte
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: local-path-provisioner 
