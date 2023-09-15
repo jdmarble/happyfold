@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: teleport-cluster
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.releases.teleport.dev
+    chart: teleport-cluster
+    targetRevision: 13.3.8
+    helm:
+      releaseName: teleport-cluster
+      values: |
+        clusterName: teleport.jdmarble.net
+        kubeClusterName: jdmarble.net
+        authentication:
+          type: local
+          secondFactor: otp
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: teleport-cluster
