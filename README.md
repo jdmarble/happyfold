@@ -97,6 +97,9 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl config set-context --current --namespace=argocd
 argocd login --core
 argocd app create cluster --file cluster-app.yaml
+argocd app sync cluster --resource '!metallb.io:*:*'
+argocd app sync metallb
+argocd app sync cluster
 ```
 
 ## Configure Secrets
