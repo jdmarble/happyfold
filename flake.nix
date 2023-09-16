@@ -17,6 +17,7 @@
           pkgs.k9s
           pkgs.kubectl
           pkgs.talosctl
+          pkgs.teleport
         ];
       };
     });
