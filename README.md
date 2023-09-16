@@ -59,6 +59,7 @@ talosctl gen config \
     --with-secrets "${BUILD_DIR}/secrets.yaml" \
     --config-patch @talos/nodes/${NODE}.yaml \
     --config-patch @talos/patches/network.yaml \
+    --config-patch @talos/patches/metrics-server.yaml \
     --with-docs=false --with-examples=false --force \
     $CLUSTER_NAME $API_ENDPOINT
 talosctl apply-config \
@@ -76,6 +77,7 @@ talosctl gen config \
     --with-secrets "${BUILD_DIR}/secrets.yaml" \
     --config-patch @talos/nodes/${NODE}.yaml \
     --config-patch @talos/patches/network.yaml \
+    --config-patch @talos/patches/metrics-server.yaml \
     --with-docs=false --with-examples=false --force \
     $CLUSTER_NAME $API_ENDPOINT
 talosctl apply-config \
