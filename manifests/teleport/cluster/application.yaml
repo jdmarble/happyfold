@@ -10,7 +10,6 @@ spec:
     chart: teleport-cluster
     targetRevision: 13.3.8
     helm:
-      releaseName: teleport-cluster
       values: |
         clusterName: teleport.jdmarble.net
         kubeClusterName: jdmarble.net
