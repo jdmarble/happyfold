@@ -104,6 +104,15 @@ argocd app sync cluster
 
 ## Configure Secrets
 
+To allow the Infisical secrets operator to populate secrets in this environment, use the web UI to create a service-token and apply it manually:
+
 ```sh
 kubectl create secret generic service-token --namespace=infisical --from-literal=infisicalToken=<your-service-token-here>
+```
+
+To allow the Teleport Kubernetes agent running in this cluster to join the Teleport Cluster running in this cluster, we have to manually link them up.
+
+```sh
+tsh login teleport.jdmarble.net
+kubectl --namespace teleport-kube-agent create secret generic teleport-kube-agent-join-token --from-literal=auth-token=$(tctl tokens add --type=kube --ttl=1h --format=text)
 ```
