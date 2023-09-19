@@ -114,5 +114,5 @@ To allow the Teleport Kubernetes agent running in this cluster to join the Telep
 
 ```sh
 tsh login teleport.jdmarble.net
-kubectl --namespace teleport-kube-agent create secret generic teleport-kube-agent-join-token --from-literal=auth-token=$(tctl tokens add --type=kube --ttl=1h --format=text)
+kubectl --namespace teleport-kube-agent create secret generic teleport-kube-agent-join-token --from-literal=auth-token=$(tctl tokens add --type=kube,app --ttl=1h --format=text)
 ```
