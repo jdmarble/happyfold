@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://dl.gitea.com/charts/
+    chart: gitea
+    targetRevision: 9.4.0
+    helm:
+      values: |
+        redis-cluster:
+          enabled: false
+        postgresql:
+          enabled: false
+        postgresql-ha:
+          enabled: false
+
+        persistence:
+          size: 50Gi
+          storageClass: local-path
+        service:
+          http:
+            clusterIP:
+
+        gitea:
+          config:
+            database:
+              DB_TYPE: sqlite3
+            server:
+              LFS_START_SERVER: true
+            session:
+              PROVIDER: memory
+            cache:
+              ADAPTER: memory
+            queue:
+              TYPE: level
+            repository:
+              ENABLE_PUSH_CREATE_USER: true
+              ENABLE_PUSH_CREATE_ORG: true
+            security:
+              REVERSE_PROXY_TRUSTED_PROXIES: "*"
+            server:
+              DOMAIN: gitea.jdmarble.net
+            service:
+              ENABLE_REVERSE_PROXY_AUTHENTICATION: true
+              ENABLE_REVERSE_PROXY_AUTO_REGISTRATION: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitea
