@@ -26,6 +26,8 @@ spec:
             clusterIP:
 
         gitea:
+          admin:
+            existingSecret: admin
           config:
             database:
               DB_TYPE: sqlite3
