@@ -1,17 +1,18 @@
 machine:
-  network: 
-    hostname: gigabyte.jdmarble.net
+  network:
+    hostname: a300w.jdmarble.net
     interfaces:
-      - interface: eno1
+      - interface: enp3s0
         addresses:
-          - 192.168.2.32/22
+          - 192.168.2.33/22
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.1.1
   install:
+    wipe: true
     diskSelector:
       model: "Cruzer Fit"
   disks:
-    - device: "/dev/disk/by-id/ata-ADATA_SU650NS38_2K362L1Q8JPH"
+    - device: "/dev/disk/by-id/nvme-WDC_WDS500G2B0C-00PXH0_210317802667"
       partitions:
         - mountpoint: "/var/mnt/local"
