@@ -17,6 +17,7 @@
           pkgs.git
           pkgs.k9s
           pkgs.kubectl
+          pkgs.kubernetes-helm
           pkgs.talosctl
           pkgs.teleport
         ];
