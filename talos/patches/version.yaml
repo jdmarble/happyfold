@@ -1,0 +1,14 @@
+# Talos v1.5.2
+# k8s v1.28.2
+machine:
+  install:
+    image: ghcr.io/siderolabs/installer:v1.5.2
+  kublet:
+    image: ghcr.io/siderolabs/kubelet:v1.28.2
+cluster:
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:v1.28.2
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:v1.28.2
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:v1.28.2
