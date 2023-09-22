@@ -60,6 +60,7 @@ talosctl gen config \
     --config-patch @talos/nodes/${NODE}.yaml \
     --config-patch @talos/patches/network.yaml \
     --config-patch @talos/patches/metrics-server.yaml \
+    --config-patch @talos/patches/version.yaml \
     --with-docs=false --with-examples=false --force \
     $CLUSTER_NAME $API_ENDPOINT
 talosctl apply-config \
