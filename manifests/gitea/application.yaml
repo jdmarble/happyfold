@@ -24,7 +24,17 @@ spec:
         service:
           http:
             clusterIP:
-
+            annotations:
+              teleport.jdmarble.net: expose
+              teleport.dev/protocol: http
+              teleport.dev/name: gitea
+              teleport.dev/public-addr: "gitea.jdmarble.net"
+              teleport.dev/labels: |
+                purpose: devtool
+              teleport.dev/app-rewrite: |
+                headers:
+                  - "X-Webauth-User: {{internal.logins}}"
+                
         # Can't use RollingUpdate with local database because the old pod holds a DB lock. 
         strategy:
           type: Recreate

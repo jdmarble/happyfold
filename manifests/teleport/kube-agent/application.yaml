@@ -12,18 +12,14 @@ spec:
     helm:
       values: |
         proxyAddr: teleport.jdmarble.net:443
+        kubeClusterName: jdmarble.net
         joinTokenSecret:
           create: false
-        roles: app
-        apps:
-          - name: gitea
-            uri: http://gitea-http.gitea:3000
-            public_addr: "gitea.jdmarble.net"
+        roles: app,discovery
+        kubernetesDiscovery:
+          - types: ["app"]
             labels:
-              purpose: devtool
-            rewrite:
-              headers:
-                - "X-Webauth-User: {{internal.logins}}"
+              teleport.jdmarble.net: expose
   destination:
     server: https://kubernetes.default.svc
     namespace: teleport-kube-agent
