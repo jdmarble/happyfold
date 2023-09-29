@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -25,7 +26,8 @@ spec:
           http:
             clusterIP:
 
-        # Can't use RollingUpdate with local database because the old pod holds a DB lock.
+        # Can't use RollingUpdate with local database
+        # because the old pod holds a DB lock.
         strategy:
           type: Recreate
         gitea:
