@@ -22,5 +22,3 @@ data:
         allow:
           app_labels:
             purpose: devtool
-
-

@@ -8,7 +8,7 @@
 
   outputs = { self, nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system};  
+      let pkgs = nixpkgs.legacyPackages.${system};
       in {
       devShell = pkgs.mkShell {
         buildInputs = [
@@ -17,6 +17,7 @@
           pkgs.k9s
           pkgs.kubectl
           pkgs.kubernetes-helm
+          pkgs.pre-commit
           pkgs.talosctl
           pkgs.teleport
         ];
