@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.releases.teleport.dev
     chart: teleport-kube-agent
-    targetRevision: 13.3.8
+    targetRevision: 14.0.0
     helm:
       values: |
         proxyAddr: teleport.jdmarble.net:443
