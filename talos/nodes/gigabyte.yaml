@@ -1,5 +1,5 @@
 machine:
-  network: 
+  network:
     hostname: gigabyte.jdmarble.net
     interfaces:
       - interface: eno1
