@@ -11,11 +11,10 @@ spec:
     targetRevision: 13.3.8
     helm:
       values: |
-        kubeClusterName: jdmarble.net
         proxyAddr: teleport.jdmarble.net:443
         joinTokenSecret:
           create: false
-        roles: kube,app
+        roles: app
         teleportConfig:
           app_service:
             debug_app: true
