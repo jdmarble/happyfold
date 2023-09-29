@@ -15,9 +15,6 @@ spec:
         joinTokenSecret:
           create: false
         roles: app
-        teleportConfig:
-          app_service:
-            debug_app: true
         apps:
           - name: gitea
             uri: http://gitea-http.gitea:3000
