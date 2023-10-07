@@ -53,6 +53,8 @@ talosctl kubeconfig --nodes q330g4.jdmarble.net
 NODES=(
     q330g4
     n07d-72206j2
+    n07d-4pdc5j2
+    n07d-9wvtpk2
 )
 for NODE in "${NODES[@]}"; do
     talosctl gen config \
@@ -66,6 +68,9 @@ for NODE in "${NODES[@]}"; do
         --config-patch @talos/patches/version.yaml \
         --with-docs=false --with-examples=false --force \
         $CLUSTER_NAME $API_ENDPOINT
+    talosctl apply-config \
+        --nodes ${NODE}.jdmarble.net \
+        --file "${BUILD_DIR}/${NODE}.yaml"
 done
 
 NODES=(

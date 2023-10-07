@@ -1,0 +1,16 @@
+---
+machine:
+  type: controlplane
+  network:
+    hostname: n07d-4pdc5j2.jdmarble.net
+    interfaces:
+      - interface: enp4s0
+        addresses:
+          - 192.168.2.18/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+  install:
+    wipe: true
+    diskSelector:
+      model: "Cruzer Fit"
