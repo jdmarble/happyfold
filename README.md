@@ -8,7 +8,7 @@ Setup some environment variables and create the temporary build directory:
 
 ```
 CLUSTER_NAME=jdmarble.net
-API_ENDPOINT=https://q330g4.jdmarble.net:6443
+API_ENDPOINT=https://k8s.jdmarble.net:6443
 BUILD_DIR=$(pwd)/build
 mkdir -p "${BUILD_DIR}"
 ```
@@ -38,25 +38,26 @@ Edit `~/.talos/config` to set the endpoints to:
 
 ```yaml
         endpoints:
-            - q330g4.jdmarble.net
+            - n07d-72206j2.jdmarble.net
+            - n07d-4pdc5j2.jdmarble.net
+            - n07d-9wvtpk2.jdmarble.net
 ```
 
 You can generate a `kubectl` configuation file from the secrets bundle:
 
 ```yaml
-talosctl kubeconfig --nodes q330g4.jdmarble.net
+talosctl kubeconfig --nodes n07d-72206j2
 ```
 
 ## Change Node Configuration
 
 ```
-NODES=(
-    q330g4
-    n07d-72206j2
+CONTROL_PLANE_NODES=(
     n07d-4pdc5j2
+    n07d-72206j2
     n07d-9wvtpk2
 )
-for NODE in "${NODES[@]}"; do
+for NODE in "${CONTROL_PLANE_NODES[@]}"; do
     talosctl gen config \
         --output "${BUILD_DIR}/${NODE}.yaml" \
         --output-types controlplane\
@@ -68,16 +69,15 @@ for NODE in "${NODES[@]}"; do
         --config-patch @talos/patches/version.yaml \
         --with-docs=false --with-examples=false --force \
         $CLUSTER_NAME $API_ENDPOINT
-    talosctl apply-config \
-        --nodes ${NODE}.jdmarble.net \
-        --file "${BUILD_DIR}/${NODE}.yaml"
 done
 
-NODES=(
-    gigabyte
+WORKER_NODES=(
+    n12d-4wsxmh3
     a300w
+    gigabyte
+    q330g4
 )
-for NODE in "${NODES[@]}"; do
+for NODE in "${WORKER_NODES[@]}"; do
     talosctl gen config \
         --output "${BUILD_DIR}/${NODE}.yaml" \
         --output-types worker \
@@ -89,6 +89,10 @@ for NODE in "${NODES[@]}"; do
         --config-patch @talos/patches/version.yaml \
         --with-docs=false --with-examples=false --force \
         $CLUSTER_NAME $API_ENDPOINT
+done
+    
+ALL_NODES=( "$CONTROL_PLANE_NODES[@]" "$WORKER_NODES[@]" )
+for NODE in "${ALL_NODES[@]}"; do
     talosctl apply-config \
         --nodes ${NODE}.jdmarble.net \
         --file "${BUILD_DIR}/${NODE}.yaml"
