@@ -16,7 +16,7 @@ Configure DNS `A` records for nodes and services in the `jdmarble.net` domain:
 | n07d-9wvtpk2 | 192.168.2.19                  |
 | gigabyte     | 192.168.2.32                  |
 | a300w        | 192.168.2.33                  |
-| q330g4       | 192.168.2.34                  | 
+| q330g4       | 192.168.2.34                  |
 | n12d-4wsxmh3 | 192.168.2.35                  |
 | teleport     | https://whatismyipaddress.com |
 
@@ -64,4 +64,13 @@ talosctl apply-config --nodes "${NODE}.jdmarble.net" --file "${BUILD_DIR}/${NODE
 
 ```sh
 talosctl bootstrap ...?
+```
+
+## Do some stuff from README.md
+
+## Create admin user
+
+```sh
+kubectl exec -ti -n teleport-cluster deployment/teleport-cluster-auth -- tctl users add jdmarble-admin --roles=kube-system-master,editor,auditor,access
+tsh login --proxy teleport.jdmarble.net:443 --auth=local --user jdmarble-admin
 ```

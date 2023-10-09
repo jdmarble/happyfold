@@ -16,8 +16,6 @@ spec:
         kubeClusterName: jdmarble.net
         authentication:
           type: github
-        persistence:
-          storageClassName: local-path
         acme: true
         acmeEmail: jdmarble@jdmarble.com
         service:
