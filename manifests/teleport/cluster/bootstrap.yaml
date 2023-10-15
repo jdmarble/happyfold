@@ -13,6 +13,8 @@ data:
         name: kube-system-master
       spec:
         allow:
+          kubernetes_labels:
+            "*": "*"
           kubernetes_groups: ["system:masters"]
       ---
       kind: role
