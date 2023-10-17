@@ -84,6 +84,7 @@ for NODE in "${WORKER_NODES[@]}"; do
         --with-secrets "${BUILD_DIR}/secrets.yaml" \
         --config-patch @talos/nodes/${NODE}.yaml \
         --config-patch @talos/patches/discovery.yaml \
+        --config-patch @talos/patches/iscsi.yaml \
         --config-patch @talos/patches/metrics-server.yaml \
         --config-patch @talos/patches/network.yaml \
         --config-patch @talos/patches/version.yaml \
