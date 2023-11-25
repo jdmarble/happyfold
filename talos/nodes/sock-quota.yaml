@@ -1,0 +1,21 @@
+---
+machine:
+  type: worker
+  network:
+    hostname: sock-quota.jdmarble.net
+    interfaces:
+      - interface: enp3s0
+        addresses:
+          - 192.168.2.36/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+  install:
+    wipe: true
+    diskSelector:
+      busPath: |
+        "/pci0000:00/0000:00:01.3/0000:01:00.1/ata2/host1/target1:0:0/1:0:0:0/"
+  disks:
+    - device: "/dev/disk/by-id/ata-WDC_WDS100T2B0A-00SM50_200614A01388"
+      partitions:
+        - mountpoint: "/var/mnt/local"

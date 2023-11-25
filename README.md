@@ -72,7 +72,7 @@ for NODE in "${CONTROL_PLANE_NODES[@]}"; do
 done
 
 WORKER_NODES=(
-    n12d-4wsxmh3
+    sock-quota
     a300w
     gigabyte
     q330g4
