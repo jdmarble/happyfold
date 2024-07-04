@@ -1,5 +1,6 @@
 ---
 machine:
+  type: worker
   network:
     hostname: a300w.jdmarble.net
     interfaces:

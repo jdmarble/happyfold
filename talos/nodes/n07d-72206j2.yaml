@@ -2,15 +2,15 @@
 machine:
   type: controlplane
   network:
-    hostname: q330g4.jdmarble.net
+    hostname: n07d-72206j2.jdmarble.net
     interfaces:
-      - interface: enp1s0
+      - interface: enp4s0
         addresses:
-          - 192.168.2.16/22
+          - 192.168.2.17/22
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.1.1
   install:
     wipe: true
     diskSelector:
-      model: "Hoodisk SSD"
+      model: "Cruzer Fit"
