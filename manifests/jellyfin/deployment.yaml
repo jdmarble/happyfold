@@ -44,7 +44,7 @@ spec:
           resources:
             {}
       volumes:
-      - name: config
-        emptyDir: {}
-      - name: media
-        emptyDir: {}
+        - name: config
+          emptyDir: {}
+        - name: media
+          emptyDir: {}
