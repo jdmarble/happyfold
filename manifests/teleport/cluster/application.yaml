@@ -14,7 +14,7 @@ spec:
         clusterName: teleport.jdmarble.net
         kubeClusterName: jdmarble.net
         authentication:
-          type: local
+          type: github
         persistence:
           storageClassName: local-path
         acme: true

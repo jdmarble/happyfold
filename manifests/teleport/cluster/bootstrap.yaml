@@ -5,16 +5,22 @@ metadata:
   namespace: teleport-cluster
 data:
   "roles.yaml": |
+      ---
       kind: role
       version: v6
       metadata:
-        name: member
+        name: kube-system-master
       spec:
         allow:
           kubernetes_groups: ["system:masters"]
-          kubernetes_labels:
-            '*': '*'
-          kubernetes_resources:
-            - kind: pod
-              namespace: "*"
-              name: "*"
+      ---
+      kind: role
+      version: v6
+      metadata:
+        name: devtools-users
+      spec:
+        allow:
+          app_labels:
+            purpose: devtool
+
+
