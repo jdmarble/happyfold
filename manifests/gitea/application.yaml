@@ -21,7 +21,6 @@ spec:
 
         persistence:
           size: 50Gi
-          storageClass: local-path
         service:
           http:
             clusterIP:

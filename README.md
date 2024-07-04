@@ -90,7 +90,7 @@ for NODE in "${WORKER_NODES[@]}"; do
         --with-docs=false --with-examples=false --force \
         $CLUSTER_NAME $API_ENDPOINT
 done
-    
+
 ALL_NODES=( "$CONTROL_PLANE_NODES[@]" "$WORKER_NODES[@]" )
 for NODE in "${ALL_NODES[@]}"; do
     talosctl apply-config \
