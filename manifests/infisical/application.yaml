@@ -10,7 +10,6 @@ spec:
     chart: secrets-operator
     targetRevision: 0.2.1
     helm:
-      releaseName: infisical
       parameters:
         - name: controllerManager.manager.image.tag
           value: v0.3.0
