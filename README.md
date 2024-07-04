@@ -96,3 +96,9 @@ kubectl config set-context --current --namespace=argocd
 argocd login --core
 argocd app create cluster --file cluster-app.yaml
 ```
+
+## Configure Secrets
+
+```sh
+kubectl create secret generic service-token --namespace=infisical --from-literal=infisicalToken=<your-service-token-here>
+```
