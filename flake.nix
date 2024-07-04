@@ -1,20 +1,21 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Need unstable for talosctl version 1.5
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   description = "";
 
-  outputs = { self, nixpkgs, ... }:
-    let pkgs = nixpkgs.legacyPackages.x86_64-linux;
-    in {
-    devShell.x86_64-linux =
-      pkgs.mkShell {
+  outputs = { self, nixpkgs, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = nixpkgs.legacyPackages.${system};  
+      in {
+      devShell = pkgs.mkShell {
         buildInputs = [
           pkgs.bitwarden-cli
           pkgs.kubectl
           pkgs.talosctl
         ];
       };
-  };
+    });
 }
