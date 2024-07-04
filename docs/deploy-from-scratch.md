@@ -1,7 +1,17 @@
+---
+# All relative paths are relative to the base directory of the project.
+cwd: ..
+---
+
 # Deploy from Scratch
 
 Here's a procedure to deploy this configuration without anything already setup.
-Prerequisite is all of the nodes should be running Talos in maintenance mode.
+
+## Prerequisites
+
+You need `talosctl` version 1.7 installed and on your path.
+All of the nodes should be running Talos Linux 1.7 in maintenance mode.
+One way to do that is to boot them all from the Talos ISO image.
 
 ## DNS Records and DHCP
 
@@ -17,37 +27,49 @@ Configure DNS `A` records for nodes and services in the `jdmarble.net` domain:
 | gigabyte     | 192.168.2.32                  |
 | a300w        | 192.168.2.33                  |
 | q330g4       | 192.168.2.34                  |
-| n12d-4wsxmh3 | 192.168.2.35                  |
-| teleport     | https://whatismyipaddress.com |
 
-Create DNS `CNAME` records for services in the `jdmarble.net` domain:
-
-| name       | content                       |
-|------------|-------------------------------|
-| *.teleport | teleport.jdmarble.net         |
-| gitea      | teleport.jdmarble.net         |
 
 ## Setup Build Environment
 
 You need a temporary directory for files and some environment variables used in subsequent steps.
 
 ```
-CLUSTER_NAME=jdmarble.net
-API_ENDPOINT=https://k8s.jdmarble.net:6443
-BUILD_DIR=$(pwd)/build
+export CLUSTER_NAME=jdmarble.net
+export API_ENDPOINT=https://k8s.jdmarble.net:6443
+export BUILD_DIR=$(pwd)/build
 mkdir -p "${BUILD_DIR}"
 ```
 
-## Generate Secrets Bundle and Talos Configuration
+## Generate Secrets Bundle
 
-Run [`talosctl gen secrets --output-file "${BUILD_DIR}/secrets.yaml"`](https://www.talos.dev/v1.5/reference/cli/#talosctl-gen-secrets) then upload the contents of `build/secrets.yaml` to BitWarden as notes in the `talos-secrets.yaml` item.
+Run [`talosctl gen secrets`](https://www.talos.dev/v1.7/reference/cli/#talosctl-gen-secrets).
 
+```sh
+talosctl gen secrets --output-file "${BUILD_DIR}/secrets.yaml"
 ```
-talosctl gen config  \
-    --with-secrets "${BUILD_DIR}/secrets.yaml" \
-    --output-types talosconfig --output "${BUILD_DIR}/talosconfig" \
-    $CLUSTER_NAME $API_ENDPOINT
+
+Now upload the contents of `build/secrets.yaml` to BitWarden as an attachment to the `jdmarble.net` item for future reference.
+
+## Generate Talos Configuration
+
+Generate the Talos configuration by combining the default configuration and the secrets you just generated.
+
+```sh
+talosctl gen config \
+    "${CLUSTER_NAME}" "${API_ENDPOINT}" \
+    --with-secrets="${BUILD_DIR}/secrets.yaml" \
+    --output-types=talosconfig --output="${BUILD_DIR}/talosconfig"
 talosctl config merge "${BUILD_DIR}/talosconfig"
+```
+
+For some reason, the endpoint needs to be manually configured.
+Edit `~/.talos/config` to set the endpoints to:
+
+```yaml
+        endpoints:
+            - n07d-72206j2.jdmarble.net
+            - n07d-4pdc5j2.jdmarble.net
+            - n07d-9wvtpk2.jdmarble.net
 ```
 
 ## Apply Configuration
@@ -60,17 +82,34 @@ export NODE=<node name here>
 talosctl apply-config --nodes "${NODE}.jdmarble.net" --file "${BUILD_DIR}/${NODE}.yaml" --insecure
 ```
 
-## Bootstrap k8s
+## Bootstrap etcd
 
 ```sh
-talosctl bootstrap ...?
+talosctl bootstrap --nodes n07d-4pdc5j2
 ```
 
-## Do some stuff from README.md
-
-## Create admin user
+## Get Administrator Credentials
 
 ```sh
-kubectl exec -ti -n teleport-cluster deployment/teleport-cluster-auth -- tctl users add jdmarble-admin --roles=kube-system-master,editor,auditor,access
-tsh login --proxy teleport.jdmarble.net:443 --auth=local --user jdmarble-admin
+talosctl --nodes=${NODE} kubeconfig
+```
+
+## Manually Approve Initial CSRs
+
+The cluster is configured to rotate server certificates to be compatible with the metrics server.
+This will prevent all of the kubelets from working until their certificate signing requests have been approved.
+Later, you'll install Kubelet Serving Cert Approver, but you have to manually approve the CSRs until then.
+
+```sh
+kubectl get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs kubectl certificate approve
+```
+
+See [Talos Linux documents for Deploying Metrics Server](https://www.talos.dev/v1.7/kubernetes-guides/configuration/deploy-metrics-server/) for more information.
+
+## Bootstrap Applications
+
+This will install ArgoCD and configure it to install the other software by pulling deployments from the git repository.
+
+```sh
+kubectl apply --kustomize='deployments/argocd/base'
 ```

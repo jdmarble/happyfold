@@ -15,4 +15,4 @@ machine:
   install:
     wipe: true
     diskSelector:
-      busPath: "/pci0000:00/0000:00:11.0/ata1/host0/target0:0:0/0:0:0:0/"
+      busPath: "/pci0000:00/0000:00:11.0/ata1/*"

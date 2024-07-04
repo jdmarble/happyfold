@@ -1,0 +1,14 @@
+# Allow ArgoCD pods to run on control-plane nodes.
+# This is done under the assumption that ArgoCD is "critical infrastructure".
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: argocd-application-controller
+spec:
+  template:
+    spec:
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"

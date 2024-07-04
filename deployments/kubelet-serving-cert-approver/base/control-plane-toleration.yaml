@@ -1,0 +1,15 @@
+---
+# Allow kubelet-serving-cert-approver pod to run on control-plane nodes.
+# This is because it is "critical infrastructure".
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubelet-serving-cert-approver
+  namespace: kubelet-serving-cert-approver
+spec:
+  template:
+    spec:
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"

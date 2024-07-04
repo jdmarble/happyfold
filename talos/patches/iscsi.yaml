@@ -3,4 +3,4 @@ machine:
   install:
     extensions:
       - image: "ghcr.io/siderolabs/iscsi-tools:v0.1.4\
-            @sha256:3ab305068aa28513b26ab3c5b1f2937dbe3f63b9c50abe290287cc58eb454bb9"
+            @sha256:382463a81e8731098193b81f076e7d40232cf01a8cf320f06cd98a071470c9d0"

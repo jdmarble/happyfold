@@ -13,4 +13,4 @@ machine:
   install:
     wipe: true
     diskSelector:
-      model: "Hoodisk SSD"
+      busPath: "/pci0000:00/0000:00:1f.2/ata1/*"

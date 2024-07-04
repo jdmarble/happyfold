@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app.kubernetes.io/instance: argocd
+namespace: argocd
+
+resources:
+  - namespace.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.9/manifests/core-install.yaml
+  - argocd-application.yaml
+  - kubelet-serving-cert-approver-application.yaml
+
+patches:
+  - path: control-plane-toleration-deployment-patch.yaml
+    target:
+      kind: Deployment
+  - path: control-plane-toleration-statefulset-patch.yaml
