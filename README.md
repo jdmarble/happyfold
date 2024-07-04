@@ -68,21 +68,26 @@ talosctl apply-config \
 ```
 
 ```
-NODE=gigabyte
-talosctl gen config \
-    --output "${BUILD_DIR}/${NODE}.yaml" \
-    --output-types worker \
-    --dns-domain local.$CLUSTER_NAME \
-    --with-cluster-discovery=false \
-    --with-secrets "${BUILD_DIR}/secrets.yaml" \
-    --config-patch @talos/nodes/${NODE}.yaml \
-    --config-patch @talos/patches/network.yaml \
-    --config-patch @talos/patches/metrics-server.yaml \
-    --with-docs=false --with-examples=false --force \
-    $CLUSTER_NAME $API_ENDPOINT
-talosctl apply-config \
-    --nodes ${NODE}.jdmarble.net \
-    --file "${BUILD_DIR}/${NODE}.yaml"
+NODES=(
+    gigabyte
+    a300w
+)
+for NODE in "${NODES[@]}"; do
+    talosctl gen config \
+        --output "${BUILD_DIR}/${NODE}.yaml" \
+        --output-types worker \
+        --dns-domain local.$CLUSTER_NAME \
+        --with-cluster-discovery=false \
+        --with-secrets "${BUILD_DIR}/secrets.yaml" \
+        --config-patch @talos/nodes/${NODE}.yaml \
+        --config-patch @talos/patches/network.yaml \
+        --config-patch @talos/patches/metrics-server.yaml \
+        --with-docs=false --with-examples=false --force \
+        $CLUSTER_NAME $API_ENDPOINT
+    talosctl apply-config \
+        --nodes ${NODE}.jdmarble.net \
+        --file "${BUILD_DIR}/${NODE}.yaml"
+done
 ```
 
 ```
