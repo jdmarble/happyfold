@@ -59,7 +59,7 @@ talosctl gen config \
     --with-secrets "${BUILD_DIR}/secrets.yaml" \
     --config-patch @talos/nodes/${NODE}.yaml \
     --config-patch @talos/patches/network.yaml \
-    --with-docs=false --with-examples=false \
+    --with-docs=false --with-examples=false --force \
     $CLUSTER_NAME $API_ENDPOINT
 talosctl apply-config \
     --nodes ${NODE}.jdmarble.net \
@@ -76,7 +76,7 @@ talosctl gen config \
     --with-secrets "${BUILD_DIR}/secrets.yaml" \
     --config-patch @talos/nodes/${NODE}.yaml \
     --config-patch @talos/patches/network.yaml \
-    --with-docs=false --with-examples=false \
+    --with-docs=false --with-examples=false --force \
     $CLUSTER_NAME $API_ENDPOINT
 talosctl apply-config \
     --nodes ${NODE}.jdmarble.net \
