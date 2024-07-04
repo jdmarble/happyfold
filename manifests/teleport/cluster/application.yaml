@@ -16,7 +16,26 @@ spec:
         kubeClusterName: jdmarble.net
         authentication:
           type: local
-          secondFactor: otp
+        persistence:
+          storageClassName: local-path
+        acme: true
+        acmeEmail: jdmarble@jdmarble.com
+        service:
+          spec:
+            loadBalancerIP: 192.168.2.128
+        proxy:
+          teleportConfig:
+            teleport:
+              auth_server: teleport-cluster-auth:3025
+        extraArgs:
+          - "--bootstrap=/bootstrap/roles.yaml"
+        extraVolumes:
+          - name: bootstrap
+            configMap:
+              name: bootstrap
+        extraVolumeMounts:
+          - name: bootstrap
+            mountPath: /bootstrap
   destination:
     server: https://kubernetes.default.svc
     namespace: teleport-cluster

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bootstrap
+  namespace: teleport-cluster
+data:
+  "roles.yaml": |
+      kind: role
+      version: v6
+      metadata:
+        name: member
+      spec:
+        allow:
+          kubernetes_groups: ["system:masters"]
+          kubernetes_labels:
+            '*': '*'
+          kubernetes_resources:
+            - kind: pod
+              namespace: "*"
+              name: "*"
