@@ -14,7 +14,6 @@
         buildInputs = [
           pkgs.argocd
           pkgs.bitwarden-cli
-          pkgs.git
           pkgs.k9s
           pkgs.kubectl
           pkgs.kubernetes-helm
