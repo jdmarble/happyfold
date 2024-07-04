@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.releases.teleport.dev
     chart: teleport-cluster
-    targetRevision: 13.3.8
+    targetRevision: 14.0.0
     helm:
       values: |
         clusterName: teleport.jdmarble.net
@@ -26,6 +26,7 @@ spec:
           teleportConfig:
             teleport:
               auth_server: teleport-cluster-auth:3025
+        proxyProtocol: "off"
         extraArgs:
           - "--bootstrap=/bootstrap/roles.yaml"
         extraVolumes:
