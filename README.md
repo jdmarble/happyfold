@@ -1,6 +1,10 @@
+You can make all of the development tools available using nix if you have flakes enabled:
+
 ```
 nix develop
 ```
+
+Setup some environment variables and create the temporary build directory:
 
 ```
 CLUSTER_NAME=jdmarble.net
@@ -9,12 +13,17 @@ BUILD_DIR=$(pwd)/build
 mkdir -p "${BUILD_DIR}"
 ```
 
+I store my Talos secrets bundle in a Bitwarden note.
+Login and download it to the temporary directory.
+
 ```
 bw login
 ...
 export BW_SESSION=...
 bw get notes talos-secrets.yaml > "${BUILD_DIR}/secrets.yaml"
 ```
+
+With the secrets bundle, you can create a `talosconfig` file for authentication with the Talos API.
 
 ```
 talosctl gen config  \
@@ -24,6 +33,7 @@ talosctl gen config  \
 talosctl config merge "${BUILD_DIR}/talosconfig"
 ```
 
+For some reason, the endpoint needs to be manually configured.
 Edit `~/.talos/config` to set the endpoints to:
 
 ```yaml
@@ -31,6 +41,13 @@ Edit `~/.talos/config` to set the endpoints to:
             - q330g4.jdmarble.net
 ```
 
+You can generate a `kubectl` configuation file from the secrets bundle:
+
+```yaml
+talosctl kubeconfig --nodes q330g4.jdmarble.net
+```
+
+## Change Node Configuration
 
 ```
 NODE=q330g4
