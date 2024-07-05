@@ -1,0 +1,22 @@
+---
+# Prefer to run replicas on different nodes.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snapshot-controller
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 10
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/instance
+                      operator: In
+                      values:
+                        - external-snapshotter
