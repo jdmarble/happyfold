@@ -1,0 +1,7 @@
+---
+customization:
+  systemExtensions:
+    officialExtensions:
+      # https://longhorn.io/docs/1.6.2/advanced-resources/os-distro-specific/talos-linux-support/#system-extensions
+      - siderolabs/iscsi-tools
+      - siderolabs/util-linux-tools

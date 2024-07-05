@@ -1,0 +1,12 @@
+# The longhorn-manager Daemonset pods need to be privileged to function.
+# This sets the PodSecurity admission controller to allow it.
+# https://longhorn.io/docs/1.6.2/advanced-resources/os-distro-specific/talos-linux-support/#pod-security
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: longhorn-system
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged

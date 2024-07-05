@@ -18,3 +18,5 @@ machine:
     - device: "/dev/disk/by-id/nvme-WDC_WDS500G2B0C-00PXH0_210317802667"
       partitions:
         - mountpoint: "/var/mnt/local"
+  nodeLabels:
+    node.longhorn.io/create-default-disk: true

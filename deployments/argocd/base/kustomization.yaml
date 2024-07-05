@@ -11,6 +11,7 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.9/manifests/core-install.yaml
   - argocd-application.yaml
   - kubelet-serving-cert-approver-application.yaml
+  - longhorn-application.yaml
 
 patches:
   - path: control-plane-toleration-deployment-patch.yaml

@@ -18,3 +18,5 @@ machine:
     - device: "/dev/disk/by-id/ata-ADATA_SU650NS38_2K362L1Q8JPH"
       partitions:
         - mountpoint: "/var/mnt/local"
+  nodeLabels:
+    node.longhorn.io/create-default-disk: true
