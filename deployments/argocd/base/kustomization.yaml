@@ -13,6 +13,7 @@ resources:
   - external-snapshotter-application.yaml
   - kubelet-serving-cert-approver-application.yaml
   - longhorn-application.yaml
+  - sealed-secrets-application.yaml
   - volsync-application.yaml
 
 patches:
