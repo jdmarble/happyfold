@@ -13,6 +13,7 @@ resources:
   - external-snapshotter-application.yaml
   - kubelet-serving-cert-approver-application.yaml
   - longhorn-application.yaml
+  - volsync-application.yaml
 
 patches:
   - path: control-plane-toleration-deployment-patch.yaml

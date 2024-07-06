@@ -1,0 +1,13 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volsync-controller-manager
+  namespace: volsync-system
+spec:
+  template:
+    spec:
+      securityContext:
+        runAsUser: 65534
+        seccompProfile:
+          type: RuntimeDefault

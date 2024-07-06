@@ -1,0 +1,23 @@
+---
+# Allow and prefer the pods to run on control-plane nodes.
+# This is because it is a system service, not a workload.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volsync-controller-manager
+  namespace: volsync-system
+spec:
+  template:
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
