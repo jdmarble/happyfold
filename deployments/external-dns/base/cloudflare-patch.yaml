@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns
+spec:
+  template:
+    spec:
+      containers:
+        - name: external-dns
+          args:
+            - --source=service
+            - --domain-filter=jdmarble.net
+            - --zone-id-filter=cd5264f52a068bff59c315d04a12673e
+            - --provider=cloudflare
+            - --cloudflare-dns-records-per-page=5000
+          env:
+            - name: CF_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-api-key
+                  key: apiKey
