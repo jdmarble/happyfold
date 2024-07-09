@@ -1,0 +1,17 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: jellyfin-config
+spec:
+  rclone:
+    accessModes:
+      - ReadWriteOnce
+    capacity: 1Gi
+    copyMethod: Snapshot
+    storageClassName: unsafe
+    rcloneConfig: rclone-destination-config
+    rcloneConfigSection: net-jdmarble-jellyfin-RO
+    rcloneDestPath: "net-jdmarble-jellyfin"
+  trigger:
+    manual: restore-once

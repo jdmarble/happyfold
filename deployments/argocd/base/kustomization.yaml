@@ -12,6 +12,7 @@ resources:
   - argocd-application.yaml
   - external-dns.yaml
   - external-snapshotter-application.yaml
+  - jellyfin-application.yaml
   - kubelet-serving-cert-approver-application.yaml
   - longhorn-application.yaml
   - metallb-application.yaml

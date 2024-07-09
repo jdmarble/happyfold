@@ -1,0 +1,15 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: jellyfin-config
+spec:
+  sourcePVC: jellyfin-config
+  trigger:
+    # Synchronize every day at 0123 hours
+    schedule: "23 1 * * *"
+  rclone:
+    rcloneConfig: rclone-source-config
+    rcloneConfigSection: net-jdmarble-jellyfin-RW
+    rcloneDestPath: "net-jdmarble-jellyfin"
+    copyMethod: Clone

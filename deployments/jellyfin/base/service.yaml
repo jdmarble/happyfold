@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: jellyfin.jdmarble.net
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: jellyfin
+  type: LoadBalancer
