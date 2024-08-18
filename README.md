@@ -73,7 +73,6 @@ done
 
 WORKER_NODES=(
     a300w
-    gigabyte
     q330g4
 )
 for NODE in "${WORKER_NODES[@]}"; do
