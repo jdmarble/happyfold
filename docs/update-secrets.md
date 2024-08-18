@@ -40,3 +40,35 @@ hard_delete = true
 " | kubectl create --namespace=jellyfin secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./deployments/jellyfin/base/sealedsecret-rclone-source-config.yaml
 
 ```
+
+```sh {"name":"update torrent client secrets"}
+kubectl create --namespace=torrent-client secret generic gluetun --dry-run=client --output=json --from-literal=WIREGUARD_PRIVATE_KEY=$(\
+  bw get item nordvpn |\
+  jq '.fields[] | select(.name=="Wireguard private key").value' --raw-output\
+) | kubeseal --format yaml > ./deployments/torrent-client/base/sealedsecret-gluetun.yaml
+
+echo "[net-jdmarble-transmission-RO]
+type = b2
+account = $(\
+  bw get item backblaze |\
+  jq '.fields[] | select(.name=="net-jdmarble-transmission-RO_account").value' --raw-output\
+)
+key = $(\
+  bw get item backblaze |\
+  jq '.fields[] | select(.name=="net-jdmarble-transmission-RO_key").value' --raw-output\
+)
+" | kubectl create --namespace=torrent-client secret generic rclone-destination-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./deployments/torrent-client/base/sealedsecret-rclone-destination-config.yaml
+
+echo "[net-jdmarble-transmission-RW]
+type = b2
+account = $(\
+  bw get item backblaze |\
+  jq '.fields[] | select(.name=="net-jdmarble-transmission-RW_account").value' --raw-output\
+)
+key = $(\
+  bw get item backblaze |\
+  jq '.fields[] | select(.name=="net-jdmarble-transmission-RW_key").value' --raw-output\
+)
+hard_delete = true
+" | kubectl create --namespace=torrent-client secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./deployments/torrent-client/base/sealedsecret-rclone-source-config.yaml
+```

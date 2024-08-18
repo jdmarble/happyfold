@@ -1,0 +1,15 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: transmission-config
+spec:
+  sourcePVC: transmission-config
+  trigger:
+    # Synchronize every other hour on the 39th minute
+    schedule: "39 */2 * * *"
+  rclone:
+    rcloneConfig: rclone-source-config
+    rcloneConfigSection: net-jdmarble-transmission-RW
+    rcloneDestPath: "net-jdmarble-transmission"
+    copyMethod: Clone

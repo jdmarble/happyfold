@@ -1,0 +1,113 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: torrent-client
+  labels:
+    app.kubernetes.io/name: torrent-client
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: torrent-client
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: torrent-client
+    spec:
+      initContainers:
+        # VPN client sidecar
+        # https://github.com/qdm12/gluetun
+        # https://github.com/qdm12/gluetun-wiki/pull/7
+        - name: gluetun  # init sidecar for VPN connection
+          image: ghcr.io/qdm12/gluetun:v3.38.0
+          restartPolicy: Always  # makes this init into a sidecar container
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http-proxy
+              containerPort: 8888
+              protocol: TCP
+            - name: tcp-shadowsocks
+              containerPort: 8388
+              protocol: TCP
+            - name: udp-shadowsocks
+              containerPort: 8388
+              protocol: UDP
+          envFrom:
+            - secretRef:
+                name: gluetun
+                optional: false
+          env:
+            - name: TZ
+              value: America/Los_Angeles
+            - name: FIREWALL_INPUT_PORTS
+              # WebUI port for the main container otherwise blocked by gluetun
+              value: "9091"
+            - name: VPN_SERVICE_PROVIDER
+              value: nordvpn
+            - name: VPN_TYPE
+              value: wireguard
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: DOT
+              value: "off"
+          securityContext:
+            capabilities:
+              add:
+                - CHOWN
+                - NET_ADMIN
+            privileged: true
+      containers:
+        - name: transmission
+          image: ghcr.io/jdmarble/container-transmission:v4.0.5-r2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9091
+              name: http
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /transmission
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /transmission
+              port: http
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          volumeMounts:
+            - name: static-config
+              mountPath: /config/settings.json
+              subPath: settings.json
+            - name: persistent-config
+              mountPath: /config
+            - name: media-movies
+              mountPath: /download/movies
+            - name: tmp
+              mountPath: /tmp
+
+      securityContext:
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+
+      volumes:
+        - name: static-config
+          configMap:
+            name: transmission
+        - name: persistent-config
+          persistentVolumeClaim:
+            claimName: transmission-config
+        - name: media-movies
+          nfs:
+            server: nfs-server-headless.nfs-server.svc.local.cluster
+            path: /media/movies
+        - name: tmp
+          emptyDir: {}

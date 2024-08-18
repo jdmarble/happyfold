@@ -38,8 +38,8 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: config
-            - mountPath: /media
-              name: media
+            - mountPath: /media/movies
+              name: media-movies
       securityContext:
         fsGroup: 1000
         runAsNonRoot: true
@@ -51,5 +51,7 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: jellyfin-config
-        - name: media
-          emptyDir: {}
+        - name: media-movies
+          nfs:
+            server: nfs.jdmarble.net
+            path: /media/movies

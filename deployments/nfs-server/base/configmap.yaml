@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nfs-ganesha
+data:
+  local.conf: ''
+  exports.conf: |
+    EXPORT_DEFAULTS
+    {
+      # Restrict all exports to NFS v4 unless otherwise specified
+      Protocols = 4;
+    }
+    EXPORT
+    {
+        Export_ID=11;
+        Path = "/media/movies";
+        Pseudo = "/media/movies";
+        Access_Type = RW;
+        FSAL {
+            Name = VFS;
+        }
+    }

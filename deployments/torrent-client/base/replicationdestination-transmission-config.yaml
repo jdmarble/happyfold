@@ -1,0 +1,17 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: transmission-config
+spec:
+  rclone:
+    accessModes:
+      - ReadWriteOnce
+    capacity: 1Gi
+    copyMethod: Snapshot
+    storageClassName: unsafe
+    rcloneConfig: rclone-destination-config
+    rcloneConfigSection: net-jdmarble-transmission-RO
+    rcloneDestPath: "net-jdmarble-transmission"
+  trigger:
+    manual: restore-once
