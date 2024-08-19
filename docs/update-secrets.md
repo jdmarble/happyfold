@@ -40,3 +40,10 @@ hard_delete = true
 " | kubectl create --namespace=jellyfin secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./deployments/jellyfin/base/sealedsecret-rclone-source-config.yaml
 
 ```
+
+```sh {"name":"update Mealie secrets"}
+kubectl create --namespace=mealie secret generic openai --dry-run=client --output=json --from-literal=OPENAI_API_KEY=$(\
+  bw get item openai |\
+  jq '.fields[] | select(.name=="net-jdmarble-mealie").value' --raw-output\
+) |  kubeseal --format yaml > ./deployments/mealie/base/sealedsecret-openai.yaml
+```

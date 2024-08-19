@@ -15,6 +15,7 @@ resources:
   - jellyfin-application.yaml
   - kubelet-serving-cert-approver-application.yaml
   - longhorn-application.yaml
+  - mealie-application.yaml
   - metallb-application.yaml
   - sealed-secrets-application.yaml
   - volsync-application.yaml
