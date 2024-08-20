@@ -10,7 +10,7 @@ export BW_SESSION="..."
 kubectl create --namespace=external-dns secret generic cloudflare-api-key --dry-run=client --output=json --from-literal=apiKey=$(\
   bw get item cloudflare |\
   jq '.fields[] | select(.name=="net-jdmarble-apikey").value' --raw-output\
-) | kubeseal --format yaml > ./deployments/external-dns/base/cloudflare-api-key.yaml
+) | kubeseal --format yaml > ./apps/external-dns/cloudflare-api-key.yaml
 ```
 
 ```sh {"name":"update Jellyfin secrets"}
@@ -24,7 +24,7 @@ key = $(\
   bw get item backblaze |\
   jq '.fields[] | select(.name=="net-jdmarble-jellyfin-RO_key").value' --raw-output\
 )
-" | kubectl create --namespace=jellyfin secret generic rclone-destination-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./deployments/jellyfin/base/sealedsecret-rclone-destination-config.yaml
+" | kubectl create --namespace=jellyfin secret generic rclone-destination-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/jellyfin/sealedsecret-rclone-destination-config.yaml
 
 echo "[net-jdmarble-jellyfin-RW]
 type = b2
@@ -37,7 +37,7 @@ key = $(\
   jq '.fields[] | select(.name=="net-jdmarble-jellyfin-RW_key").value' --raw-output\
 )
 hard_delete = true
-" | kubectl create --namespace=jellyfin secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./deployments/jellyfin/base/sealedsecret-rclone-source-config.yaml
+" | kubectl create --namespace=jellyfin secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/jellyfin/sealedsecret-rclone-source-config.yaml
 
 ```
 
@@ -45,5 +45,5 @@ hard_delete = true
 kubectl create --namespace=mealie secret generic openai --dry-run=client --output=json --from-literal=OPENAI_API_KEY=$(\
   bw get item openai |\
   jq '.fields[] | select(.name=="net-jdmarble-mealie").value' --raw-output\
-) |  kubeseal --format yaml > ./deployments/mealie/base/sealedsecret-openai.yaml
+) |  kubeseal --format yaml > ./apps/mealie/sealedsecret-openai.yaml
 ```

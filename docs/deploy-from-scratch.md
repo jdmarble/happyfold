@@ -108,8 +108,8 @@ See [Talos Linux documents for Deploying Metrics Server](https://www.talos.dev/v
 
 ## Bootstrap Applications
 
-This will install ArgoCD and configure it to install the other software by pulling deployments from the git repository.
+This will install ArgoCD and configure it to install the other software by pulling apps from the git repository.
 
 ```sh
-kubectl apply --kustomize='deployments/argocd/base'
+kubectl apply --kustomize='apps/argocd'
 ```

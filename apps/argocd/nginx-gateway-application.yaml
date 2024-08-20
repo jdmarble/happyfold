@@ -2,13 +2,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: volsync
+  name: nginx-gateway
 spec:
   project: default
   destination:
     server: https://kubernetes.default.svc
-    namespace: volsync-system
+    namespace: nginx-gateway
   source:
     repoURL: https://github.com/jdmarble/happyfold.git
     targetRevision: HEAD
-    path: deployments/volsync/base
+    path: apps/nginx-gateway

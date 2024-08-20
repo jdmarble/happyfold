@@ -11,4 +11,4 @@ spec:
   source:
     repoURL: https://github.com/jdmarble/happyfold.git
     targetRevision: HEAD
-    path: deployments/external-snapshotter/base
+    path: apps/external-snapshotter
