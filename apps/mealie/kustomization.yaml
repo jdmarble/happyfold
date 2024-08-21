@@ -11,6 +11,7 @@ namespace: mealie
 
 resources:
   - deployment.yaml
+  - httproute.yaml
   - namespace.yaml
   - pvc.yaml
   - sealedsecret-openai.yaml

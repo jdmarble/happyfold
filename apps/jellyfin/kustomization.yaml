@@ -10,6 +10,7 @@ namespace: jellyfin
 
 resources:
   - deployment.yaml
+  - httproute.yaml
   - namespace.yaml
   - pvc-jellyfin-config.yaml
   - replicationdestination-jellyfin-config.yaml

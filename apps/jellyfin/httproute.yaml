@@ -2,18 +2,18 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: longhorn-ui
+  name: jellyfin
 spec:
   parentRefs:
     - namespace: nginx-gateway
       name: jdmarble-net
   hostnames:
-    - "longhorn.jdmarble.net"
+    - "jellyfin.jdmarble.net"
   rules:
     - matches:
         - path:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: longhorn-frontend
+        - name: jellyfin
           port: 80

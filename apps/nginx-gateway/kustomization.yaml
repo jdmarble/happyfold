@@ -12,6 +12,7 @@ resources:
   - https://github.com/nginxinc/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v1.3.0
   - https://raw.githubusercontent.com/nginxinc/nginx-gateway-fabric/v1.3.0/deploy/crds.yaml
   - https://github.com/nginxinc/nginx-gateway-fabric/releases/download/v1.3.0/nginx-gateway.yaml
+  - gateway-jdmarble-net.yaml
   - service-nginx-gateway.yaml
 
 patches:

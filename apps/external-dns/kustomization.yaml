@@ -15,4 +15,5 @@ resources:
 
 patches:
   - path: cloudflare-patch.yaml
+  - path: gatewayapi-clusterrole-patch.yaml
   - path: securityContext-patch.yaml

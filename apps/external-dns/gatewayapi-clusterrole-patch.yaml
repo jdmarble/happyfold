@@ -1,0 +1,33 @@
+---
+# Need to allow the controller to see Gateway API resources.
+# https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/gateway-api.md#manifest-with-rbac
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: external-dns
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+      - nodes
+      - services
+      - endpoints
+      - pods
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups:
+      - gateway.networking.k8s.io
+    resources:
+      - gateways
+      - httproutes
+      - grpcroutes
+      - tlsroutes
+      - tcproutes
+      - udproutes
+    verbs:
+      - get
+      - watch
+      - list
