@@ -4,12 +4,20 @@ kind: Gateway
 metadata:
   name: jdmarble-net
   namespace: nginx-gateway
+  annotations:
+    cert-manager.io/issuer: letsencrypt-cloudflare-dns
 spec:
   gatewayClassName: nginx
   listeners:
-    - name: http
-      port: 80
-      protocol: HTTP
+    - name: https
+      hostname: "*.jdmarble.net"
+      port: 443
+      protocol: HTTPS
       allowedRoutes:
         namespaces:
           from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: jdmarble-net-tls

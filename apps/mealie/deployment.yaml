@@ -30,7 +30,7 @@ spec:
             - name: WEB_CONCURRENCY
               value: "1"
             - name: BASE_URL
-              value: "http://mealie.jdmarble.net"
+              value: "https://mealie.jdmarble.net"
           envFrom:
             - secretRef:
                 name: openai

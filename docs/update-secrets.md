@@ -47,3 +47,10 @@ kubectl create --namespace=mealie secret generic openai --dry-run=client --outpu
   jq '.fields[] | select(.name=="net-jdmarble-mealie").value' --raw-output\
 ) |  kubeseal --format yaml > ./apps/mealie/sealedsecret-openai.yaml
 ```
+
+```sh {"name":"update nginx-gateway secret"}
+kubectl create --namespace=nginx-gateway secret generic cloudflare-api-key --dry-run=client --output=json --from-literal=apiKey=$(\
+  bw get item cloudflare |\
+  jq '.fields[] | select(.name=="net-jdmarble-apikey").value' --raw-output\
+) | kubeseal --format yaml > ./apps/nginx-gateway/sealedsecret-cloudflare-api-key.yaml
+```

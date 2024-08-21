@@ -13,3 +13,14 @@ labels:
 
 resources:
   - https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml
+
+patches:
+  # Allow cert-manager controller to give TLS certs for Gateway API resources
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --enable-gateway-api
+    target:
+      kind: Deployment
+      namespace: cert-manager
+      name: cert-manager
