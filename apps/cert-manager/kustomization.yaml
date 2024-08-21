@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/instance: cert-manager
+# Do not specify a namespace here!
+# This is where I'd normally put `namespace: cert-manager`.
+# The upstream manifests must install RBAC stuff into namespace `kube-system`.
+# Specifying a namespace here would override that.
+
+resources:
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml

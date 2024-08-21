@@ -12,7 +12,8 @@ resources:
   - namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.9/manifests/core-install.yaml
   - argocd-application.yaml
-  - external-dns.yaml
+  - cert-manager-application.yaml
+  - external-dns-application.yaml
   - external-snapshotter-application.yaml
   - jellyfin-application.yaml
   - kubelet-serving-cert-approver-application.yaml
