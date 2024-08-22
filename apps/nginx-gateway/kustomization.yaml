@@ -19,3 +19,12 @@ resources:
 
 patches:
   - path: privileged-pod-security-patch.yaml
+  # Disable telemetry
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --product-telemetry-disable
+    target:
+      kind: Deployment
+      namespace: nginx-gateway
+      name: nginx-gateway
