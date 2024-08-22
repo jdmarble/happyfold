@@ -13,8 +13,6 @@ resources:
   - https://raw.githubusercontent.com/nginxinc/nginx-gateway-fabric/v1.3.0/deploy/crds.yaml
   - https://github.com/nginxinc/nginx-gateway-fabric/releases/download/v1.3.0/nginx-gateway.yaml
   - gateway-jdmarble-net.yaml
-  - letsencrypt-cloudflare-dns-issuer.yaml
-  - sealedsecret-cloudflare-api-key.yaml
   - service-nginx-gateway.yaml
 
 patches:

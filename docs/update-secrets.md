@@ -6,6 +6,13 @@ cwd: ..
 export BW_SESSION="..."
 ```
 
+```sh {"name":"update cert-manager secret"}
+kubectl create --namespace=cert-manager secret generic cloudflare-api-key --dry-run=client --output=json --from-literal=apiKey=$(\
+  bw get item cloudflare |\
+  jq '.fields[] | select(.name=="net-jdmarble-apikey").value' --raw-output\
+) | kubeseal --format yaml > ./apps/cert-manager/sealedsecret-cloudflare-api-key.yaml
+```
+
 ```sh {"name":"update external-dns secret"}
 kubectl create --namespace=external-dns secret generic cloudflare-api-key --dry-run=client --output=json --from-literal=apiKey=$(\
   bw get item cloudflare |\
@@ -46,11 +53,4 @@ kubectl create --namespace=mealie secret generic openai --dry-run=client --outpu
   bw get item openai |\
   jq '.fields[] | select(.name=="net-jdmarble-mealie").value' --raw-output\
 ) |  kubeseal --format yaml > ./apps/mealie/sealedsecret-openai.yaml
-```
-
-```sh {"name":"update nginx-gateway secret"}
-kubectl create --namespace=nginx-gateway secret generic cloudflare-api-key --dry-run=client --output=json --from-literal=apiKey=$(\
-  bw get item cloudflare |\
-  jq '.fields[] | select(.name=="net-jdmarble-apikey").value' --raw-output\
-) | kubeseal --format yaml > ./apps/nginx-gateway/sealedsecret-cloudflare-api-key.yaml
 ```
