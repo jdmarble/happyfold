@@ -15,6 +15,7 @@ resources:
   - https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml
   - letsencrypt-cloudflare-dns-clusterissuer.yaml
   - sealedsecret-cloudflare-api-key.yaml
+  - staging-letsencrypt-cloudflare-dns-clusterissuer.yaml
 
 patches:
   # Allow cert-manager controller to give TLS certs for Gateway API resources
