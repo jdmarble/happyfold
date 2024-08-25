@@ -9,7 +9,7 @@ labels:
 namespace: volsync-system
 
 resources:
-  - https://github.com/backube/volsync//config/default/?ref=v0.9.1
+  - https://github.com/backube/volsync//config/default/?ref=v0.10.0
 
 patches:
   - path: securityContext.yaml
@@ -17,4 +17,4 @@ patches:
 
 images:
   - name: quay.io/backube/volsync
-    newTag: 0.9.1
+    newTag: 0.10.0
