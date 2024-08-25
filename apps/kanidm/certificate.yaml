@@ -1,0 +1,12 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: idm-jdmarble-net-tls
+spec:
+  secretName: idm-jdmarble-net-tls
+  dnsNames:
+    - idm.jdmarble.net
+  issuerRef:
+    name: letsencrypt-cloudflare-dns
+    kind: ClusterIssuer

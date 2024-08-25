@@ -1,0 +1,24 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: kanidm-data
+spec:
+  rclone:
+    accessModes:
+      - ReadWriteOnce
+    capacity: 1Gi
+    copyMethod: Snapshot
+    storageClassName: unsafe
+    rcloneConfig: rclone-destination-config
+    rcloneConfigSection: net-jdmarble-kanidm-RO
+    rcloneDestPath: "net-jdmarble-kanidm"
+    moverSecurityContext:
+      fsGroup: 1911
+      runAsNonRoot: true
+      runAsUser: 1911
+      runAsGroup: 1911
+      seccompProfile:
+        type: RuntimeDefault
+  trigger:
+    manual: restore-once

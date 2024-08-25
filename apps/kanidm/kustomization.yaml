@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/instance: kanidm
+namespace: kanidm
+
+resources:
+  - certificate.yaml
+  - configmap.yaml
+  - namespace.yaml
+  - pvc.yaml
+  - replicationdestination-kanidm-data.yaml
+  - replicationsource-kanidm-data.yaml
+  - sealedsecret-rclone-destination-config.yaml
+  - sealedsecret-rclone-source-config.yaml
+  - service.yaml
+  - statefulset.yaml
