@@ -31,6 +31,27 @@ spec:
               value: "1"
             - name: BASE_URL
               value: "https://mealie.jdmarble.net"
+            - name: OIDC_AUTH_ENABLED
+              value: "True"
+            - name: OIDC_SIGNUP_ENABLED
+              value: "True"
+            - name: OIDC_CONFIGURATION_URL
+              value: "https://idm.jdmarble.net\
+                /oauth2/openid/mealie/.well-known/openid-configuration"
+            - name: OIDC_CLIENT_ID
+              value: "mealie"
+            - name: OIDC_AUTO_REDIRECT
+              value: "True"
+            - name: OIDC_REMEMBER_ME
+              value: "True"
+            - name: OIDC_SIGNING_ALGORITHM
+              value: "ES256"
+            - name: "OIDC_PROVIDER_NAME"
+              value: "Kanidm"
+            - name: "OIDC_USER_CLAIM"
+              value: "email"
+            - name: "DEFAULT_GROUP"
+              value: "Bertini"
           envFrom:
             - secretRef:
                 name: openai
