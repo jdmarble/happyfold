@@ -74,6 +74,16 @@ hard_delete = true
 " | kubectl create --namespace=kanidm secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/kanidm/sealedsecret-rclone-source-config.yaml
 ```
 
+```sh {"name":"update Longhorn secrets"}
+echo "\
+client_secret = '$(kanidm system oauth2 show-basic-secret longhorn)'
+cookie_secret = '$(\
+  bw get item kanidm |\
+  jq '.fields[] | select(.name=="longhorn-cookie-secret").value' --raw-output\
+)'
+" | kubectl create --namespace=longhorn-system secret generic oauth2-proxy --dry-run=client --output=json --from-file=oauth2-proxy.conf=/dev/stdin | kubeseal --format yaml > ./apps/longhorn/sealedsecret-oauth2-proxy.yaml
+```
+
 ```sh {"name":"update Mealie secrets"}
 kubectl create --namespace=mealie secret generic openai --dry-run=client --output=json --from-literal=OPENAI_API_KEY=$(\
   bw get item openai |\

@@ -10,7 +10,10 @@ namespace: longhorn-system
 
 resources:
   - https://raw.githubusercontent.com/longhorn/longhorn/v1.6.2/deploy/longhorn.yaml
+  - deployment-oauth2-proxy.yaml
   - httproute-longhorn-frontend.yaml
+  - sealedsecret-oauth2-proxy.yaml
+  - service-oauth2-proxy.yaml
   - storageclass-unsafe.yaml
   - volumesnapshotclass.yaml
 
