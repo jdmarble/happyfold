@@ -1,0 +1,22 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: mealie
+spec:
+  sourcePVC: mealie
+  trigger:
+    # Synchronize every day at 0411 hours
+    schedule: "11 4 * * *"
+  rclone:
+    rcloneConfig: rclone-source-config
+    rcloneConfigSection: net-jdmarble-mealie-RW
+    rcloneDestPath: "net-jdmarble-mealie"
+    copyMethod: Clone
+    moverSecurityContext:
+      fsGroup: 911
+      runAsNonRoot: true
+      runAsUser: 911
+      runAsGroup: 911
+      seccompProfile:
+        type: RuntimeDefault
