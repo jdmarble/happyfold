@@ -1,0 +1,14 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nfs-server
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nfs-server
+  source:
+    repoURL: https://github.com/jdmarble/happyfold.git
+    targetRevision: HEAD
+    path: apps/nfs-server

@@ -52,4 +52,7 @@ spec:
           persistentVolumeClaim:
             claimName: jellyfin-config
         - name: media
-          emptyDir: {}
+          nfs:
+            server: nfs.jdmarble.net
+            path: /media
+            readOnly: true
