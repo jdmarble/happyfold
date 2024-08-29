@@ -15,6 +15,7 @@ resources:
   - cert-manager-application.yaml
   - external-dns-application.yaml
   - external-snapshotter-application.yaml
+  - homepage-application.yaml
   - jellyfin-application.yaml
   - kanidm-application.yaml
   - kubelet-serving-cert-approver-application.yaml
