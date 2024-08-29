@@ -42,12 +42,28 @@ spec:
           ports:
             - name: http
               containerPort: 4180
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 0
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 0
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
           resources:
             requests:
               memory: 64Mi
-              cpu: 0.1m
+              cpu: 1m
             limits:
-              cpu: 0.25m
+              cpu: 25m
               memory: 128Mi
           volumeMounts:
             - name: secret
