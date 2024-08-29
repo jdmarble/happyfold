@@ -21,6 +21,7 @@ resources:
   - longhorn-application.yaml
   - mealie-application.yaml
   - metallb-application.yaml
+  - metrics-server-application.yaml
   - nfs-server-application.yaml
   - nginx-gateway-application.yaml
   - sealed-secrets-application.yaml
