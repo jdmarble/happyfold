@@ -5,7 +5,7 @@ metadata:
   name: mealie
 spec:
   parentRefs:
-    - namespace: nginx-gateway
+    - namespace: cilium
       name: jdmarble-net
   hostnames:
     - "mealie.jdmarble.net"

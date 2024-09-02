@@ -5,7 +5,7 @@ metadata:
   name: jellyfin
 spec:
   parentRefs:
-    - namespace: nginx-gateway
+    - namespace: cilium
       name: jdmarble-net
   hostnames:
     - "jellyfin.jdmarble.net"

@@ -26,7 +26,6 @@ resources:
   - metallb-application.yaml
   - metrics-server-application.yaml
   - nfs-server-application.yaml
-  - nginx-gateway-application.yaml
   - sealed-secrets-application.yaml
   - volsync-application.yaml
 
