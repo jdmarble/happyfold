@@ -10,7 +10,7 @@ namespace: argocd
 
 resources:
   - namespace.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.9/manifests/core-install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.3/manifests/core-install.yaml
   - appproject-default.yaml
   - argocd-application.yaml
   - cert-manager-application.yaml
