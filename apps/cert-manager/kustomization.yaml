@@ -13,8 +13,11 @@ labels:
 
 resources:
   - https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml
+  - ca-clusterissuer.yaml
   - letsencrypt-cloudflare-dns-clusterissuer.yaml
+  - root-certificate.yaml
   - sealedsecret-cloudflare-api-key.yaml
+  - selfsigned-clusterissuer.yaml
   - staging-letsencrypt-cloudflare-dns-clusterissuer.yaml
 
 patches:
