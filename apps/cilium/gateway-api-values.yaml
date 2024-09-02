@@ -1,0 +1,4 @@
+---
+# https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/#installation
+gatewayAPI:
+  enabled: true

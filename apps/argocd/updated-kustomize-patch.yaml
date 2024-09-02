@@ -1,0 +1,49 @@
+---
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/custom_tools/#adding-tools-via-volume-mounts
+# Add custom tooling.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+spec:
+  template:
+    spec:
+      # 1. Define an emptyDir volume which will hold the custom binaries
+      volumes:
+        - name: custom-tools
+          emptyDir: {}
+      # 2. Use an init container to download/copy custom binaries into volume
+      initContainers:
+        - name: download-tools
+          image: alpine:3.8
+          command: [sh, -c]
+          args:
+            # Need kustomize v5.3.0 or later for the new --helm-kube-version
+            # argument. That lets us tell Helm templates which version of
+            # Kubernetes we're running.
+            - "wget -qO- https://github.com/kubernetes-sigs/kustomize/releases\
+              /download/kustomize%2Fv5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz
+              | tar -xzvf - --directory=/custom-tools/"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - "ALL"
+            runAsNonRoot: true
+            runAsUser: 1573
+            runAsGroup: 1573
+            seccompProfile:
+              type: "RuntimeDefault"
+          volumeMounts:
+            - mountPath: /custom-tools
+              name: custom-tools
+      # 3. Volume mount the custom binary to the bin directory
+      # (overriding the existing version)
+      containers:
+        - name: argocd-repo-server
+          volumeMounts:
+            - mountPath: /usr/local/bin/kustomize
+              name: custom-tools
+              subPath: kustomize
+      securityContext:
+        fsGroup: 1573

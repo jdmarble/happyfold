@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/instance: cilium
+resources:
+  - namespace-cilium.yaml
+
+helmCharts:
+  - repo: https://helm.cilium.io/
+    name: cilium
+    version: 1.16.1
+    releaseName: cilium
+    namespace: cilium
+    valuesFile: talos-values.yaml
+    additionalValuesFiles:
+      - cert-manager-values.yaml
+      - gateway-api-values.yaml

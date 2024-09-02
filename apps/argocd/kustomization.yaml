@@ -11,8 +11,10 @@ namespace: argocd
 resources:
   - namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.9/manifests/core-install.yaml
+  - appproject-default.yaml
   - argocd-application.yaml
   - cert-manager-application.yaml
+  - cilium-application.yaml
   - external-dns-application.yaml
   - external-snapshotter-application.yaml
   - homepage-application.yaml
@@ -29,7 +31,10 @@ resources:
   - volsync-application.yaml
 
 patches:
+  # Applying this as a patch to override the default, empty one.
+  - path: configmap-argocd-cm.yaml
   - path: control-plane-toleration-deployment-patch.yaml
     target:
       kind: Deployment
   - path: control-plane-toleration-statefulset-patch.yaml
+  - path: updated-kustomize-patch.yaml

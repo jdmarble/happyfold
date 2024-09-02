@@ -1,0 +1,21 @@
+---
+# The chart is configured to generate CA secret at install time.
+# These values configure the chart to ask cert-manager to generate them,
+# so I don't have to manage and encrypt them.
+hubble:
+  tls:
+    auto:
+      method: certmanager
+      certManagerIssuerRef:
+        group: cert-manager.io
+        kind: ClusterIssuer
+        name: ca
+clustermesh:
+  apiserver:
+    tls:
+      auto:
+        method: certmanager
+        certManagerIssuerRef:
+          group: cert-manager.io
+          kind: ClusterIssuer
+          name: ca

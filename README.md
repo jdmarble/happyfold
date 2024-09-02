@@ -63,6 +63,7 @@ for NODE in "${CONTROL_PLANE_NODES[@]}"; do
         --output-types controlplane\
         --with-secrets "${BUILD_DIR}/secrets.yaml" \
         --config-patch @talos/nodes/${NODE}.yaml \
+        --config-patch @talos/patches/cilium.yaml \
         --config-patch @talos/patches/discovery.yaml \
         --config-patch @talos/patches/metrics-server.yaml \
         --config-patch @talos/patches/network.yaml \
@@ -81,6 +82,7 @@ for NODE in "${WORKER_NODES[@]}"; do
         --output-types worker \
         --with-secrets "${BUILD_DIR}/secrets.yaml" \
         --config-patch @talos/nodes/${NODE}.yaml \
+        --config-patch @talos/patches/cilium.yaml \
         --config-patch @talos/patches/discovery.yaml \
         --config-patch @talos/patches/longhorn.yaml \
         --config-patch @talos/patches/metrics-server.yaml \
