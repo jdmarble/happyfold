@@ -20,3 +20,10 @@ repos:
     hooks:
       - id: yamllint
         args: ["--strict"]
+  - repo: https://github.com/bridgecrewio/checkov.git
+    rev: "3.2.242"
+    hooks:
+      - id: checkov
+        args:
+          - "--framework=kustomize"
+          - "--directory=apps/homepage"

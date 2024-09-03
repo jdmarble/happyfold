@@ -6,6 +6,9 @@ metadata:
   namespace: homepage
   labels:
     app.kubernetes.io/name: homepage
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_38=The service account token is necessary to query service status.
 spec:
   revisionHistoryLimit: 3
   replicas: 1
@@ -25,7 +28,9 @@ spec:
       enableServiceLinks: true
       containers:
         - name: homepage
-          image: "ghcr.io/gethomepage/homepage:v0.9.6"
+          # ghcr.io/gethomepage/homepage:v0.9.6
+          image: "ghcr.io/gethomepage/homepage@sha256:\
+            e5b2616d17db8961a53c0b7d389d812d31c265d35696d475732f53278c9276f7"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -47,11 +52,19 @@ spec:
             timeoutSeconds: 5
             periodSeconds: 10
             successThreshold: 1
+          resources:
+            limits:
+              cpu: 500m
+              memory: 500M
+            requests:
+              cpu: 10m
+              memory: 150M
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - "ALL"
+            readOnlyRootFilesystem: true
           volumeMounts:
             - mountPath: /app/config/custom.js
               name: homepage-config
@@ -80,10 +93,10 @@ spec:
             - mountPath: /app/config/logs
               name: logs
       securityContext:
-        fsGroup: 1912
+        fsGroup: 11912
         runAsNonRoot: true
-        runAsUser: 1912
-        runAsGroup: 1912
+        runAsUser: 11912
+        runAsGroup: 11912
         seccompProfile:
           type: RuntimeDefault
       volumes:
