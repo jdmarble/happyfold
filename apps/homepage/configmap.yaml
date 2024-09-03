@@ -27,7 +27,7 @@ data:
   services.yaml: |
     - System:
       - Argo CD:
-          href: https://argocs.jdmarble.net/
+          href: https://argocd.jdmarble.net/
           siteMonitor: https://argocd.jdmarble.net/
           namespace: argocd
           app: argocd

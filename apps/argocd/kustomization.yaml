@@ -10,13 +10,14 @@ namespace: argocd
 
 resources:
   - namespace.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.3/manifests/core-install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.3/manifests/install.yaml
   - appproject-default.yaml
   - argocd-application.yaml
   - cert-manager-application.yaml
   - cilium-application.yaml
   - external-dns-application.yaml
   - external-snapshotter-application.yaml
+  - httproute.yaml
   - homepage-application.yaml
   - jellyfin-application.yaml
   - kanidm-application.yaml
@@ -32,6 +33,7 @@ resources:
 patches:
   # Applying this as a patch to override the default, empty one.
   - path: configmap-argocd-cm.yaml
+  - path: server-insecure-patch.yaml
   - path: control-plane-toleration-deployment-patch.yaml
     target:
       kind: Deployment
