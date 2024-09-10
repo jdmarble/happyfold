@@ -41,3 +41,9 @@ patches:
       kind: Deployment
   - path: control-plane-toleration-statefulset-patch.yaml
   - path: updated-kustomize-patch.yaml
+  - path: delete-dex/deployment-patch.yaml
+  - path: delete-dex/networkpolicy-patch.yaml
+  - path: delete-dex/role-patch.yaml
+  - path: delete-dex/rolebinding-patch.yaml
+  - path: delete-dex/service-patch.yaml
+  - path: delete-dex/serviceaccount-patch.yaml
