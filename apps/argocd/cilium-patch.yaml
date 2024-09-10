@@ -19,3 +19,13 @@ data:
         - CiliumIdentity
       clusters:
         - "*"
+---
+# Enable server-side diff to correctly diff Daemonset volumes readonly=false.
+# https://argo-cd.readthedocs.io/en/stable/user-guide/diff-strategies/#server-side-diff
+# https://github.com/argoproj/argo-cd/issues/19038#issuecomment-2226251701
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cmd-params-cm
+data:
+  controller.diff.server.side: "true"
