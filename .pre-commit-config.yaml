@@ -26,4 +26,8 @@ repos:
       - id: checkov
         args:
           - "--framework=kustomize"
+          - "--directory=apps/authelia"
+      - id: checkov
+        args:
+          - "--framework=kustomize"
           - "--directory=apps/homepage"

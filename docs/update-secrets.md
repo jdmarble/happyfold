@@ -6,6 +6,21 @@ cwd: ..
 export BW_SESSION="..."
 ```
 
+```sh {"name":"update Authelia secrets"}
+kubectl create --namespace=authelia secret generic authelia --dry-run=client --output=json \
+  --from-literal=jwks.rsa.2048.key="$(openssl genrsa -out - 2048)" \
+  | kubeseal --format=yaml --merge-into=./apps/authelia/sealedsecret-authelia.yaml
+
+# ArgoCD OIDC client secret
+ARGOCD_CLIENT_SECRET=$(openssl rand -hex 63)
+kubectl create --namespace=argocd secret generic oidc-client --dry-run=client --output=json \
+  --from-literal=oidc.authelia.clientSecret=${ARGOCD_CLIENT_SECRET} \
+  | kubeseal --format=yaml --merge-into=./apps/argocd/sealedsecret-oidc-client.yaml
+ARGOCD_CLIENT_SECRET_HASH=$(echo -n ${ARGOCD_CLIENT_SECRET} | argon2 $(openssl rand -hex 16) -id -e -m 16 -t 2 -p 1 )
+yq -i ".identity_providers.oidc.clients[] |= select(.client_id == \"argocd\").client_secret = \"${ARGOCD_CLIENT_SECRET_HASH}\"" \
+  apps/authelia/configs/configuration.yaml
+```
+
 ```sh {"name":"update cert-manager secret"}
 kubectl create --namespace=cert-manager secret generic cloudflare-api-key --dry-run=client --output=json --from-literal=apiKey=$(\
   bw get item cloudflare |\

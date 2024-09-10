@@ -1,6 +1,4 @@
 ---
 extends: default
 rules:
-
-  line-length:
-    ignore: sealedsecret-*.yaml
+  line-length: disable

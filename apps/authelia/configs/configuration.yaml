@@ -1,0 +1,41 @@
+---
+# yaml-language-server: $schema=https://www.authelia.com/schemas/v4.38/json-schema/configuration.json
+access_control:
+  default_policy: one_factor
+authentication_backend:
+  file:
+    path: /users.yaml
+identity_providers:
+  oidc:
+    jwks:
+      - key: |
+          {{ secret "/secrets/internal/jwks.rsa.2048.key" | mindent 10 "|" }}
+    enable_client_debug_messages: true
+    minimum_parameter_entropy: 8
+    enforce_pkce: public_clients_only
+    enable_pkce_plain_challenge: false
+    discovery_signed_response_alg: none
+    clients:
+      - client_id: "argocd"
+        client_name: "Argo CD"
+        client_secret: "$argon2id$v=19$m=65536,t=2,p=1$ZmE5NWIxOWU2NjRmODIwYzlhY2Q1NzE0MjAzYjU0Mjc$DaLdUhzNiYxQSX/qEVHdw0AFWX+F2CLtqj6+HCb6y2Y"
+        public: false
+        authorization_policy: "one_factor"
+        redirect_uris:
+          - "https://argocd.jdmarble.net/auth/callback"
+        scopes:
+          - "openid"
+          - "groups"
+          - "email"
+          - "profile"
+        userinfo_signed_response_alg: "none"
+notifier:
+  filesystem:
+    filename: /storage/notification.txt
+session:
+  cookies:
+    - domain: jdmarble.net
+      authelia_url: https://auth.jdmarble.net
+storage:
+  local:
+    path: /storage/db.sqlite3

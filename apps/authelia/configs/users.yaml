@@ -1,0 +1,10 @@
+---
+users:
+  jdmarble:
+    disabled: false
+    displayname: "James Marble"
+    password: "$argon2id$v=19$m=65536,t=3,p=4$tpQOe1qI1xLpQRnaR56A9Q$zE4MspJvmE6vBEcX6/UB8d6K399+uNvk9gacbYfC9lY"
+    email: "jdmarble@jdmarble.com"
+    groups:
+      - "admins"
+      - "users"

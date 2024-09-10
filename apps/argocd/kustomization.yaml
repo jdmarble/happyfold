@@ -13,6 +13,7 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.3/manifests/install.yaml
   - appproject-default.yaml
   - argocd-application.yaml
+  - authelia-application.yaml
   - cert-manager-application.yaml
   - cilium-application.yaml
   - external-dns-application.yaml
@@ -27,12 +28,13 @@ resources:
   - metallb-application.yaml
   - metrics-server-application.yaml
   - nfs-server-application.yaml
+  - sealedsecret-oidc-client.yaml
   - sealed-secrets-application.yaml
   - volsync-application.yaml
 
 patches:
-  # Applying this as a patch to override the default, empty one.
-  - path: configmap-argocd-cm.yaml
+  - path: cilium-patch.yaml
+  - path: oidc-patch.yaml
   - path: server-insecure-patch.yaml
   - path: control-plane-toleration-deployment-patch.yaml
     target:

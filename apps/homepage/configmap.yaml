@@ -32,6 +32,12 @@ data:
           namespace: argocd
           app: argocd
           podSelector: ""
+      - Authelia:
+          href: https://auth.jdmarble.net/
+          siteMonitor: https://auth.jdmarble.net/
+          namespace: authelia
+          app: authelia
+          podSelector: ""
       - Kanidm:
           href: https://idm.jdmarble.net/
           siteMonitor: https://idm.jdmarble.net/

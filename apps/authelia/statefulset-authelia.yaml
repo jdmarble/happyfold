@@ -1,0 +1,144 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: authelia
+  name: authelia
+  labels:
+    app.kubernetes.io/name: authelia
+    app.kubernetes.io/instance: authelia
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: authelia
+      app.kubernetes.io/instance: authelia
+  minReadySeconds: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: authelia
+        app.kubernetes.io/instance: authelia
+      annotations:
+        authelia.com/checksum-config: >-
+          ed3bed36db8c06664222307afa0055cf266b793cd1476d3c8ffcfddbac21452f
+        authelia.com/checksum-secret: >-
+          eb544104306d9deb493658166307f959ebdd3d2d65e9be9d83a9522adc2e4798
+    spec:
+      automountServiceAccountToken: false
+      hostNetwork: false
+      hostPID: false
+      hostIPC: false
+      enableServiceLinks: false
+      containers:
+        - name: authelia
+          image: ghcr.io/authelia/authelia:4.38.9
+          imagePullPolicy: Always
+          command: ["authelia"]
+          resources:
+            limits:
+              cpu: 500m
+              # https://www.authelia.com/integration/kubernetes/introduction/#ram-usage
+              memory: 1500M
+            requests:
+              cpu: 10m
+              memory: 1G
+          env:
+            - name: AUTHELIA_SERVER_DISABLE_HEALTHCHECK
+              value: "true"
+            - name: AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE
+              value: "/secrets/internal/\
+                identity_validation.reset_password.jwt.hmac.key"
+            - name: AUTHELIA_SESSION_SECRET_FILE
+              value: "/secrets/internal/\
+                session.encryption.key"
+            - name: AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE
+              value: "/secrets/internal/\
+                storage.encryption.key"
+            - name: X_AUTHELIA_CONFIG
+              value: "/configuration.yaml"
+            - name: X_AUTHELIA_CONFIG_FILTERS
+              value: template
+          startupProbe:
+            failureThreshold: 6
+            httpGet:
+              path: /api/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 5
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /api/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /api/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 5
+          ports:
+            - name: http
+              containerPort: 9091
+              protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - "ALL"
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - mountPath: /storage
+              name: storage
+            - mountPath: /configuration.yaml
+              name: config
+              readOnly: true
+              subPath: configuration.yaml
+            - mountPath: /users.yaml
+              name: config
+              readOnly: true
+              subPath: users.yaml
+            - mountPath: /secrets/internal
+              name: secrets
+              readOnly: true
+      securityContext:
+        fsGroup: 10912
+        runAsNonRoot: true
+        runAsUser: 10912
+        runAsGroup: 10912
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: storage
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: authelia
+            items:
+              - key: configuration.yaml
+                path: configuration.yaml
+              - key: users.yaml
+                path: users.yaml
+        - name: secrets
+          secret:
+            secretName: authelia
+            items:
+              - key: identity_validation.reset_password.jwt.hmac.key
+                path: identity_validation.reset_password.jwt.hmac.key
+              - key: session.encryption.key
+                path: session.encryption.key
+              - key: storage.encryption.key
+                path: storage.encryption.key
+              - key: jwks.rsa.2048.key
+                path: jwks.rsa.2048.key
