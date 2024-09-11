@@ -22,7 +22,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /healthz
-              port: metrics
+              port: 8082
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
