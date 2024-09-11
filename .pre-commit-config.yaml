@@ -24,10 +24,26 @@ repos:
     rev: "3.2.242"
     hooks:
       - id: checkov
+        name: Checkov apps/argocd
+        files: '^apps/argocd/.*\.yaml$'
+        entry: checkov
         args:
+          - "--quiet"
+          - "--framework=kustomize"
+          - "--directory=apps/argocd"
+      - id: checkov
+        name: Checkov apps/authelia
+        files: ^apps/authelia/.*\.yaml$
+        entry: checkov
+        args:
+          - "--quiet"
           - "--framework=kustomize"
           - "--directory=apps/authelia"
       - id: checkov
+        name: Checkov apps/homepage
+        files: ^apps/homepage/.*\.yaml$
+        entry: checkov
         args:
+          - "--quiet"
           - "--framework=kustomize"
           - "--directory=apps/homepage"
