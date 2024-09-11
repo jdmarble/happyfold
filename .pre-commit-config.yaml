@@ -21,7 +21,7 @@ repos:
       - id: yamllint
         args: ["--strict"]
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: "3.2.242"
+    rev: "3.2.250"
     hooks:
       - id: checkov
         name: Checkov apps/argocd
@@ -39,6 +39,14 @@ repos:
           - "--quiet"
           - "--framework=kustomize"
           - "--directory=apps/authelia"
+      - id: checkov
+        name: Checkov apps/external-dns
+        files: ^apps/external-dns/.*\.yaml$
+        entry: checkov
+        args:
+          - "--quiet"
+          - "--framework=kustomize"
+          - "--directory=apps/external-dns"
       - id: checkov
         name: Checkov apps/homepage
         files: ^apps/homepage/.*\.yaml$

@@ -6,6 +6,7 @@ labels:
   - includeSelectors: true
     pairs:
       app.kubernetes.io/instance: external-dns
+      app.kubernetes.io/name: external-dns
 namespace: external-dns
 
 images:
@@ -15,9 +16,12 @@ images:
 resources:
   - https://github.com/kubernetes-sigs/external-dns//kustomize/?ref=v0.15.0
   - namespace.yaml
+  - networkpolicy-external-dns.yaml
   - sealedsecret-cloudflare-api-key.yaml
 
 patches:
   - path: cloudflare-patch.yaml
   - path: gatewayapi-clusterrole-patch.yaml
+  - path: probes-patch.yaml
+  - path: resources-patch.yaml
   - path: securityContext-patch.yaml

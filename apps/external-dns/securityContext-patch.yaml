@@ -3,9 +3,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: external-dns
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_35=I do not want to work the secrets to be files.
+    checkov.io/skip2: |
+      CKV_K8S_38=These pods need the service account token.
 spec:
   template:
     spec:
+      securityContext:
+        fsGroup: 14738
+        runAsNonRoot: true
+        runAsUser: 14738
+        runAsGroup: 14738
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: external-dns
           securityContext:
@@ -13,7 +25,4 @@ spec:
             capabilities:
               drop:
                 - "ALL"
-            runAsNonRoot: true
-            runAsUser: 1000
-            seccompProfile:
-              type: RuntimeDefault
+            readOnlyRootFilesystem: true

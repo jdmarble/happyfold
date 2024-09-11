@@ -1,0 +1,17 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns
+spec:
+  template:
+    spec:
+      containers:
+        - name: external-dns
+          resources:
+            limits:
+              cpu: "256m"
+              memory: "64Mi"
+            requests:
+              cpu: "1m"
+              memory: "8Mi"
