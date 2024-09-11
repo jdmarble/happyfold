@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: authelia
+  namespace: authelia
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: authelia
+      app.kubernetes.io/instance: authelia
+  policyTypes:
+    - Ingress
+    - Egress
+  egress:
+    - ports:
+        # NTP
+        # Authelia's startup checks include checking NTP connectivity.
+        - port: 123
+          protocol: UDP
+        # DNS
+        # Needed to lookup NTP server IP from hostname?
+        - port: 53
+          protocol: UDP
+  ingress:
+    - ports:
+        - port: http

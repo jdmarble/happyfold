@@ -12,6 +12,7 @@ labels:
 resources:
   - httproute-authelia.yaml
   - namespace-authelia.yaml
+  - networkpolicy-authelia.yaml
   - sealedsecret-authelia.yaml
   - service-authelia.yaml
   - statefulset-authelia.yaml

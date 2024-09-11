@@ -27,7 +27,7 @@ spec:
             - --skip-provider-button=false
             - --provider=oidc
             - --client-id=longhorn
-            - --oidc-issuer-url=https://idm.jdmarble.net/oauth2/openid/longhorn
+            - --oidc-issuer-url=https://auth.jdmarble.net
             - --code-challenge-method=S256
             - --whitelist-domain=longhorn.jdmarble.net
             - --email-domain=jdmarble.com

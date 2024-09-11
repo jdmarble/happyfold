@@ -19,6 +19,16 @@ kubectl create --namespace=argocd secret generic oidc-client --dry-run=client --
 ARGOCD_CLIENT_SECRET_HASH=$(echo -n ${ARGOCD_CLIENT_SECRET} | argon2 $(openssl rand -hex 16) -id -e -m 16 -t 2 -p 1 )
 yq -i ".identity_providers.oidc.clients[] |= select(.client_id == \"argocd\").client_secret = \"${ARGOCD_CLIENT_SECRET_HASH}\"" \
   apps/authelia/configs/configuration.yaml
+
+# Longhorn OIDC client secret
+LONGHORN_CLIENT_SECRET=$(openssl rand -hex 63)
+echo "\
+client_secret = '${LONGHORN_CLIENT_SECRET}'
+cookie_secret = '$(openssl rand -base64 32 | tr -- '+/' '-_')'
+" | kubectl create --namespace=longhorn-system secret generic oauth2-proxy --dry-run=client --output=json --from-file=oauth2-proxy.conf=/dev/stdin | kubeseal --format yaml > ./apps/longhorn/sealedsecret-oauth2-proxy.yaml
+LONGHORN_CLIENT_SECRET_HASH=$(echo -n ${LONGHORN_CLIENT_SECRET} | argon2 $(openssl rand -hex 16) -id -e -m 16 -t 2 -p 1 )
+yq -i ".identity_providers.oidc.clients[] |= select(.client_id == \"longhorn\").client_secret = \"${LONGHORN_CLIENT_SECRET_HASH}\"" \
+apps/authelia/configs/configuration.yaml
 ```
 
 ```sh {"name":"update cert-manager secret"}
@@ -87,16 +97,6 @@ key = $(\
 )
 hard_delete = true
 " | kubectl create --namespace=kanidm secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/kanidm/sealedsecret-rclone-source-config.yaml
-```
-
-```sh {"name":"update Longhorn secrets"}
-echo "\
-client_secret = '$(kanidm system oauth2 show-basic-secret longhorn)'
-cookie_secret = '$(\
-  bw get item kanidm |\
-  jq '.fields[] | select(.name=="longhorn-cookie-secret").value' --raw-output\
-)'
-" | kubectl create --namespace=longhorn-system secret generic oauth2-proxy --dry-run=client --output=json --from-file=oauth2-proxy.conf=/dev/stdin | kubeseal --format yaml > ./apps/longhorn/sealedsecret-oauth2-proxy.yaml
 ```
 
 ```sh {"name":"update Mealie secrets"}

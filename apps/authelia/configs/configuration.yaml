@@ -29,6 +29,19 @@ identity_providers:
           - "email"
           - "profile"
         userinfo_signed_response_alg: "none"
+      - client_id: "longhorn"
+        client_name: "Longhorn"
+        client_secret: "$argon2id$v=19$m=65536,t=2,p=1$ODE3MGNhOGQxMGU5OGNhZWZiNmI1ZTIwOGQwZmY4Yzc$jYSWNOEB+Z7hmgC9xMHtenlBdiCDdWywm8ldxP9whhw"
+        public: false
+        authorization_policy: "one_factor"
+        redirect_uris:
+          - "https://longhorn.jdmarble.net/oauth2/callback"
+        scopes:
+          - "openid"
+          - "groups"
+          - "email"
+          - "profile"
+        userinfo_signed_response_alg: "none"
 notifier:
   filesystem:
     filename: /storage/notification.txt
