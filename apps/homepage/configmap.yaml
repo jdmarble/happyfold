@@ -73,7 +73,13 @@ data:
           widget:
             type: minecraft
             url: udp://mc.jdmarble.com
-
+      - OctoPrint:
+          href: http://octopi.jdmarble.net/
+          siteMonitor: http://octopi.jdmarble.net/
+          widget:
+            type: octoprint
+            url: http://octopi.jdmarble.net
+            key: '{{HOMEPAGE_FILE_OCTOPRINT_API_KEY}}'
   widgets.yaml: |
     - kubernetes:
         cluster:

@@ -45,6 +45,13 @@ kubectl create --namespace=external-dns secret generic cloudflare-api-key --dry-
 ) | kubeseal --format yaml > ./apps/external-dns/cloudflare-api-key.yaml
 ```
 
+```sh {"name":"update Homepage secrets"}
+OCTOPRINT_API_KEY=???
+kubectl create --namespace=homepage secret generic api-keys --dry-run=client --output=json \
+  --from-literal=octoprint_api_key=$OCTOPRINT_API_KEY \
+  | kubeseal --format=yaml > ./apps/homepage/sealedsecret-api-keys.yaml
+```
+
 ```sh {"name":"update Jellyfin secrets"}
 echo "[net-jdmarble-jellyfin-RO]
 type = b2

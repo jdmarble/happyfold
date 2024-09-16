@@ -32,6 +32,9 @@ spec:
           image: "ghcr.io/gethomepage/homepage@sha256:\
             5c264918d2d18a753da8657fee7e0579c8b11581b19275d9a93fde76a8267f3c"
           imagePullPolicy: Always
+          env:
+            - name: HOMEPAGE_FILE_OCTOPRINT_API_KEY
+              value: /app/secrets/octoprint_api_key
           ports:
             - name: http
               containerPort: 3000
@@ -92,6 +95,8 @@ spec:
               subPath: widgets.yaml
             - mountPath: /app/config/logs
               name: logs
+            - mountPath: /app/secrets
+              name: api-keys
       securityContext:
         fsGroup: 11912
         runAsNonRoot: true
@@ -103,5 +108,8 @@ spec:
         - name: homepage-config
           configMap:
             name: homepage
+        - name: api-keys
+          secret:
+            secretName: api-keys
         - name: logs
           emptyDir: {}
