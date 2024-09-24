@@ -21,7 +21,6 @@ resources:
   - httproute.yaml
   - homepage-application.yaml
   - jellyfin-application.yaml
-  - kanidm-application.yaml
   - kubelet-serving-cert-approver-application.yaml
   - longhorn-application.yaml
   - mealie-application.yaml

@@ -38,12 +38,6 @@ data:
           namespace: authelia
           app: authelia
           podSelector: ""
-      - Kanidm:
-          href: https://idm.jdmarble.net/
-          siteMonitor: https://idm.jdmarble.net/
-          namespace: kanidm
-          app: kanidm
-          podSelector: ""
       - Longhorn:
           href: https://longhorn.jdmarble.net/
           siteMonitor: https://longhorn.jdmarble.net/
