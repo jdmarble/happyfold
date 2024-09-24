@@ -29,17 +29,6 @@ Configure DNS `A` records for nodes and services in the `jdmarble.net` domain:
 | q330g4       | 192.168.2.34                  |
 
 
-## Setup Build Environment
-
-You need a temporary directory for files and some environment variables used in subsequent steps.
-
-```
-export CLUSTER_NAME=jdmarble.net
-export API_ENDPOINT=https://k8s.jdmarble.net:6443
-export BUILD_DIR=$(pwd)/build
-mkdir -p "${BUILD_DIR}"
-```
-
 ## Generate Secrets Bundle
 
 Run [`talosctl gen secrets`](https://www.talos.dev/v1.7/reference/cli/#talosctl-gen-secrets).
@@ -85,13 +74,13 @@ talosctl apply-config --nodes "${NODE}.jdmarble.net" --file "${BUILD_DIR}/${NODE
 ## Bootstrap etcd
 
 ```sh
-talosctl bootstrap --nodes n07d-4pdc5j2
+talosctl bootstrap --nodes=${NODE}
 ```
 
 ## Get Administrator Credentials
 
 ```sh
-talosctl --nodes=${NODE} kubeconfig
+talosctl --nodes=${NODE} kubeconfig "${BUILD_DIR}/kubeconfig.yaml"
 ```
 
 ## Manually Approve Initial CSRs

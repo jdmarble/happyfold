@@ -1,16 +1,13 @@
-You can make all of the development tools available using nix if you have flakes enabled:
+Install tool dependencies:
 
-```
-nix develop
+```sh
+brew bundle --no-lock --file=Brewfile
 ```
 
-Setup some environment variables and create the temporary build directory:
+Allow `direnv` to export some environment variables:
 
-```
-CLUSTER_NAME=jdmarble.net
-API_ENDPOINT=https://k8s.jdmarble.net:6443
-BUILD_DIR=$(pwd)/build
-mkdir -p "${BUILD_DIR}"
+```sh
+direnv allow
 ```
 
 I store my Talos secrets bundle in a Bitwarden attachment.
@@ -46,7 +43,7 @@ Edit `~/.talos/config` to set the endpoints to:
 You can generate a `kubectl` configuation file from the secrets bundle:
 
 ```yaml
-talosctl kubeconfig --nodes n07d-72206j2
+talosctl --nodes=n07d-72206j2 kubeconfig "${BUILD_DIR}/kubeconfig.yaml"
 ```
 
 ## Change Node Configuration
