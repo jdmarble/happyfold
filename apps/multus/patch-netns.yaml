@@ -1,0 +1,16 @@
+# For Multus to properly work with Talos a change need to be made to the DaemonSet.
+# Instead of of mounting the volume called host-run-netns on /run/netns it has to be mounted on /var/run/netns.
+# https://www.talos.dev/v1.7/kubernetes-guides/network/multus/#patching-the-daemonset
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-multus-ds
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      volumes:
+        - name: host-run-netns
+          hostPath:
+            path: /var/run/netns/
