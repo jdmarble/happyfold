@@ -31,7 +31,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: authelia
-          image: ghcr.io/authelia/authelia:4.38.10@sha256:1af32be812f041c1f3a91190faf9a022e586b185251d26a29bcdf7982bcb3bc7
+          image: ghcr.io/authelia/authelia:4.38.17@sha256:bd0b56ab682ecdf994cc66bbbf75e3ab437a3e4aea4c707eeea0c2fca6cf945e
           imagePullPolicy: Always
           command: ["authelia"]
           resources:
