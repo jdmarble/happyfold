@@ -31,6 +31,7 @@ echo "image: \"${INSTALLER_IMAGE}\""
 NODES=(
     a300w
     q330g4
+    d08s-4wd2t52
     n07d-4pdc5j2
     n07d-72206j2
     n07d-9wvtpk2

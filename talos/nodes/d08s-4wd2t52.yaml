@@ -1,0 +1,26 @@
+---
+machine:
+  type: worker
+  network:
+    hostname: d08s-4wd2t52.jdmarble.net
+    interfaces:
+      - interface: enp2s0
+        addresses:
+          - 192.168.2.35/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+  install:
+    wipe: true
+    diskSelector:
+      busPath: "/pci0000:00/0000:00:1f.2/ata6/*"
+
+  disks:
+    - device: "/dev/disk/by-id/ata-Samsung_SSD_860_PRO_2TB_S45DNF0M200555A"
+      partitions:
+        - mountpoint: "/var/mnt/disk1"
+    - device: "/dev/disk/by-id/ata-Samsung_SSD_860_PRO_2TB_S45DNF0M200557V"
+      partitions:
+        - mountpoint: "/var/mnt/disk2"
+  nodeLabels:
+    node.longhorn.io/create-default-disk: false

@@ -72,6 +72,7 @@ done
 WORKER_NODES=(
     a300w
     q330g4
+    d08s-4wd2t52
 )
 for NODE in "${WORKER_NODES[@]}"; do
     talosctl gen config \
