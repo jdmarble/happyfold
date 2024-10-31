@@ -10,7 +10,7 @@ namespace: argocd
 
 resources:
   - namespace.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.3/manifests/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.6/manifests/install.yaml
   - appproject-default.yaml
   - argocd-application.yaml
   - authelia-application.yaml
@@ -51,7 +51,7 @@ patches:
 
 images:
   - name: quay.io/argoproj/argocd
-    newTag: v2.12.3@sha256:68894064bc381c19ea951029510aa614bd26bf46c2ec65ea445c7d8d095a9417
+    newTag: v2.12.6@sha256:86081736f6494292671f079f497f28dd332e2aabdab7d790317b1e5956ad64da
   - name: alpine
     newName: docker.io/library/alpine
     newTag: 3.8@sha256:2bb501e6173d9d006e56de5bce2720eb06396803300fe1687b58a7ff32bf4c14
