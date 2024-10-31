@@ -1,10 +1,8 @@
 Choose a new release version:
-WARNING: This is just a sketch.
-Need to update this while performing a release to flesh it out.
 
 ```sh
-export TALOS_VERSION="v1.7.6"
-export K8S_VERSION="1.30.3"
+export TALOS_VERSION="v1.8.2"
+export K8S_VERSION="1.31.2"
 ```
 
 Request a schematic ID from [Image Factory] with your customizations:
