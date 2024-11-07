@@ -1,0 +1,30 @@
+rcon:
+  external: false
+
+image:
+  tag: "2.0.14"
+
+persistence:
+  enabled: true
+  storageClassName: "safe"
+
+admin_list:
+  - "BigGeneric"
+  - "midorikid"
+
+server_settings:
+  name: factorio.jdmarble.com
+  description: Marble Factorio Server
+
+serverPassword:
+  # password required to log into the factorio server
+  game_password: "marblemarble"
+
+service:
+  type: LoadBalancer
+
+factorioServer:
+  save_name: marble-sa
+
+import_save:
+  enabled: false
