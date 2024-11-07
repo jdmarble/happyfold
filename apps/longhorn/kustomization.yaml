@@ -14,6 +14,7 @@ resources:
   - httproute-longhorn-frontend.yaml
   - sealedsecret-oauth2-proxy.yaml
   - service-oauth2-proxy.yaml
+  - storageclass-safe.yaml
   - storageclass-unsafe.yaml
   - volumesnapshotclass.yaml
 
