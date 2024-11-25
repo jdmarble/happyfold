@@ -44,7 +44,8 @@ identity_providers:
         userinfo_signed_response_alg: "none"
       - client_id: 'mealie'
         client_name: 'Mealie'
-        public: true
+        client_secret: "$argon2id$v=19$m=65536,t=2,p=1$NzU0YTU1MzI3NDRhZDc3N2ZiNWVmZjM3YzlmYzNiNWU$kN8BmeUUZoA2fY2cp4guNk9qQmMSJx3jD2uMCJ2zlfE"
+        public: false
         authorization_policy: 'one_factor'
         require_pkce: true
         pkce_challenge_method: 'S256'
@@ -56,7 +57,6 @@ identity_providers:
           - 'profile'
           - 'groups'
         userinfo_signed_response_alg: 'none'
-        token_endpoint_auth_method: 'none'
 notifier:
   filesystem:
     filename: /storage/notification.txt

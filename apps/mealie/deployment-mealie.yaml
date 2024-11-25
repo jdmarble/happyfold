@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: mealie
-          image: ghcr.io/mealie-recipes/mealie:v1.12.0
+          image: ghcr.io/mealie-recipes/mealie:v2.2.0
           imagePullPolicy: Always
           env:
             - name: ALLOW_SIGNUP
@@ -32,9 +32,9 @@ spec:
             - name: BASE_URL
               value: "https://mealie.jdmarble.net"
             - name: OIDC_AUTH_ENABLED
-              value: "True"
+              value: "true"
             - name: OIDC_SIGNUP_ENABLED
-              value: "True"
+              value: "true"
             - name: OIDC_CONFIGURATION_URL
               value: "https://auth.jdmarble.net/.well-known/openid-configuration"
             - name: OIDC_CLIENT_ID
@@ -47,9 +47,9 @@ spec:
               value: admins
             - name: OIDC_USER_GROUP
               value: users
-            - name: "DEFAULT_GROUP"
-              value: "Bertini"
           envFrom:
+            - secretRef:
+                name: oidc-client
             - secretRef:
                 name: openai
           ports:

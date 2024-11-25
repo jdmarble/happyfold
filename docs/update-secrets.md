@@ -78,35 +78,3 @@ key = $(\
 hard_delete = true
 " | kubectl create --namespace=jellyfin secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/jellyfin/sealedsecret-rclone-source-config.yaml
 ```
-
-```sh {"name":"update Mealie secrets"}
-kubectl create --namespace=mealie secret generic openai --dry-run=client --output=json --from-literal=OPENAI_API_KEY=$(\
-  bw get item openai |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie").value' --raw-output\
-) |  kubeseal --format yaml > ./apps/mealie/sealedsecret-openai.yaml
-
-echo "[net-jdmarble-mealie-RO]
-type = b2
-account = $(\
-  bw get item backblaze |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie-RO_account").value' --raw-output\
-)
-key = $(\
-  bw get item backblaze |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie-RO_key").value' --raw-output\
-)
-" | kubectl create --namespace=mealie secret generic rclone-destination-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/mealie/sealedsecret-rclone-destination-config.yaml
-
-echo "[net-jdmarble-mealie-RW]
-type = b2
-account = $(\
-  bw get item backblaze |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie-RW_account").value' --raw-output\
-)
-key = $(\
-  bw get item backblaze |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie-RW_key").value' --raw-output\
-)
-hard_delete = true
-" | kubectl create --namespace=mealie secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/mealie/sealedsecret-rclone-source-config.yaml
-```

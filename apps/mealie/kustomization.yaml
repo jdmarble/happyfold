@@ -10,12 +10,13 @@ labels:
 namespace: mealie
 
 resources:
-  - deployment.yaml
+  - deployment-mealie.yaml
   - httproute.yaml
   - namespace.yaml
   - pvc.yaml
   - replicationdestination-mealie.yaml
   - replicationsource-mealie.yaml
+  - sealedsecret-oidc-client.yaml
   - sealedsecret-openai.yaml
   - sealedsecret-rclone-destination-config.yaml
   - sealedsecret-rclone-source-config.yaml

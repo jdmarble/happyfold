@@ -5,11 +5,12 @@
     "kubectl@1.31.0",
     "talosctl@1.8.0",
     "kubeseal@latest",
+    "kubernetes-helm@latest",
     "kustomize@latest",
     "jq@latest",
     "pre-commit@latest",
     "yamllint@latest",
-    "yq@latest"
+    "yq-go@latest"
   ],
   "shell": {
     "init_hook": [
