@@ -16,6 +16,7 @@ resources:
   - authelia-application.yaml
   - cert-manager-application.yaml
   - cilium-application.yaml
+  - cnpg-application.yaml
   - external-dns-application.yaml
   - external-snapshotter-application.yaml
   - httproute.yaml
