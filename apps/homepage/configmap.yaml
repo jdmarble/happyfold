@@ -67,6 +67,12 @@ data:
           widget:
             type: minecraft
             url: udp://mc.jdmarble.com
+      - Netbox:
+          href: https://netbox.jdmarble.net/
+          siteMonitor: https://netbox.jdmarble.net/
+          namespace: netbox
+          app: netbox
+          podSelector: ""
       - OctoPrint:
           href: http://octopi.jdmarble.net/
           siteMonitor: http://octopi.jdmarble.net/

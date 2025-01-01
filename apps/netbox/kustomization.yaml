@@ -1,0 +1,27 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: netbox
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/instance: netbox
+
+resources:
+  - cluster-pg-database.yaml
+  - httproute-netbox.yaml
+  - namespace-netbox.yaml
+  - sealedsecret-oidc-client.yaml
+  - sealedsecret-superuser.yaml
+
+helmCharts:
+  - repo: oci://ghcr.io/netbox-community/netbox-chart
+    name: netbox
+    version: 5.0.5
+    releaseName: netbox
+    namespace: netbox
+    valuesFile: values.yaml
+    skipTests: true
+
+patches:
+  - path: patch-startupprobe.yaml

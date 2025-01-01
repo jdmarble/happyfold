@@ -1,0 +1,14 @@
+# This patch fixes some best-practice misses identified by Checkov.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: netbox
+  name: netbox
+spec:
+  template:
+    spec:
+      containers:
+        - name: netbox
+          startupProbe:
+            failureThreshold: 60  # Bumped up from default of 10 to allow initial migrations to complete.

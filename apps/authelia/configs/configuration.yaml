@@ -57,6 +57,22 @@ identity_providers:
           - 'profile'
           - 'groups'
         userinfo_signed_response_alg: 'none'
+      - client_id: 'netbox'
+        client_name: 'Netbox'
+        client_secret: "$argon2id$v=19$m=65536,t=2,p=1$ZTZhOGFmOTFlOWU3N2M5MzU5MjhkMDAyNWFjNmM3OGU$5Rgpe2YoWszrgidpbghf2VIv2md+DljTYovyk6mv2Qg"
+        public: false
+        authorization_policy: 'one_factor'
+        require_pkce: false
+        #pkce_challenge_method: 'S256'
+        token_endpoint_auth_method: client_secret_basic
+        redirect_uris:
+          - 'https://netbox.jdmarble.net/oauth/complete/oidc/'
+        scopes:
+          - 'openid'
+          - 'email'
+          - 'profile'
+          - 'groups'
+        userinfo_signed_response_alg: 'none'
 notifier:
   filesystem:
     filename: /storage/notification.txt

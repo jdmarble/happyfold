@@ -27,6 +27,7 @@ resources:
   - mealie-application.yaml
   - metallb-application.yaml
   - metrics-server-application.yaml
+  - netbox-application.yaml
   - nfs-server-application.yaml
   - sealedsecret-oidc-client.yaml
   - sealed-secrets-application.yaml
