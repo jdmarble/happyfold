@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: factorio
+  name: factorio
+  labels:
+    app.kubernetes.io/instance: factorio
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.2.200
+  ports:
+    - name: factorio
+      targetPort: 31497
+      port: 31497
+      protocol: UDP
+  selector:
+    app.kubernetes.io/instance: factorio

@@ -2,20 +2,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-labels:
-  - includeSelectors: true
-    pairs:
-      app.kubernetes.io/instance: factorio
-
-namespace: factorio
-
 resources:
+  - configmap-config.yaml
   - namespace-factorio.yaml
-
-helmCharts:
-  - repo: https://sqljames.github.io/factorio-server-charts/
-    name: factorio-server-charts
-    version: 2.2.1
-    releaseName: factorio
-    namespace: factorio
-    valuesFile: values.yaml
+  - pvc-datadir.yaml
+  - service-factorio.yaml
+  - statefulset-factorio.yaml
