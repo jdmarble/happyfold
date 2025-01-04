@@ -1,0 +1,20 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: sillytavern
+  name: data
+  labels:
+    app.kubernetes.io/name: sillytavern
+    app.kubernetes.io/instance: sillytavern
+spec:
+  accessModes:
+    - ReadWriteOnce
+  # dataSourceRef:
+  #  kind: ReplicationDestination
+  #  apiGroup: volsync.backube
+  #  name: data
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: safe

@@ -63,7 +63,6 @@ identity_providers:
         public: false
         authorization_policy: 'one_factor'
         require_pkce: false
-        #pkce_challenge_method: 'S256'
         token_endpoint_auth_method: client_secret_basic
         redirect_uris:
           - 'https://netbox.jdmarble.net/oauth/complete/oidc/'
@@ -73,6 +72,19 @@ identity_providers:
           - 'profile'
           - 'groups'
         userinfo_signed_response_alg: 'none'
+      - client_id: "sillytavern"
+        client_name: "SillyTavern"
+        client_secret: "$argon2id$v=19$m=65536,t=2,p=1$OTUzYjlmNGI2ODhiMGU0ODc3OGU2Njk1MGIxZDI3NjI$t24UWf0mvnghAzCYo2gqSGY69W0+X7c3d5CkYZzHI3A"
+        public: false
+        authorization_policy: "one_factor"
+        redirect_uris:
+          - "https://sillytavern.jdmarble.net/oauth2/callback"
+        scopes:
+          - "openid"
+          - "groups"
+          - "email"
+          - "profile"
+        userinfo_signed_response_alg: "none"
 notifier:
   filesystem:
     filename: /storage/notification.txt

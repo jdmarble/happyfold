@@ -16,4 +16,5 @@ A '0' indicates that the application requires privileges for all pods and only r
 | cert-manager         | 10200 |
 | external-snapshotter | 10300 |
 | longhorn             | 10400 |
+| sillytavern          | 11324 |
 | factorio             | 11845 |
