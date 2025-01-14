@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: zomboid
+  name: config
+data:
+  SERVER_NAME: marbles
+  MEMORY: 8192m

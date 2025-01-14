@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - configmap-config.yaml
+  - namespace-zomboid.yaml
+  - pvc-zomboid.yaml
+  - replicationsource-zomboid.yaml
+  - sealedsecret-rclone-destination.yaml
+  - sealedsecret-rclone-source.yaml
+  - service-zomboid.yaml
+  - statefulset-zomboid.yaml
+
+configMapGenerator:
+  - namespace: zomboid
+    name: server
+    files:
+      - config/marble.ini
+      - config/marble_SandboxVars.lua
