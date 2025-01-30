@@ -9,6 +9,7 @@ labels:
 namespace: homepage
 
 resources:
+  - ciliumnetworkpolicy-homepage.yaml
   - clusterrole.yaml
   - configmap.yaml
   - deployment.yaml

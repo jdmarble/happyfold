@@ -1,0 +1,46 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  namespace: homepage
+  name: homepage
+  labels:
+    app.kubernetes.io/name: homepage
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: homepage
+  ingress:
+    # Allow HTTP traffic from local network
+    - toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
+  egress:
+    # Allow DNS resolution
+    - toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
+          rules:
+            dns:
+              - matchPattern: "*"
+    # Allow access to Kubernetes API server
+    - toEntities:
+        - kube-apiserver
+    # Allow HTTP/HTTPS monitoring of internal services
+    - toCIDR:
+        - 192.168.0.0/22
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+            - port: "443"
+              protocol: TCP
+    # For Minecraft server monitoring
+    - toPorts:
+        - ports:
+            - port: "25565"
+              protocol: UDP
