@@ -473,51 +473,51 @@
         }
       }
     },
-    "talosctl@1.8.0": {
-      "last_modified": "2024-10-13T23:44:06Z",
-      "resolved": "github:NixOS/nixpkgs/d4f247e89f6e10120f911e2e2d2254a050d0f732#talosctl",
+    "talosctl@1.9.2": {
+      "last_modified": "2025-01-21T12:51:11Z",
+      "resolved": "github:NixOS/nixpkgs/e1996d7bdaf4eafdb85690079b9e02b25dc14e4f#talosctl",
       "source": "devbox-search",
-      "version": "1.8.0",
+      "version": "1.9.2",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/lvchasgr4yrk2mj5j6ni1x18lcvss50v-talosctl-1.8.0",
+              "path": "/nix/store/660wz05k0j1hsn290q0irqb2lh4zj4c1-talosctl-1.9.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/lvchasgr4yrk2mj5j6ni1x18lcvss50v-talosctl-1.8.0"
+          "store_path": "/nix/store/660wz05k0j1hsn290q0irqb2lh4zj4c1-talosctl-1.9.2"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/4pcvdmqxdjd1bi9svqylykwcsqf4x7m7-talosctl-1.8.0",
+              "path": "/nix/store/pzsn6lyng4sra5rc1ljh7wzkzqli40kp-talosctl-1.9.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/4pcvdmqxdjd1bi9svqylykwcsqf4x7m7-talosctl-1.8.0"
+          "store_path": "/nix/store/pzsn6lyng4sra5rc1ljh7wzkzqli40kp-talosctl-1.9.2"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/lgy4x9z0kldfzb217v41xhlcp725bl59-talosctl-1.8.0",
+              "path": "/nix/store/nw5xdhi21xyalyy9p9lazbl2yyghb365-talosctl-1.9.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/lgy4x9z0kldfzb217v41xhlcp725bl59-talosctl-1.8.0"
+          "store_path": "/nix/store/nw5xdhi21xyalyy9p9lazbl2yyghb365-talosctl-1.9.2"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/67x713biyiiws1rasa7y5qjdik2gavdb-talosctl-1.8.0",
+              "path": "/nix/store/5jjgr064pdlk1xb7p76ibbkdqppcpj20-talosctl-1.9.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/67x713biyiiws1rasa7y5qjdik2gavdb-talosctl-1.8.0"
+          "store_path": "/nix/store/5jjgr064pdlk1xb7p76ibbkdqppcpj20-talosctl-1.9.2"
         }
       }
     },

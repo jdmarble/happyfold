@@ -1,20 +1,20 @@
 ---
-# Talos v1.8.2
-# k8s v1.31.2
+# Talos v1.9.2
+# k8s v1.32.1
 machine:
   install:
     # Get this installer ID by sending ../customization.yaml to Image Factory
     # https://www.talos.dev/v1.8/talos-guides/install/boot-assets/
     image: "factory.talos.dev/installer/\
-      613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.8.2"
+      613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.9.3"
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:v1.31.2
+    image: ghcr.io/siderolabs/kubelet:v1.32.1
 cluster:
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.31.2
+    image: registry.k8s.io/kube-apiserver:v1.32.1
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:v1.31.2
+    image: registry.k8s.io/kube-controller-manager:v1.32.1
   proxy:
-    image: registry.k8s.io/kube-proxy:v1.31.2
+    image: registry.k8s.io/kube-proxy:v1.32.1
   scheduler:
-    image: registry.k8s.io/kube-scheduler:v1.31.2
+    image: registry.k8s.io/kube-scheduler:v1.32.1
