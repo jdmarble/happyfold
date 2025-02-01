@@ -1,9 +1,11 @@
 Choose a new release version:
 
 ```sh
-export TALOS_VERSION="v1.8.2"
-export K8S_VERSION="1.31.2"
+export TALOS_VERSION="v1.9.3"
+export K8S_VERSION="1.32.1"
 ```
+
+Upgrade `talosctl` version in `devbox.json`.
 
 Request a schematic ID from [Image Factory] with your customizations:
 
