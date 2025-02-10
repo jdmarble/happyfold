@@ -181,6 +181,54 @@
         }
       }
     },
+    "kapp@latest": {
+      "last_modified": "2025-01-19T08:16:51Z",
+      "resolved": "github:NixOS/nixpkgs/50165c4f7eb48ce82bd063e1fb8047a0f515f8ce#kapp",
+      "source": "devbox-search",
+      "version": "0.64.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/fr57yi9vrwjji298p708ssns066c0zpy-kapp-0.64.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/fr57yi9vrwjji298p708ssns066c0zpy-kapp-0.64.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/qp2p5lklbi347bavlhcnvbl4snlbfgar-kapp-0.64.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/qp2p5lklbi347bavlhcnvbl4snlbfgar-kapp-0.64.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ksp4fxqmm89jfv10ga9zaif32gk127sf-kapp-0.64.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/ksp4fxqmm89jfv10ga9zaif32gk127sf-kapp-0.64.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/4ilps2hds48zb2inrk1zv2ck9gzjq382-kapp-0.64.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/4ilps2hds48zb2inrk1zv2ck9gzjq382-kapp-0.64.0"
+        }
+      }
+    },
     "kubectl@1.31.0": {
       "last_modified": "2024-10-13T23:44:06Z",
       "resolved": "github:NixOS/nixpkgs/d4f247e89f6e10120f911e2e2d2254a050d0f732#kubectl",

@@ -16,3 +16,34 @@ spec:
     limits:
       memory: "1Gi"
       cpu: "2"
+
+  bootstrap:
+    recovery:
+      source: clusterBackup
+
+  externalClusters:
+    - name: clusterBackup
+      barmanObjectStore:
+        destinationPath: s3://net-jdmarble-netbox/
+        endpointURL: https://s3.us-west-000.backblazeb2.com
+        serverName: "pg-database-B"
+        s3Credentials:
+          accessKeyId:
+            name: s3-backup-credentials
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: s3-backup-credentials
+            key: ACCESS_SECRET_KEY
+
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://net-jdmarble-netbox/
+      endpointURL: https://s3.us-west-000.backblazeb2.com
+      serverName: "pg-database-A"
+      s3Credentials:
+        accessKeyId:
+          name: s3-backup-credentials
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-backup-credentials
+          key: ACCESS_SECRET_KEY
