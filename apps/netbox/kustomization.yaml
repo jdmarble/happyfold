@@ -11,7 +11,9 @@ resources:
   - cluster-pg-database.yaml
   - httproute-netbox.yaml
   - namespace-netbox.yaml
+  - scheduledbackup-netbox.yaml
   - sealedsecret-oidc-client.yaml
+  - sealedsecret-s3-backup-credentials.yaml
   - sealedsecret-superuser.yaml
 
 helmCharts:

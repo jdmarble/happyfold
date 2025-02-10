@@ -10,7 +10,8 @@
     "jq@latest",
     "pre-commit@latest",
     "yamllint@latest",
-    "yq-go@latest"
+    "yq-go@latest",
+    "kapp@latest"
   ],
   "shell": {
     "init_hook": [

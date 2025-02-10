@@ -1,0 +1,12 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  namespace: netbox
+  name: netbox
+spec:
+  immediate: true
+  schedule: "8 30 0 * * *"  # 0830Z -> 0030 Pacific
+  method: barmanObjectStore
+  cluster:
+    name: pg-database

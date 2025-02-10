@@ -4,11 +4,28 @@
 
 ## Installation
 
+The Postgres database is configured to restore from Backblaze on creation.
+It is also configured to backup to Backblaze.
+Unfortunately, it can't backup to and restore from the same place.
+You'll get an error "WAL archive check failed for server... Expected empty archive".
+To resolve this issue, you'll have to perform the following procedure:
+
+1. Login to Backblaze and click "Make Full Bucket Snapshot" on the "net-jdmarble-netbox" bucket because you're going to fuck it up.
+   Wait for the snapshot to "prepare" then download it.
+1. Determine which path, `postgres-db-A` or `postgres-db-B` is the latest backup directory.
+   It'll be the one with the latest uploaded date.
+1. Delete the _older_ directory.
+   It needs to be empty or the [safety checks](https://cloudnative-pg.io/documentation/1.20/recovery/#restoring-into-a-cluster-with-a-backup-section)
+   will stop the restoration.
+1. Edit `cluster-pg-database.yaml` and swap the backup and restore directory names.
+   The `externalClusters[...].barmanObjectStore.serverName` should be the latest backup directory.
+   The `backup.barmanObjectStore.serverName` should be the directory you just deleted.
+
 Apply the kustomization:
 
 ```sh
-kustomize build --enable-helm apps/netbox \
-  | kubectl apply -f -
+kustomize build --enable-helm . \
+  | kapp deploy --app=netbox --file=- --yes
 ```
 
 ## Secrets
@@ -46,6 +63,23 @@ kubectl create --namespace=netbox secret generic superuser --dry-run=client --ou
       jq '.fields[] | select(.name=="api_token").value' --raw-output\
     ) |\
   kubeseal --format yaml > ./apps/netbox/sealedsecret-superuser.yaml
+```
+
+## Backblaze Bucket Credentials
+
+These credentials are for restoring from and backing up to an S3 bucket on Backblaze.
+
+```sh
+kubectl create --namespace=netbox secret generic s3-backup-credentials --dry-run=client --output=json \
+  --from-literal=ACCESS_KEY_ID=$(\
+      bw get item netbox.jdmarble.net |\
+      jq '.fields[] | select(.name=="ACCESS_KEY_ID").value' --raw-output\
+    ) \
+  --from-literal=ACCESS_SECRET_KEY=$(\
+      bw get item netbox.jdmarble.net |\
+      jq '.fields[] | select(.name=="ACCESS_SECRET_KEY").value' --raw-output\
+    ) \
+| kubeseal --format yaml > sealedsecret-s3-backup-credentials.yaml
 ```
 
 ## Upgrade
