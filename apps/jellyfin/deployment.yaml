@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: jellyfin
-          image: "docker.io/jellyfin/jellyfin:10.10.0.20241026-173349@sha256:b15266bad088e3d793401be5845f2453233edd826c02cd7155910055133fb581"
+          image: "ghcr.io/jellyfin/jellyfin:10.10.6@sha256:2aa67ae3eff5384ade5a5675a61ca487e9e1a510312289ac80076837ebeda8c8"
           ports:
             - name: http
               containerPort: 8096
@@ -53,6 +53,6 @@ spec:
             claimName: jellyfin-config
         - name: media
           nfs:
-            server: nfs.jdmarble.net
-            path: /media
+            server: unas-pro.jdmarble.net
+            path: /var/nfs/shared/media
             readOnly: true
