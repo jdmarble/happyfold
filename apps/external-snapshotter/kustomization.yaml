@@ -2,18 +2,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-labels:
-  - includeSelectors: true
-    pairs:
-      app.kubernetes.io/instance: external-snapshotter
-namespace: kube-system
-
 resources:
   # Using the version recommended by Longhorn documentation.
-  # https://longhorn.io/docs/1.6.2/snapshots-and-backups/csi-snapshot-support/enable-csi-snapshot-support/#if-your-kubernetes-distribution-does-not-bundle-the-snapshot-controller
-  - https://github.com/kubernetes-csi/external-snapshotter//client/config/crd/?ref=v6.3.2
-  - https://github.com/kubernetes-csi/external-snapshotter//deploy/kubernetes/snapshot-controller/?ref=v6.3.2
+  # https://longhorn.io/docs/1.8.0/snapshots-and-backups/csi-snapshot-support/enable-csi-snapshot-support/#if-your-kubernetes-distribution-does-not-bundle-the-snapshot-controller
+  - https://github.com/kubernetes-csi/external-snapshotter//client/config/crd/?ref=v8.2.0
+  - https://github.com/kubernetes-csi/external-snapshotter//deploy/kubernetes/snapshot-controller/?ref=v8.2.0
 
 patches:
-  - path: control-plane-nodeAffinity.yaml
   - path: hostname-podAntiAffinity.yaml

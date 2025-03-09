@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.25/releases/cnpg-1.25.0.yaml
+
+patches:
+  - path: patch-checkov.yaml
+
+images:
+  - name: ghcr.io/cloudnative-pg/cloudnative-pg
+    newTag: 1.25.0@sha256:a27779ed10853ed607659ff9c7c51ae30b6b6c3ce204f58a2bf54c5d25e0e188

@@ -6,10 +6,6 @@ This deploys a software for streaming media to the various client apps.
 
 This app requires several secrets to function.
 
-### NAS Credentials
-
-The media is stored on the UNAS-Pro and requires credentials to access.
-
 ### Backup Credentials
 
 The configuration data (not media) are backed up to a Backblaze bucket.
@@ -28,7 +24,8 @@ key = $(\
   bw get item backblaze |\
   jq '.fields[] | select(.name=="net-jdmarble-jellyfin-RO_key").value' --raw-output\
 )
-" | kubectl create --namespace=jellyfin secret generic rclone-destination-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/jellyfin/sealedsecret-rclone-destination-config.yaml
+" | kubectl create --namespace=jellyfin secret generic rclone-destination-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin \
+  | kubeseal --format yaml > sealedsecret-rclone-destination-config.yaml
 
 echo "[net-jdmarble-jellyfin-RW]
 type = b2
@@ -41,7 +38,8 @@ key = $(\
   jq '.fields[] | select(.name=="net-jdmarble-jellyfin-RW_key").value' --raw-output\
 )
 hard_delete = true
-" | kubectl create --namespace=jellyfin secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin | kubeseal --format yaml > ./apps/jellyfin/sealedsecret-rclone-source-config.yaml
+" | kubectl create --namespace=jellyfin secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin \
+  | kubeseal --format yaml > sealedsecret-rclone-source-config.yaml
 ```
 
 ## Installation

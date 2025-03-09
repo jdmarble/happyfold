@@ -6,23 +6,15 @@ metadata:
   name: authelia
   labels:
     app.kubernetes.io/name: authelia
-    app.kubernetes.io/instance: authelia
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: authelia
-      app.kubernetes.io/instance: authelia
   minReadySeconds: 0
   template:
     metadata:
       labels:
         app.kubernetes.io/name: authelia
-        app.kubernetes.io/instance: authelia
-      annotations:
-        authelia.com/checksum-config: >-
-          ed3bed36db8c06664222307afa0055cf266b793cd1476d3c8ffcfddbac21452f
-        authelia.com/checksum-secret: >-
-          eb544104306d9deb493658166307f959ebdd3d2d65e9be9d83a9522adc2e4798
     spec:
       automountServiceAccountToken: false
       hostNetwork: false
@@ -46,14 +38,11 @@ spec:
             - name: AUTHELIA_SERVER_DISABLE_HEALTHCHECK
               value: "true"
             - name: AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE
-              value: "/secrets/internal/\
-                identity_validation.reset_password.jwt.hmac.key"
+              value: "/secrets/internal/AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE"
             - name: AUTHELIA_SESSION_SECRET_FILE
-              value: "/secrets/internal/\
-                session.encryption.key"
+              value: "/secrets/internal/AUTHELIA_SESSION_SECRET_FILE"
             - name: AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE
-              value: "/secrets/internal/\
-                storage.encryption.key"
+              value: "/secrets/internal/AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE"
             - name: X_AUTHELIA_CONFIG
               value: "/configuration.yaml"
             - name: X_AUTHELIA_CONFIG_FILTERS
@@ -125,20 +114,6 @@ spec:
         - name: config
           configMap:
             name: authelia
-            items:
-              - key: configuration.yaml
-                path: configuration.yaml
-              - key: users.yaml
-                path: users.yaml
         - name: secrets
           secret:
             secretName: authelia
-            items:
-              - key: identity_validation.reset_password.jwt.hmac.key
-                path: identity_validation.reset_password.jwt.hmac.key
-              - key: session.encryption.key
-                path: session.encryption.key
-              - key: storage.encryption.key
-                path: storage.encryption.key
-              - key: jwks.rsa.2048.key
-                path: jwks.rsa.2048.key

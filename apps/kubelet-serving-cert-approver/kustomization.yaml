@@ -5,7 +5,4 @@ kind: Kustomization
 namespace: kubelet-serving-cert-approver
 
 resources:
-  - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.8.5/deploy/standalone-install.yaml
-
-patches:
-  - path: control-plane-toleration.yaml
+  - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.9.0/deploy/standalone-install.yaml

@@ -1,0 +1,48 @@
+# This patch fixes some best-practice misses identified by Checkov.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # This Deployment will be in the `sealed-secrets` namespace.
+  # The upstream Deployment is `kube-system` and the change is not made until
+  # _after_ patches are applied, so we have to use this ns to make the match.
+  namespace: kube-system
+  name: sealed-secrets-controller
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_38=The controller needs to interact with the k8s API to create secrets.
+spec:
+  template:
+    spec:
+      containers:
+        - name: sealed-secrets-controller
+          resources:
+            limits:
+              cpu: "1"  # CKV_K8S_11
+              memory: "256Mi"  # CKV_K8S_13
+            requests:
+              cpu: "5m"  # CKV_K8S_10
+              memory: "32Mi"  # CKV_K8S_12
+          securityContext:
+            runAsUser: 10100  # CKV_K8S_40
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: secrets-unsealer
+  annotations:
+    annotations:
+      checkov.io/skip1: |
+        CKV_K8S_5=Tighter RBAC configuration pending: https://github.com/bitnami-labs/sealed-secrets/issues/353
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: kube-system
+  name: sealed-secrets-controller
+  labels:
+    name: sealed-secrets-controller
+  annotations:
+    annotations:
+      checkov.io/skip1: |
+        CKV2_K8S_5=Need to see all of the secrets to know if they need to be updated

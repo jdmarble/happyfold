@@ -6,7 +6,6 @@ metadata:
   namespace: authelia
   labels:
     app.kubernetes.io/name: authelia
-    app.kubernetes.io/instance: authelia
 spec:
   parentRefs:
     - namespace: cilium

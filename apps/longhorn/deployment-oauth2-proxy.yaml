@@ -2,6 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: longhorn-system
   name: oauth2-proxy
   labels:
     app.kubernetes.io/name: oauth2-proxy
@@ -20,7 +21,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: oauth2-proxy
-          image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+          image: quay.io/oauth2-proxy/oauth2-proxy:v7.8.1@sha256:d62e2d81c6f5048f652f67c302083be1272c181b971fad80e5a30ebe2b8b75d8
           imagePullPolicy: Always
           args:
             - --config=/etc/oauth2-proxy-configs/oauth2-proxy.conf

@@ -1,0 +1,157 @@
+---
+clusterName: jdmarble.net
+talosVersion: v1.9.4
+kubernetesVersion: v1.32.2
+endpoint: https://k8s.jdmarble.net:6443
+
+patches:
+
+  # https://www.talos.dev/v1.9/kubernetes-guides/configuration/deploy-metrics-server/
+  - |-
+    machine:
+      kubelet:
+        extraArgs:
+          rotate-server-certificates: true
+
+  # Before installing Cilium, there are two Talos Linux Kubernetes configurations
+  # that need to be adjusted:
+  # * Ensuring no other CNI is deployed via cluster.network.cni.name: none
+  # * Disabling Kube-Proxy deployment via cluster.proxy.disabled: true
+  # https://docs.cilium.io/en/stable/installation/k8s-install-helm/#install-cilium
+  - |-
+    cluster:
+      network:
+        cni:
+          name: none
+      proxy:
+        disabled: true
+
+  # Do not use the public discovery service at https://discovery.talos.dev/
+  - |-
+    cluster:
+      discovery:
+        enabled: false
+
+  # https://longhorn.io/docs/1.8.0/advanced-resources/os-distro-specific/talos-linux-support/#data-path-mounts
+  - |-
+    machine:
+      kubelet:
+        extraMounts:
+          - destination: /var/lib/longhorn
+            type: bind
+            source: /var/lib/longhorn
+            options:
+              - bind
+              - rshared
+              - rw
+
+nodes:
+
+  - hostname: n07d-72206j2.jdmarble.net
+    ipAddress: 192.168.2.17
+    controlPlane: true
+    installDiskSelector:
+      busPath: "/pci0000:00/0000:00:11.0/ata1/*"
+    networkInterfaces:
+      - interface: enp4s0
+        addresses:
+          - 192.168.2.17/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+        vip:
+          ip: 192.168.2.8
+  - hostname: n07d-4pdc5j2.jdmarble.net
+    ipAddress: 192.168.2.18
+    controlPlane: true
+    installDiskSelector:
+      busPath: "/pci0000:00/0000:00:11.0/ata1/*"
+    networkInterfaces:
+      - interface: enp4s0
+        addresses:
+          - 192.168.2.18/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+        vip:
+          ip: 192.168.2.8
+  - hostname: n07d-9wvtpk2.jdmarble.net
+    ipAddress: 192.168.2.19
+    controlPlane: true
+    installDiskSelector:
+      busPath: "/pci0000:00/0000:00:11.0/ata1/*"
+    networkInterfaces:
+      - interface: enp4s0
+        addresses:
+          - 192.168.2.19/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+        vip:
+          ip: 192.168.2.8
+
+  - hostname: a300w.jdmarble.net
+    ipAddress: 192.168.2.33
+    installDiskSelector:
+      busPath: "/pci0000:00/0000:00:08.2/0000:05:00.0/ata1/*"
+    networkInterfaces:
+      - interface: enp3s0
+        addresses:
+          - 192.168.2.33/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+    machineDisks:
+      - device: "/dev/disk/by-id/nvme-WDC_WDS500G2B0C-00PXH0_210317802667"
+        partitions:
+          - mountpoint: "/var/mnt/local"
+    nodeLabels:
+      node.longhorn.io/create-default-disk: "true"
+
+  - hostname: q330g4.jdmarble.net
+    ipAddress: 192.168.2.34
+    installDiskSelector:
+      busPath: "/pci0000:00/0000:00:1f.2/ata1/*"
+    networkInterfaces:
+      - interface: enp1s0
+        addresses:
+          - 192.168.2.34/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+    machineDisks:
+      - device: "/dev/disk/by-id/ata-SanDisk_X400_2.5_7MM_128GB_172102800827"
+        partitions:
+          - mountpoint: "/var/mnt/local"
+    nodeLabels:
+      node.longhorn.io/create-default-disk: "true"
+
+  - hostname: d08s-4wd2t52.jdmarble.net
+    ipAddress: 192.168.2.35
+    installDiskSelector:
+      busPath: "/pci0000:00/0000:00:1f.2/ata6/*"
+    networkInterfaces:
+      - interface: enp2s0
+        addresses:
+          - 192.168.2.35/22
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+    machineDisks:
+      - device: "/dev/disk/by-id/ata-Samsung_SSD_860_PRO_2TB_S45DNF0M200555A"
+        partitions:
+          - mountpoint: "/var/mnt/disk1"
+      - device: "/dev/disk/by-id/ata-Samsung_SSD_860_PRO_2TB_S45DNF0M200557V"
+        partitions:
+          - mountpoint: "/var/mnt/disk2"
+    nodeLabels:
+      node.longhorn.io/create-default-disk: "false"
+
+worker:
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          # https://longhorn.io/docs/1.8.0/advanced-resources/os-distro-specific/talos-linux-support/#system-extensions
+          - siderolabs/iscsi-tools
+          - siderolabs/util-linux-tools

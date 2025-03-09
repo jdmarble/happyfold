@@ -1,0 +1,19 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: mealie
+  name: mealie
+  labels:
+    app.kubernetes.io/name: mealie
+spec:
+  accessModes:
+    - ReadWriteOnce
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: mealie
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: unsafe

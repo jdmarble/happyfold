@@ -6,13 +6,11 @@ metadata:
   name: authelia
   labels:
     app.kubernetes.io/name: authelia
-    app.kubernetes.io/instance: authelia
 spec:
   type: ClusterIP
   sessionAffinity: None
   selector:
     app.kubernetes.io/name: authelia
-    app.kubernetes.io/instance: authelia
   ports:
     - name: http
       protocol: TCP

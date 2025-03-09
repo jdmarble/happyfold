@@ -2,6 +2,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
+  namespace: jellyfin
   name: jellyfin-config
 spec:
   rclone:

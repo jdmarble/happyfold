@@ -1,0 +1,15 @@
+# Configure Longhorn not to use the Talos system disk for storage.
+# Instead, only use the disk mounted at /var/mnt/local
+# and only if the node is labeled as having a default disk.
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: longhorn-system
+  name: longhorn-default-setting
+data:
+  default-setting.yaml: |-
+    create-default-disk-labeled-nodes: true
+    default-data-path: /var/mnt/local
+    priority-class: longhorn-critical
+    storage-reserved-percentage-for-default-disk: 0

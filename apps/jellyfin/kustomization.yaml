@@ -2,19 +2,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-labels:
-  - includeSelectors: true
-    pairs:
-      app.kubernetes.io/instance: jellyfin
-namespace: jellyfin
-
 resources:
-  - deployment.yaml
-  - httproute.yaml
-  - namespace.yaml
+  - deployment-jellyfin.yaml
+  - httproute-jellyfin.yaml
+  - namespace-jellyfin.yaml
   - pvc-jellyfin-config.yaml
   - replicationdestination-jellyfin-config.yaml
   - replicationsource-jellyfin-config.yaml
   - sealedsecret-rclone-destination-config.yaml
   - sealedsecret-rclone-source-config.yaml
-  - service.yaml
+  - service-jellyfin.yaml

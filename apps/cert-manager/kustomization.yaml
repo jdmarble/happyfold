@@ -2,23 +2,27 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-labels:
-  - includeSelectors: true
-    pairs:
-      app.kubernetes.io/instance: cert-manager
 # Do not specify a namespace here!
-# This is where I'd normally put `namespace: cert-manager`.
+# This is where I might normally put `namespace: cert-manager`.
 # The upstream manifests must install RBAC stuff into namespace `kube-system`.
 # Specifying a namespace here would override that.
 
 resources:
-  - https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml
-  - ca-clusterissuer.yaml
-  - letsencrypt-cloudflare-dns-clusterissuer.yaml
-  - root-certificate.yaml
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.17.1/cert-manager.yaml
+  - certificate-root.yaml
+  - clusterissuer-ca.yaml
+  - clusterissuer-letsencrypt-cloudflare.yaml
+  - clusterissuer-selfsigned.yaml
+  - clusterissuer-staging-letsencrypt-cloudflare.yaml
   - sealedsecret-cloudflare-api-key.yaml
-  - selfsigned-clusterissuer.yaml
-  - staging-letsencrypt-cloudflare-dns-clusterissuer.yaml
+
+images:
+  - name: quay.io/jetstack/cert-manager-cainjector
+    newTag: v1.17.1@sha256:a8319ee78e94abb11c4fe0b35197a57848ae7eec6c526e369187dc57b2961116
+  - name: quay.io/jetstack/cert-manager-controller
+    newTag: v1.17.1@sha256:9339837eaaa7852509fa4c89c12543721d79d7facf57f29adec7c96fffe408d6
+  - name: quay.io/jetstack/cert-manager-webhook
+    newTag: v1.17.1@sha256:2933ec670a99524a6860f641ef3720289d784b0bef35bd0b74fc3eb093e71596
 
 patches:
   # Allow cert-manager controller to give TLS certs for Gateway API resources
@@ -30,3 +34,4 @@ patches:
       kind: Deployment
       namespace: cert-manager
       name: cert-manager
+  - path: patch-checkov.yaml

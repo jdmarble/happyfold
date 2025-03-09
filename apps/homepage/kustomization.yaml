@@ -9,13 +9,12 @@ labels:
 namespace: homepage
 
 resources:
-  - ciliumnetworkpolicy-homepage.yaml
-  - clusterrole.yaml
-  - configmap.yaml
-  - deployment.yaml
-  - httproute.yaml
-  - namespace.yaml
+  - clusterrole-homepage.yaml
+  - configmap-homepage.yaml
+  - deployment-homepage.yaml
+  - httproute-homepage.yaml
+  - namespace-homepage.yaml
   - sealedsecret-api-keys.yaml
-  - secret.yaml
-  - service.yaml
-  - serviceaccount.yaml
+  - secret-homepage.yaml
+  - service-homepage.yaml
+  - serviceaccount-homepage.yaml

@@ -5,23 +5,23 @@ kind: Kustomization
 labels:
   - includeSelectors: true
     pairs:
-      app.kubernetes.io/instance: external-dns
       app.kubernetes.io/name: external-dns
+
 namespace: external-dns
 
-images:
-  - name: registry.k8s.io/external-dns/external-dns
-    newTag: v0.15.0@sha256:338dd8c526e1337a12db0c8ee81a59ce5815ea51b73756affcd1e5dca530105c
-
 resources:
-  - https://github.com/kubernetes-sigs/external-dns//kustomize/?ref=v0.15.0
+  - https://github.com/kubernetes-sigs/external-dns//kustomize/?ref=v0.15.1
   - namespace.yaml
   - networkpolicy-external-dns.yaml
   - sealedsecret-cloudflare-api-key.yaml
 
+images:
+  - name: registry.k8s.io/external-dns/external-dns
+    newTag: v0.15.1
+
 patches:
-  - path: cloudflare-patch.yaml
-  - path: gatewayapi-clusterrole-patch.yaml
-  - path: probes-patch.yaml
-  - path: resources-patch.yaml
-  - path: securityContext-patch.yaml
+  - path: patch-cloudflare.yaml
+  - path: patch-gatewayapi-clusterrole.yaml
+  - path: patch-probes.yaml
+  - path: patch-resources.yaml
+  - path: patch-securityContext.yaml

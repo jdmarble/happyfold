@@ -8,7 +8,6 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: authelia
-      app.kubernetes.io/instance: authelia
   policyTypes:
     - Ingress
     - Egress

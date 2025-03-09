@@ -2,24 +2,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-labels:
-  - includeSelectors: true
-    pairs:
-      app.kubernetes.io/instance: longhorn
-namespace: longhorn-system
-
 resources:
-  - https://raw.githubusercontent.com/longhorn/longhorn/v1.6.2/deploy/longhorn.yaml
+  - https://raw.githubusercontent.com/longhorn/longhorn/v1.8.0/deploy/longhorn.yaml
   - deployment-oauth2-proxy.yaml
-  - httproute-longhorn-frontend.yaml
+  - httproute-ui.yaml
   - sealedsecret-oauth2-proxy.yaml
   - service-oauth2-proxy.yaml
   - storageclass-safe.yaml
   - storageclass-unsafe.yaml
-  - volumesnapshotclass.yaml
+  - volumesnapshotclass-longhorn.yaml
 
 patches:
-  - path: control-plane-nodeAffinity-patch.yaml
-  - path: default-setting-patch.yaml
-  - path: privileged-pod-security-patch.yaml
-  - path: single-replica-ui-patch.yaml
+  - path: patch-default-setting.yaml
+  - path: patch-privileged-pod-security.yaml
+  - path: patch-single-replica-ui.yaml

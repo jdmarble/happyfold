@@ -1,0 +1,26 @@
+# This patch fixes some best-practice misses identified by Checkov.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cnpg-system
+  name: cnpg-controller-manager
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_38=The controller needs to interact with the k8s API to be a cotnroller.
+    checkov.io/skip2: |
+      CKV2_K8S_6=Using a CiliumNetworkPolicy in place of a NetworkPolicy
+spec:
+  template:
+    spec:
+      containers:
+        - name: manager
+          imagePullPolicy: Always  # CKV_K8S_15
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cnpg-manager
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_155=The controller needs to validate custom resources

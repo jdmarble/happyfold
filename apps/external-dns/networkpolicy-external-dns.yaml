@@ -8,7 +8,6 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: external-dns
-      app.kubernetes.io/instance: external-dns
   policyTypes:
     - Ingress
   ingress:

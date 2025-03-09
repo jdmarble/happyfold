@@ -2,32 +2,6 @@
 
 [NetBox](https://netbox.readthedocs.io/en/stable/) is the leading solution for modeling and documenting modern networks.
 
-## Installation
-
-The Postgres database is configured to restore from Backblaze on creation.
-It is also configured to backup to Backblaze.
-Unfortunately, it can't backup to and restore from the same place.
-You'll get an error "WAL archive check failed for server... Expected empty archive".
-To resolve this issue, you'll have to perform the following procedure:
-
-1. Login to Backblaze and click "Make Full Bucket Snapshot" on the "net-jdmarble-netbox" bucket because you're going to fuck it up.
-   Wait for the snapshot to "prepare" then download it.
-1. Determine which path, `postgres-db-A` or `postgres-db-B` is the latest backup directory.
-   It'll be the one with the latest uploaded date.
-1. Delete the _older_ directory.
-   It needs to be empty or the [safety checks](https://cloudnative-pg.io/documentation/1.20/recovery/#restoring-into-a-cluster-with-a-backup-section)
-   will stop the restoration.
-1. Edit `cluster-pg-database.yaml` and swap the backup and restore directory names.
-   The `externalClusters[...].barmanObjectStore.serverName` should be the latest backup directory.
-   The `backup.barmanObjectStore.serverName` should be the directory you just deleted.
-
-Apply the kustomization:
-
-```sh
-kustomize build --enable-helm . \
-  | kapp deploy --app=netbox --file=- --yes
-```
-
 ## Secrets
 
 There are several secrets necessary to run Netbox in this configuration.
@@ -40,14 +14,17 @@ and the hash of the secret is stored in `authelia/config/configuration.yaml`.
 To generate a new, random secret, run the following script:
 
 ```sh
+OIDC_CLIENT_ID="netbox"
 OIDC_CLIENT_SECRET=$(openssl rand -hex 63)
+OIDC_CLIENT_HASH=$(authelia crypto hash generate argon2 --password=${OIDC_CLIENT_SECRET} | yq ".Digest" )
 kubectl create --namespace=netbox secret generic oidc-client --dry-run=client --output=json \
   --from-literal=SOCIAL_AUTH_OIDC_SECRET=${OIDC_CLIENT_SECRET} \
-  | kubeseal --format=yaml --merge-into=./apps/netbox/sealedsecret-oidc-client.yaml
-OIDC_CLIENT_SECRET_HASH=$(echo -n ${OIDC_CLIENT_SECRET} | argon2 $(openssl rand -hex 16) -id -e -m 16 -t 2 -p 1 )
-yq -i ".identity_providers.oidc.clients[] |= select(.client_id == \"netbox\").client_secret = \"${OIDC_CLIENT_SECRET_HASH}\"" \
-  apps/authelia/configs/configuration.yaml
+  | kubeseal --format=yaml > sealedsecret-oidc-client.yaml
+yq -i ".identity_providers.oidc.clients[] |= select(.client_id == \"${OIDC_CLIENT_ID}\").client_secret = \"${OIDC_CLIENT_HASH}\"" \
+../authelia/configs/configuration.yaml
 ```
+
+Redeploy Authelia if you change this secret.
 
 ## Superuser Credentials
 
@@ -62,7 +39,7 @@ kubectl create --namespace=netbox secret generic superuser --dry-run=client --ou
       bw get item netbox.jdmarble.net |\
       jq '.fields[] | select(.name=="api_token").value' --raw-output\
     ) |\
-  kubeseal --format yaml > ./apps/netbox/sealedsecret-superuser.yaml
+  kubeseal --format yaml > sealedsecret-superuser.yaml
 ```
 
 ## Backblaze Bucket Credentials
@@ -70,16 +47,40 @@ kubectl create --namespace=netbox secret generic superuser --dry-run=client --ou
 These credentials are for restoring from and backing up to an S3 bucket on Backblaze.
 
 ```sh
+ACCESS_KEY_ID=$(\
+  bw get item netbox.jdmarble.net |\
+  jq '.fields[] | select(.name=="ACCESS_KEY_ID").value' --raw-output\
+)
+ACCESS_SECRET_KEY=$(\
+  bw get item netbox.jdmarble.net |\
+  jq '.fields[] | select(.name=="ACCESS_SECRET_KEY").value' --raw-output\
+)
 kubectl create --namespace=netbox secret generic s3-backup-credentials --dry-run=client --output=json \
-  --from-literal=ACCESS_KEY_ID=$(\
-      bw get item netbox.jdmarble.net |\
-      jq '.fields[] | select(.name=="ACCESS_KEY_ID").value' --raw-output\
-    ) \
-  --from-literal=ACCESS_SECRET_KEY=$(\
-      bw get item netbox.jdmarble.net |\
-      jq '.fields[] | select(.name=="ACCESS_SECRET_KEY").value' --raw-output\
-    ) \
+  --from-literal=ACCESS_KEY_ID=$ACCESS_KEY_ID \
+  --from-literal=ACCESS_SECRET_KEY=$ACCESS_SECRET_KEY \
 | kubeseal --format yaml > sealedsecret-s3-backup-credentials.yaml
+```
+
+## Installation
+
+The Postgres database is configured to restore from Backblaze on creation.
+It is also configured to backup to Backblaze.
+Unfortunately, it can't backup to and restore from the same place.
+You'll get an error "WAL archive check failed for server... Expected empty archive".
+To resolve this issue, you'll have to perform the following procedure:
+
+```sh
+backblaze-b2 account authorize $ACCESS_KEY_ID $ACCESS_SECRET_KEY
+backblaze-b2 rm --recursive b2://net-jdmarble-netbox/pg-database-restore
+backblaze-b2 sync b2://net-jdmarble-netbox/pg-database-backup b2://net-jdmarble-netbox/pg-database-restore
+backblaze-b2 rm --recursive b2://net-jdmarble-netbox/pg-database-backup
+```
+
+Apply the kustomization:
+
+```sh
+kustomize build --enable-helm . \
+  | kapp deploy --app=netbox --file=- --yes
 ```
 
 ## Upgrade

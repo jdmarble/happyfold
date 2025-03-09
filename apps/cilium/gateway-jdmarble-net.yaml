@@ -5,7 +5,7 @@ metadata:
   namespace: cilium
   name: jdmarble-net
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-cloudflare-dns
+    cert-manager.io/cluster-issuer: letsencrypt-cloudflare
 spec:
   gatewayClassName: cilium
   listeners:

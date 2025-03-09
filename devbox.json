@@ -2,16 +2,20 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.2/.schema/devbox.schema.json",
   "packages": [
     "direnv@latest",
-    "kubectl@1.31.0",
-    "talosctl@1.9.2",
-    "kubeseal@latest",
+    "kubectl@1.32.2",
+    "talosctl@1.9.4",
+    "kubeseal@0.28.0",
     "kubernetes-helm@latest",
     "kustomize@latest",
     "jq@latest",
     "pre-commit@latest",
     "yamllint@latest",
     "yq-go@latest",
-    "kapp@latest"
+    "kapp@latest",
+    "bitwarden-cli@latest",
+    "github:budimanjojo/talhelper",
+    "authelia@latest",
+    "backblaze-b2@latest"
   ],
   "shell": {
     "init_hook": [

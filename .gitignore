@@ -1,2 +1,4 @@
-build/
+clusterconfig/
+talsecret.yaml
 **/charts
+mv

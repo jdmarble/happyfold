@@ -2,19 +2,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-labels:
-  - includeSelectors: true
-    pairs:
-      app.kubernetes.io/instance: volsync
 namespace: volsync-system
 
 resources:
-  - https://github.com/backube/volsync//config/default/?ref=v0.10.0
+  - https://github.com/backube/volsync//config/default/?ref=v0.12.0
 
 patches:
-  - path: securityContext.yaml
-  - path: control-plane-nodeAffinity.yaml
+  - path: patch-security-context.yaml
 
 images:
   - name: quay.io/backube/volsync
-    newTag: 0.10.0
+    newTag: 0.12.0@sha256:a40868b7cafd716d839f8bc51700d02f5a6015dcea97e3cadd7bf0480d4228ae

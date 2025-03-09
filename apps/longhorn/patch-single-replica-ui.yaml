@@ -1,0 +1,10 @@
+# I don't need an HA web UI.
+# I configure Longhorn declaratively and use the UI for sanity checks.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: longhorn-system
+  name: longhorn-ui
+spec:
+  replicas: 1

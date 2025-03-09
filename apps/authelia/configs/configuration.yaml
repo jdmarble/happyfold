@@ -31,7 +31,7 @@ identity_providers:
         userinfo_signed_response_alg: "none"
       - client_id: "longhorn"
         client_name: "Longhorn"
-        client_secret: "$argon2id$v=19$m=65536,t=2,p=1$ODE3MGNhOGQxMGU5OGNhZWZiNmI1ZTIwOGQwZmY4Yzc$jYSWNOEB+Z7hmgC9xMHtenlBdiCDdWywm8ldxP9whhw"
+        client_secret: "$argon2id$v=19$m=65536,t=3,p=4$atxSqYLGZ2qnqcTT+C/EEA$1c0+cDPUgsXR7UUD3/guOEWW5S1FNiww3XGWoHvJrpA"
         public: false
         authorization_policy: "one_factor"
         redirect_uris:
@@ -44,7 +44,7 @@ identity_providers:
         userinfo_signed_response_alg: "none"
       - client_id: 'mealie'
         client_name: 'Mealie'
-        client_secret: "$argon2id$v=19$m=65536,t=2,p=1$NzU0YTU1MzI3NDRhZDc3N2ZiNWVmZjM3YzlmYzNiNWU$kN8BmeUUZoA2fY2cp4guNk9qQmMSJx3jD2uMCJ2zlfE"
+        client_secret: "$argon2id$v=19$m=65536,t=3,p=4$NZNtnLp1mTiNqOfyS/iTJA$VpvYJEpq5rLuur2eqUnyKIlbOUtCTZs81dtW48vBkS4"
         public: false
         authorization_policy: 'one_factor'
         require_pkce: true
@@ -59,7 +59,7 @@ identity_providers:
         userinfo_signed_response_alg: 'none'
       - client_id: 'netbox'
         client_name: 'Netbox'
-        client_secret: "$argon2id$v=19$m=65536,t=2,p=1$ZTZhOGFmOTFlOWU3N2M5MzU5MjhkMDAyNWFjNmM3OGU$5Rgpe2YoWszrgidpbghf2VIv2md+DljTYovyk6mv2Qg"
+        client_secret: "$argon2id$v=19$m=65536,t=3,p=4$h/asFo5vZObgvg4/agpwTA$jnZ8noof+VoW+kOhbfIwFgfdTA2Txm3Qt7MYY0bKrUc"
         public: false
         authorization_policy: 'one_factor'
         require_pkce: false

@@ -1,0 +1,94 @@
+# This patch fixes some best-practice misses identified by Checkov.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cert-manager
+  name: cert-manager
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_38=The controller needs to interact with the k8s API to read CRs, elect leaders, and create secrets.
+spec:
+  template:
+    spec:
+      containers:
+        - name: cert-manager-controller
+          imagePullPolicy: Always  # CKV_K8S_15
+          readinessProbe:  # CKV_K8S_9
+            httpGet:
+              path: /livez
+              port: http-healthz
+              scheme: HTTP
+          resources:
+            limits:
+              cpu: "1"  # CKV_K8S_11
+              memory: "256Mi"  # CKV_K8S_13
+            requests:
+              cpu: "5m"  # CKV_K8S_10
+              memory: "32Mi"  # CKV_K8S_12
+          securityContext:
+            runAsUser: 10200  # CKV_K8S_40
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cert-manager
+  name: cert-manager-cainjector
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_8=No liveness probe available yet: https://cert-manager.io/docs/installation/best-practice/#cainjector
+    checkov.io/skip2: |
+      CKV_K8S_9=No liveness probe available yet: https://cert-manager.io/docs/installation/best-practice/#cainjector
+    checkov.io/skip3: |
+      CKV_K8S_38=The injector needs to interact with the k8s API to elect leaders, and inject CA data into webhooks and APIServices.
+    checkov.io/skip4: |
+      CKV_K8S_155=Mutating admission controller is the primary function.
+spec:
+  template:
+    spec:
+      containers:
+        - name: cert-manager-cainjector
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"  # CKV_K8S_11
+              memory: "256Mi"  # CKV_K8S_13
+            requests:
+              cpu: "5m"  # CKV_K8S_10
+              memory: "32Mi"  # CKV_K8S_12
+          securityContext:
+            runAsUser: 10200  # CKV_K8S_40
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cert-manager-cainjector
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_155=The primary purpose of cainjector is injection of CA data into webhooks and APIServices.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cert-manager
+  name: cert-manager-webhook
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_38=The webhook needs to access the k8s API for all of its three functions.
+spec:
+  template:
+    spec:
+      containers:
+        - name: cert-manager-webhook
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"  # CKV_K8S_11
+              memory: "256Mi"  # CKV_K8S_13
+            requests:
+              cpu: "5m"  # CKV_K8S_10
+              memory: "32Mi"  # CKV_K8S_12
+          securityContext:
+            runAsUser: 10200  # CKV_K8S_40
