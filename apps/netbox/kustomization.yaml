@@ -9,12 +9,15 @@ labels:
 
 resources:
   - cluster-pg-database.yaml
+  - deployment-dragonfly.yaml
   - httproute-netbox.yaml
   - namespace-netbox.yaml
   - scheduledbackup-netbox.yaml
   - sealedsecret-oidc-client.yaml
   - sealedsecret-s3-backup-credentials.yaml
   - sealedsecret-superuser.yaml
+  - secret-netbox-redis.yaml
+  - service-netbox-redis.yaml
 
 helmCharts:
   - repo: oci://ghcr.io/netbox-community/netbox-chart

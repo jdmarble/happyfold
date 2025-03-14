@@ -1,6 +1,6 @@
 ---
-# debug: true
-# dbWaitDebug: true
+debug: true
+dbWaitDebug: true
 
 superuser:
   existingSecret: superuser
@@ -10,6 +10,15 @@ persistence:
   enabled: false
 
 timeZone: America/Los_Angeles
+
+redis:
+  enabled: false
+cachingRedis:
+  password: password
+  existingSecretName: netbox-redis
+tasksRedis:
+  password: password
+  existingSecretName: netbox-redis
 
 postgresql:
   # Creating our own DB

@@ -681,6 +681,55 @@
         }
       }
     },
+    "redis@latest": {
+      "last_modified": "2025-03-11T17:52:14Z",
+      "plugin_version": "0.0.2",
+      "resolved": "github:NixOS/nixpkgs/0d534853a55b5d02a4ababa1d71921ce8f0aee4c#redis",
+      "source": "devbox-search",
+      "version": "7.2.7",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ply7r11kz4zfg72axd21vb6kbv9y190d-redis-7.2.7",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/ply7r11kz4zfg72axd21vb6kbv9y190d-redis-7.2.7"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/n1alqs7aih1wlshy8w6l2pf0fmijbv4d-redis-7.2.7",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/n1alqs7aih1wlshy8w6l2pf0fmijbv4d-redis-7.2.7"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/3vrnzzf62hy78xrn8hqvazhpwmrs1mg7-redis-7.2.7",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/3vrnzzf62hy78xrn8hqvazhpwmrs1mg7-redis-7.2.7"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/vg2a4665d9r01ibiz4dsw6hcrdjfnm8z-redis-7.2.7",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/vg2a4665d9r01ibiz4dsw6hcrdjfnm8z-redis-7.2.7"
+        }
+      }
+    },
     "talosctl@1.9.4": {
       "last_modified": "2025-02-16T09:28:34Z",
       "resolved": "github:NixOS/nixpkgs/b1b43d32be000928cc71250ed77f4a0a5f2bc23a#talosctl",

@@ -15,7 +15,8 @@
     "bitwarden-cli@latest",
     "github:budimanjojo/talhelper",
     "authelia@latest",
-    "backblaze-b2@latest"
+    "backblaze-b2@latest",
+    "redis@latest"
   ],
   "shell": {
     "init_hook": [
