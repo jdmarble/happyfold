@@ -1,5 +1,6 @@
 ---
 webhook:
+  lookaheadInterval: 48h
   certManager:
     enabled: true
     cert:
@@ -8,5 +9,4 @@ webhook:
         name: ca
       revisionHistoryLimit: "2"
       duration: 168h  # 1 week
-      renewBefore: 48h
-    lookaheadInterval: 24h
+      renewBefore: 72h
