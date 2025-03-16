@@ -1,0 +1,12 @@
+---
+webhook:
+  certManager:
+    enabled: true
+    cert:
+      issuerRef:
+        kind: ClusterIssuer
+        name: ca
+      revisionHistoryLimit: "2"
+      duration: 168h  # 1 week
+      renewBefore: 48h
+    lookaheadInterval: 24h
