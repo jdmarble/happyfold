@@ -19,58 +19,23 @@ To generate a new, random secret, run the following script:
 OIDC_CLIENT_ID="mealie"
 OIDC_CLIENT_SECRET=$(openssl rand -hex 63)
 OIDC_CLIENT_HASH=$(authelia crypto hash generate argon2 --password=${OIDC_CLIENT_SECRET} | yq ".Digest" )
-kubectl create --namespace=mealie secret generic oidc-client --dry-run=client --output=json \
-  --from-literal=OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET} \
-  | kubeseal --format=yaml > sealedsecret-oidc-client.yaml
 yq -i ".identity_providers.oidc.clients[] |= select(.client_id == \"${OIDC_CLIENT_ID}\").client_secret = \"${OIDC_CLIENT_HASH}\"" \
   ../authelia/configs/configuration.yaml
 ```
 
+Edit the secret in Infisical and redeploy the Authelia app whenever the client secret changes.
+
+### OpenAI API Key
+
 The OpenAI secret is to allow Mealie to call out to OpenAI's APIs.
 
-```sh
-kubectl create --namespace=mealie secret generic openai --dry-run=client --output=json --from-literal=OPENAI_API_KEY=$(\
-  bw get item openai |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie").value' --raw-output\
-) |  kubeseal --format yaml > sealedsecret-openai.yaml
-```
+### B2 Key
 
-The Backblaze secrets are for making backups and restoring them on a fresh install.
-
-```sh
-echo "[net-jdmarble-mealie-RO]
-type = b2
-account = $(\
-  bw get item backblaze |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie-RO_account").value' --raw-output\
-)
-key = $(\
-  bw get item backblaze |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie-RO_key").value' --raw-output\
-)
-" | kubectl create --namespace=mealie secret generic rclone-destination-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin \
-  | kubeseal --format yaml > sealedsecret-rclone-destination-config.yaml
-
-echo "[net-jdmarble-mealie-RW]
-type = b2
-account = $(\
-  bw get item backblaze |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie-RW_account").value' --raw-output\
-)
-key = $(\
-  bw get item backblaze |\
-  jq '.fields[] | select(.name=="net-jdmarble-mealie-RW_key").value' --raw-output\
-)
-hard_delete = true
-" | kubectl create --namespace=mealie secret generic rclone-source-config --dry-run=client --output=json --from-file=rclone.conf=/dev/stdin \
-  | kubeseal --format yaml > sealedsecret-rclone-source-config.yaml
-```
+The Backblaze account and key are inserted into the rclone.conf secret for making backups and restoring them on a fresh install.
 
 ## Installation
 
 First, ensure all dependencies are installed.
-Next, regenerate the secrets if necessary.
-
 Finally, apply the kustomization.
 
 ```sh

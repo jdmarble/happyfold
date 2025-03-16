@@ -4,13 +4,12 @@ kind: Kustomization
 
 resources:
   - deployment-mealie.yaml
+  - externalsecret-oidc-client.yaml
+  - externalsecret-openai.yaml
+  - externalsecret-rclone-config.yaml
   - httproute-mealie.yaml
   - namespace-mealie.yaml
   - pvc-mealie.yaml
   - replicationdestination-mealie.yaml
   - replicationsource-mealie.yaml
-  - sealedsecret-oidc-client.yaml
-  - sealedsecret-openai.yaml
-  - sealedsecret-rclone-destination-config.yaml
-  - sealedsecret-rclone-source-config.yaml
   - service-mealie.yaml

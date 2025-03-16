@@ -10,8 +10,8 @@ spec:
     # Synchronize every day at 0411 hours
     schedule: "11 4 * * *"
   rclone:
-    rcloneConfig: rclone-source-config
-    rcloneConfigSection: net-jdmarble-mealie-RW
+    rcloneConfig: rclone-config
+    rcloneConfigSection: net-jdmarble-mealie
     rcloneDestPath: "net-jdmarble-mealie"
     copyMethod: Clone
     moverSecurityContext:
