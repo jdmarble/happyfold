@@ -8,7 +8,7 @@ spec:
   rclone:
     accessModes:
       - ReadWriteOnce
-    capacity: 1Gi
+    capacity: 10Gi
     copyMethod: Snapshot
     storageClassName: unsafe
     rcloneConfig: rclone-destination-config
