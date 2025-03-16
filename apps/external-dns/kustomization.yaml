@@ -11,9 +11,9 @@ namespace: external-dns
 
 resources:
   - https://github.com/kubernetes-sigs/external-dns//kustomize/?ref=v0.15.1
+  - externalsecret-cloudflare-api-key.yaml
   - namespace.yaml
   - networkpolicy-external-dns.yaml
-  - sealedsecret-cloudflare-api-key.yaml
 
 images:
   - name: registry.k8s.io/external-dns/external-dns
