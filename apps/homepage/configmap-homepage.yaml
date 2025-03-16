@@ -68,6 +68,12 @@ data:
             type: octoprint
             url: http://octopi.jdmarble.net
             key: '{{HOMEPAGE_FILE_OCTOPRINT_API_KEY}}'
+      - Pelican:
+          href: https://pelican.jdmarble.net/
+          siteMonitor: https://pelican.jdmarble.net/
+          namespace: pelican
+          app: pelican
+          podSelector: ""
   widgets.yaml: |
     - kubernetes:
         cluster:

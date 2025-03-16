@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: pelican
+  name: dragonfly
+  labels:
+    app.kubernetes.io/name: dragonfly
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dragonfly
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: dragonfly
+    spec:
+      containers:
+        - args:
+            - --alsologtostderr
+          env:
+            - name: DFLY_requirepass
+              valueFrom:
+                secretKeyRef:
+                  name: pelican-redis
+                  key: redis-password
+          image: ghcr.io/dragonflydb/dragonfly:v1.27.2@sha256:df160a92b7097a1d7f673facebd20a74b03c287fb7503b55380b2931d9faf120
+          imagePullPolicy: Always
+          livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - /usr/local/bin/healthcheck.sh
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: dragonfly
+          ports:
+            - containerPort: 6379
+              name: dragonfly
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - /usr/local/bin/healthcheck.sh
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: 500m
+              memory: 500Mi
+            limits:
+              cpu: 600m
+              memory: 750Mi

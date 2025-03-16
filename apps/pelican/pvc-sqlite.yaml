@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: pelican
+  name: sqlite
+spec:
+  accessModes:
+    - ReadWriteOnce
+  dataSourceRef:
+    apiGroup: volsync.backube
+    kind: ReplicationDestination
+    name: sqlite
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: safe

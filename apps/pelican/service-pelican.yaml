@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: pelican
+  name: pelican
+spec:
+  selector:
+    app.kubernetes.io/name: pelican
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

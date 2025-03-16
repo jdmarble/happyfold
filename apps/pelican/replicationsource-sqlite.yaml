@@ -1,0 +1,16 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  namespace: pelican
+  name: sqlite
+spec:
+  sourcePVC: sqlite
+  trigger:
+    # Synchronize every day at 0135 hours
+    schedule: "35 1 * * *"
+  rclone:
+    rcloneConfig: rclone-source-sqlite
+    rcloneConfigSection: net-jdmarble-pelican-sqlite-RW
+    rcloneDestPath: "net-jdmarble-pelican-sqlite"
+    copyMethod: Clone

@@ -1,0 +1,18 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  namespace: pelican
+  name: sqlite
+spec:
+  rclone:
+    accessModes:
+      - ReadWriteOnce
+    capacity: 10Gi
+    copyMethod: Snapshot
+    storageClassName: unsafe
+    rcloneConfig: rclone-destination-sqlite
+    rcloneConfigSection: net-jdmarble-pelican-sqlite-RO
+    rcloneDestPath: "net-jdmarble-pelican-sqlite"
+  trigger:
+    manual: restore-once

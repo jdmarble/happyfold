@@ -1,0 +1,100 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: pelican
+  name: pelican
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: pelican
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: pelican
+    spec:
+      containers:
+        - name: pelican
+          image: ghcr.io/pelican-dev/panel:v1.0.0-beta17@sha256:439106d1f289fff7b3b65708bd872b31e573b48dbab179087db742167f4854b4
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "300m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+          env:
+            # See https://pelican.dev/docs/panel/advanced/environment for documentation on these variables.
+            # (docs are not merged. Use this until that happens: https://deploy-preview-113--pelica.netlify.app/docs/panel/advanced/environment)
+            - name: APP_DEBUG
+              value: "true"
+            - name: APP_TIMEZONE
+              value: "America/Los_Angeles"
+
+            - name: APP_INSTALLED
+              value: "true"
+            - name: APP_URL
+              value: "https://pelican.jdmarble.net"
+            - name: DB_CONNECTION
+              value: "sqlite"  # TODO Switch to 'mariadb' once support is added.
+            - name: CACHE_STORE
+              value: "redis"
+            - name: SESSION_DRIVER
+              value: "redis"
+            - name: QUEUE_CONNECTION
+              value: "redis"
+
+            # TODO Update these settings once MySQL/MariaDB support is added.
+            # Deploying the panel in Docker is still a work in progress, and the default Docker image does not currently support using MySQL databases.
+           #- name: DB_HOST
+           #  value: "mariadb"
+           #- name: DB_PORT
+           #  value: "3306"
+           #- name: DB_DATABASE
+           #  value: "pelican"
+           #- name: DB_USER
+           #  value: "pelican"
+           #- name: DB_PASSWORD
+           #  valueFrom:
+           #    secretKeyRef:
+           #      name: mariadb-pelican-password
+           #      key: password
+
+            # In tonight's performance, the role of Redis will be played by Dragonfly.
+            - name: REDIS_HOST
+              value: "dragonfly"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: redis-password
+                  name: pelican-redis
+
+            - name: XDG_DATA_HOME
+              value: "/pelican-data"
+
+          volumeMounts:
+            - name: database
+              mountPath: /pelican-data/database
+            - name: caddy
+              mountPath: /pelican-data/caddy
+            - name: config
+              mountPath: /etc/caddy/Caddyfile
+              subPath: Caddyfile
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: sqlite
+        - name: caddy
+          emptyDir: {}  # Not using Caddy for TLS certificate management, so don't need to persist this.
+        - name: config
+          configMap:
+            name: config
