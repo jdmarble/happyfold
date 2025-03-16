@@ -10,7 +10,7 @@ spec:
     # Synchronize every day at 0123 hours
     schedule: "23 1 * * *"
   rclone:
-    rcloneConfig: rclone-source-config
-    rcloneConfigSection: net-jdmarble-jellyfin-RW
+    rcloneConfig: rclone-config
+    rcloneConfigSection: net-jdmarble-jellyfin
     rcloneDestPath: "net-jdmarble-jellyfin"
     copyMethod: Clone

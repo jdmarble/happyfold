@@ -11,8 +11,8 @@ spec:
     capacity: 10Gi
     copyMethod: Snapshot
     storageClassName: unsafe
-    rcloneConfig: rclone-destination-config
-    rcloneConfigSection: net-jdmarble-jellyfin-RO
+    rcloneConfig: rclone-config
+    rcloneConfigSection: net-jdmarble-jellyfin
     rcloneDestPath: "net-jdmarble-jellyfin"
   trigger:
     manual: restore-once

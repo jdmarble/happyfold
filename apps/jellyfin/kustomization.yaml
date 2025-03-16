@@ -4,11 +4,10 @@ kind: Kustomization
 
 resources:
   - deployment-jellyfin.yaml
+  - externalsecret-rclone-config.yaml
   - httproute-jellyfin.yaml
   - namespace-jellyfin.yaml
   - pvc-jellyfin-config.yaml
   - replicationdestination-jellyfin-config.yaml
   - replicationsource-jellyfin-config.yaml
-  - sealedsecret-rclone-destination-config.yaml
-  - sealedsecret-rclone-source-config.yaml
   - service-jellyfin.yaml
