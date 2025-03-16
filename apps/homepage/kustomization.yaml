@@ -12,9 +12,9 @@ resources:
   - clusterrole-homepage.yaml
   - configmap-homepage.yaml
   - deployment-homepage.yaml
+  - externalsecret-api-keys.yaml
   - httproute-homepage.yaml
   - namespace-homepage.yaml
-  - sealedsecret-api-keys.yaml
   - secret-homepage.yaml
   - service-homepage.yaml
   - serviceaccount-homepage.yaml

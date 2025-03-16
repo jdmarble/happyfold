@@ -34,7 +34,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: HOMEPAGE_FILE_OCTOPRINT_API_KEY
-              value: /app/secrets/octoprint_api_key
+              value: /app/secrets/octoprint-api-key
           ports:
             - name: http
               containerPort: 3000

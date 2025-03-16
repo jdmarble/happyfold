@@ -8,21 +8,18 @@ This app depends on an implementation of the Gateway API to be installed. For ex
 
 This app depends on metrics-server to display CPU and memory usage of nodes.
 
+This app depends on external-secrets to store API keys to show service status.
+
 ## Secrets
 
-```sh
-OCTOPRINT_API_KEY=$(bw get item octoprint | jq '.fields[] | select(.name=="homepage-api-key").value' --raw-output)
-kubectl create --namespace=homepage secret generic api-keys --dry-run=client --output=json \
-  --from-literal=octoprint_api_key=$OCTOPRINT_API_KEY \
-  | kubeseal --format=yaml > sealedsecret-api-keys.yaml
-```
+The app needs an API key for [Octoprint](https://octopi.jdmarble.net).
 
+These secrets are stored in Infisical.
+The external-secrets app populates `Secret/api-keys` for this purpose.
 
 ## Installation
 
 First, ensure that all of the dependencies are met.
-Then, regenerate the secrets if necessary.
-
 Finally, apply the kustomization.
 
 ```sh
