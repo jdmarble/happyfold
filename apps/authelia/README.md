@@ -12,15 +12,13 @@ This app depends on sealed-secrets.
 
 There are a number of keys that authelia needs to keep secret.
 If they are regenerated, you will have to reset any current sessions.
-Use the following command to regenerate them:
+Use the following command to regenerate them, then update the secrets in Infisical:
 
 ```sh
-kubectl create --namespace=authelia secret generic authelia --dry-run=client --output=json \
-  --from-literal=AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE="$(authelia crypto rand --length 64 --charset alphanumeric)" \
-  --from-literal=AUTHELIA_SESSION_SECRET_FILE"=$(authelia crypto rand --length 64 --charset alphanumeric)" \
-  --from-literal=AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE="$(authelia crypto rand --length 64 --charset alphanumeric)" \
-  --from-literal=jwks.rsa.2048.key="$(openssl genrsa 2048)" \
-  | kubeseal --format=yaml > sealedsecret-authelia.yaml
+AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE="$(authelia crypto rand --length 64 --charset alphanumeric)"
+AUTHELIA_SESSION_SECRET_FILE="$(authelia crypto rand --length 64 --charset alphanumeric)"
+AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE="$(authelia crypto rand --length 64 --charset alphanumeric)"
+jwks.rsa.2048.key="$(openssl genrsa 2048)"
 ```
 
 Users and their hashed passwords are stored in `configs/users.yaml`.

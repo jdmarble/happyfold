@@ -10,10 +10,10 @@ labels:
       app.kubernetes.io/name: authelia
 
 resources:
+  - externalsecret-authelia.yaml
   - httproute-authelia.yaml
   - namespace-authelia.yaml
   - networkpolicy-authelia.yaml
-  - sealedsecret-authelia.yaml
   - service-authelia.yaml
   - statefulset-authelia.yaml
 
