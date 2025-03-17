@@ -15,23 +15,18 @@ This app depends on Cilium to implement the Gateway API for access to the user i
 The Longhorn UI frontend is protected by OAuth2-Proxy.
 OAuth2-Proxy requires a secret, client key stored.
 A hash of the secret is needed by Authelia for validation.
-The following commands will generate a new secret, store it in a sealed-secret, and insert the hash into the Authelia configuration file.
+The following commands will generate a new secret and insert the hash into the Authelia configuration file.
 
 ```sh
 OIDC_CLIENT_ID="longhorn"
 OIDC_CLIENT_SECRET=$(openssl rand -hex 63)
 OIDC_CLIENT_HASH=$(authelia crypto hash generate argon2 --password=${OIDC_CLIENT_SECRET} | yq ".Digest" )
 COOKIE_SECRET=$(openssl rand -base64 32 | tr -- '+/' '-_')
-echo "\
-client_secret = '${OIDC_CLIENT_SECRET}'
-cookie_secret = '${COOKIE_SECRET}'
-" | kubectl create --namespace=longhorn-system secret generic oauth2-proxy --dry-run=client --output=json --from-file=oauth2-proxy.conf=/dev/stdin \
-| kubeseal --format yaml > ./sealedsecret-oauth2-proxy.yaml
 yq -i ".identity_providers.oidc.clients[] |= select(.client_id == \"${OIDC_CLIENT_ID}\").client_secret = \"${OIDC_CLIENT_HASH}\"" \
 ../authelia/configs/configuration.yaml
 ```
 
-Redeploy authelia after updating this secret.
+Change the client and cookie secrets in Infisical and redeploy authelia after updating this secret.
 
 ## Installation
 

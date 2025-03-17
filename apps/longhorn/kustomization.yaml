@@ -5,8 +5,8 @@ kind: Kustomization
 resources:
   - https://raw.githubusercontent.com/longhorn/longhorn/v1.8.0/deploy/longhorn.yaml
   - deployment-oauth2-proxy.yaml
+  - externalsecret-oauth2-proxy.yaml
   - httproute-ui.yaml
-  - sealedsecret-oauth2-proxy.yaml
   - service-oauth2-proxy.yaml
   - storageclass-safe.yaml
   - storageclass-unsafe.yaml
