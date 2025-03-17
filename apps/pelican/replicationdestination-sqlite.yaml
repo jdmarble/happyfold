@@ -11,8 +11,8 @@ spec:
     capacity: 10Gi
     copyMethod: Snapshot
     storageClassName: unsafe
-    rcloneConfig: rclone-destination-sqlite
-    rcloneConfigSection: net-jdmarble-pelican-sqlite-RO
-    rcloneDestPath: "net-jdmarble-pelican-sqlite"
+    rcloneConfig: rclone-sqlite
+    rcloneConfigSection: net-jdmarble-pelican
+    rcloneDestPath: "net-jdmarble-pelican"
   trigger:
     manual: restore-once
