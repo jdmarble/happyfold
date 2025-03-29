@@ -54,11 +54,7 @@ nodes:
       busPath: "/pci0000:00/0000:00:11.0/ata1/*"
     networkInterfaces:
       - interface: enp4s0
-        addresses:
-          - 192.168.2.17/22
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.1.1
+        dhcp: true
         vip:
           ip: 192.168.2.8
   - hostname: n07d-4pdc5j2.jdmarble.net
@@ -68,11 +64,7 @@ nodes:
       busPath: "/pci0000:00/0000:00:11.0/ata1/*"
     networkInterfaces:
       - interface: enp4s0
-        addresses:
-          - 192.168.2.18/22
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.1.1
+        dhcp: true
         vip:
           ip: 192.168.2.8
   - hostname: n07d-9wvtpk2.jdmarble.net
@@ -82,11 +74,7 @@ nodes:
       busPath: "/pci0000:00/0000:00:11.0/ata1/*"
     networkInterfaces:
       - interface: enp4s0
-        addresses:
-          - 192.168.2.19/22
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.1.1
+        dhcp: true
         vip:
           ip: 192.168.2.8
 
@@ -96,11 +84,7 @@ nodes:
       busPath: "/pci0000:00/0000:00:08.2/0000:05:00.0/ata1/*"
     networkInterfaces:
       - interface: enp3s0
-        addresses:
-          - 192.168.2.33/22
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.1.1
+        dhcp: true
     machineDisks:
       - device: "/dev/disk/by-id/nvme-WDC_WDS500G2B0C-00PXH0_210317802667"
         partitions:
@@ -114,11 +98,7 @@ nodes:
       busPath: "/pci0000:00/0000:00:1f.2/ata1/*"
     networkInterfaces:
       - interface: enp1s0
-        addresses:
-          - 192.168.2.34/22
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.1.1
+        dhcp: true
     machineDisks:
       - device: "/dev/disk/by-id/ata-SanDisk_X400_2.5_7MM_128GB_172102800827"
         partitions:
@@ -132,11 +112,7 @@ nodes:
       busPath: "/pci0000:00/0000:00:1f.2/ata6/*"
     networkInterfaces:
       - interface: enp2s0
-        addresses:
-          - 192.168.2.35/22
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.1.1
+        dhcp: true
     machineDisks:
       - device: "/dev/disk/by-id/ata-Samsung_SSD_860_PRO_2TB_S45DNF0M200555A"
         partitions:
