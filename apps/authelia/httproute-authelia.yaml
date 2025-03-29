@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: authelia
 spec:
   parentRefs:
-    - namespace: cilium
+    - namespace: gateway
       name: jdmarble-net
   hostnames:
     - "auth.jdmarble.net"

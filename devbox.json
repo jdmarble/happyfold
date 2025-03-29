@@ -4,7 +4,6 @@
     "direnv@latest",
     "kubectl@1.32.2",
     "talosctl@1.9.4",
-    "kubeseal@0.28.0",
     "kubernetes-helm@latest",
     "kustomize@latest",
     "jq@latest",
@@ -12,11 +11,11 @@
     "yamllint@latest",
     "yq-go@latest",
     "kapp@latest",
-    "bitwarden-cli@latest",
     "github:budimanjojo/talhelper",
     "authelia@latest",
     "backblaze-b2@latest",
-    "redis@latest"
+    "redis@latest",
+    "infisical@latest"
   ],
   "shell": {
     "init_hook": [

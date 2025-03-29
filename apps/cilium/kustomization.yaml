@@ -16,7 +16,6 @@ resources:
   - https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/experimental/gateway.networking.k8s.io_tlsroutes.yaml
   - https://raw.githubusercontent.com/cilium/cilium/refs/tags/v1.17.1/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliuml2announcementpolicies.yaml
   - https://raw.githubusercontent.com/cilium/cilium/refs/tags/v1.17.1/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliumloadbalancerippools.yaml
-  - gateway-jdmarble-net.yaml
   - ippool-default.yaml
   - l2announce-default.yaml
   - namespace-cilium.yaml

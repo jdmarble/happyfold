@@ -1,7 +1,4 @@
 ---
-debug: true
-dbWaitDebug: true
-
 superuser:
   existingSecret: superuser
 

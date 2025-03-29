@@ -23,6 +23,7 @@ Configure DNS `A` records for nodes and services in the `jdmarble.net` domain:
 | n07d-72206j2 | 192.168.2.17 |
 | n07d-4pdc5j2 | 192.168.2.18 |
 | n07d-9wvtpk2 | 192.168.2.19 |
+| a300w        | 192.168.2.33 |
 | q330g4       | 192.168.2.34 |
 | d08s-4wd2t52 | 192.168.2.35 |
 

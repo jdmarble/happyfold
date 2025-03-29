@@ -5,13 +5,13 @@ kind: Kustomization
 resources:
   - deployment-dragonfly.yaml
   - deployment-pelican.yaml
+  - externalsecret-pelican-redis.yaml
   - externalsecret-rclone-sqlite.yaml
   - httproute-pelican.yaml
   - namespace-pelican.yaml
   - pvc-sqlite.yaml
   - replicationdestination-sqlite.yaml
   - replicationsource-sqlite.yaml
-  - secret-pelican-redis.yaml
   - service-dragonfly.yaml
   - service-pelican.yaml
 

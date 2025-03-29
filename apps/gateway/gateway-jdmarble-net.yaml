@@ -2,10 +2,10 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  namespace: cilium
+  namespace: gateway
   name: jdmarble-net
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-cloudflare
+    cert-manager.io/issuer: letsencrypt-cloudflare
 spec:
   gatewayClassName: cilium
   listeners:

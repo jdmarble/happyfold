@@ -32,8 +32,6 @@ authelia crypto hash generate argon2
 
 First, ensure that all of the dependencies are met.
 Then, regenerate the secrets as described in the [Secrets](#secrets) section, if necessary.
-Secrets must be regenerated when Sealed Secrets is deployed.
-For example, when the cluster is newly deployed.
 
 Finally, apply the kustomization.
 

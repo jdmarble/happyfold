@@ -15,10 +15,12 @@ data:
   custom.js: ""
   bookmarks.yaml: |
     - External Services:
-      - Cloudflare:
-        - href: https://dash.cloudflare.com
       - Backblaze:
         - href: https://secure.backblaze.com/b2_buckets.htm
+      - Cloudflare:
+        - href: https://dash.cloudflare.com
+      - Infisical:
+        - href: https://app.infisical.com/
     - Projects:
       - Happyfold:
         - href: https://github.com/jdmarble/happyfold

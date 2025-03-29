@@ -6,7 +6,7 @@ metadata:
   name: mealie
 spec:
   parentRefs:
-    - namespace: cilium
+    - namespace: gateway
       name: jdmarble-net
   hostnames:
     - "mealie.jdmarble.net"

@@ -11,6 +11,7 @@ spec:
     capacity: 10Gi
     copyMethod: Snapshot
     storageClassName: unsafe
+    volumeSnapshotClassName: longhorn
     rcloneConfig: rclone-config
     rcloneConfigSection: net-jdmarble-jellyfin
     rcloneDestPath: "net-jdmarble-jellyfin"

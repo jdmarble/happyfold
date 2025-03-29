@@ -17,7 +17,10 @@ spec:
         app.kubernetes.io/name: dragonfly
     spec:
       containers:
-        - args:
+        - name: dragonfly
+          image: ghcr.io/dragonflydb/dragonfly:v1.27.2@sha256:df160a92b7097a1d7f673facebd20a74b03c287fb7503b55380b2931d9faf120
+          imagePullPolicy: Always
+          args:
             - --alsologtostderr
           env:
             - name: DFLY_requirepass
@@ -25,8 +28,6 @@ spec:
                 secretKeyRef:
                   name: netbox-redis
                   key: redis-password
-          image: ghcr.io/dragonflydb/dragonfly:v1.27.2@sha256:df160a92b7097a1d7f673facebd20a74b03c287fb7503b55380b2931d9faf120
-          imagePullPolicy: Always
           livenessProbe:
             exec:
               command:
@@ -37,7 +38,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 5
-          name: dragonfly
           ports:
             - containerPort: 6379
               name: dragonfly
@@ -59,3 +59,14 @@ spec:
             limits:
               cpu: 600m
               memory: 750Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10502
+            runAsGroup: 10502
+            fsGroup: 10502
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault

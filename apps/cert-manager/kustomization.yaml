@@ -11,10 +11,7 @@ resources:
   - https://github.com/cert-manager/cert-manager/releases/download/v1.17.1/cert-manager.yaml
   - certificate-root.yaml
   - clusterissuer-ca.yaml
-  - clusterissuer-letsencrypt-cloudflare.yaml
   - clusterissuer-selfsigned.yaml
-  - clusterissuer-staging-letsencrypt-cloudflare.yaml
-  - sealedsecret-cloudflare-api-key.yaml
 
 images:
   - name: quay.io/jetstack/cert-manager-cainjector

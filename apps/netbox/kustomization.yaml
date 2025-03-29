@@ -10,13 +10,13 @@ labels:
 resources:
   - cluster-pg-database.yaml
   - deployment-dragonfly.yaml
+  - externalsecret-netbox-redis.yaml
+  - externalsecret-oidc-client.yaml
+  - externalsecret-s3-backup-credentials.yaml
+  - externalsecret-superuser.yaml
   - httproute-netbox.yaml
   - namespace-netbox.yaml
   - scheduledbackup-netbox.yaml
-  - sealedsecret-oidc-client.yaml
-  - sealedsecret-s3-backup-credentials.yaml
-  - sealedsecret-superuser.yaml
-  - secret-netbox-redis.yaml
   - service-netbox-redis.yaml
 
 helmCharts:

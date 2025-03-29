@@ -59,7 +59,7 @@ identity_providers:
         userinfo_signed_response_alg: 'none'
       - client_id: 'netbox'
         client_name: 'Netbox'
-        client_secret: "$argon2id$v=19$m=65536,t=3,p=4$h/asFo5vZObgvg4/agpwTA$jnZ8noof+VoW+kOhbfIwFgfdTA2Txm3Qt7MYY0bKrUc"
+        client_secret: "$argon2id$v=19$m=65536,t=3,p=4$8mkNEGMUgf6PtIksjk8o/w$TKD1UgUgxH6acxLGbWEe/GgX87DmKwBbCu018o8ZAl8"
         public: false
         authorization_policy: 'one_factor'
         require_pkce: false

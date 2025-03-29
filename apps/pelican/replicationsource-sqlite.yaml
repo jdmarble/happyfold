@@ -11,6 +11,6 @@ spec:
     schedule: "35 1 * * *"
   rclone:
     rcloneConfig: rclone-sqlite
-    rcloneConfigSection: net-jdmarble-pelican
-    rcloneDestPath: "net-jdmarble-pelican"
+    rcloneConfigSection: net-jdmarble-pelican-sqlite
+    rcloneDestPath: "net-jdmarble-pelican-sqlite"
     copyMethod: Clone

@@ -6,7 +6,7 @@ metadata:
   name: netbox
 spec:
   parentRefs:
-    - namespace: cilium
+    - namespace: gateway
       name: jdmarble-net
   hostnames:
     - "netbox.jdmarble.net"

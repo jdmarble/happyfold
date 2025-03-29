@@ -12,7 +12,6 @@ A '0' indicates that the application requires privileges for all pods and only r
 |----------------------|-------|
 | cilium               | 0     |
 | metrics-server       | 10000 |
-| sealed-secrets       | 10100 |
 | cert-manager         | 10200 |
 | external-snapshotter | 10300 |
 | longhorn             | 10400 |

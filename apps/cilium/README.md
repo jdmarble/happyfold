@@ -14,6 +14,12 @@
 * **Network Policy Enforcer**:
   Cilium enforces all of the applications' `NetworkPolicy` rules.
 
+## Dependencies
+
+This app can be installed before any of its dependencies, but it won't be able to function properly until they are installed.
+
+This app depends on cert-manager to generate TLS certificates for the HTTPS gateway.
+
 ## Installation
 
 Change your current working directory to the app directory.

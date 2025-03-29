@@ -11,6 +11,7 @@ spec:
     capacity: 1Gi
     copyMethod: Snapshot
     storageClassName: unsafe
+    volumeSnapshotClassName: longhorn
     rcloneConfig: rclone-config
     rcloneConfigSection: net-jdmarble-mealie
     rcloneDestPath: "net-jdmarble-mealie"

@@ -113,54 +113,6 @@
         }
       }
     },
-    "bitwarden-cli@latest": {
-      "last_modified": "2025-02-12T00:10:52Z",
-      "resolved": "github:NixOS/nixpkgs/83a2581c81ff5b06f7c1a4e7cc736a455dfcf7b4#bitwarden-cli",
-      "source": "devbox-search",
-      "version": "2025.1.2",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/agjlps217k40qk5hhxzn3s4knwrzi6w9-bitwarden-cli-2025.1.2",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/agjlps217k40qk5hhxzn3s4knwrzi6w9-bitwarden-cli-2025.1.2"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/400c7yn9sym4bga8zjqjnh404j2gd8zp-bitwarden-cli-2025.1.2",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/400c7yn9sym4bga8zjqjnh404j2gd8zp-bitwarden-cli-2025.1.2"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/xyx5w7rmi189zapbfahd76nfyg34fvpf-bitwarden-cli-2025.1.2",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/xyx5w7rmi189zapbfahd76nfyg34fvpf-bitwarden-cli-2025.1.2"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/g75pwlki48xpbnd1r8cq6w439pji4fjn-bitwarden-cli-2025.1.2",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/g75pwlki48xpbnd1r8cq6w439pji4fjn-bitwarden-cli-2025.1.2"
-        }
-      }
-    },
     "direnv@latest": {
       "last_modified": "2024-10-13T23:44:06Z",
       "resolved": "github:NixOS/nixpkgs/d4f247e89f6e10120f911e2e2d2254a050d0f732#direnv",
@@ -206,6 +158,54 @@
             }
           ],
           "store_path": "/nix/store/3mydh7746lji25ry2aygsy5i4s0i23x2-direnv-2.35.0"
+        }
+      }
+    },
+    "infisical@latest": {
+      "last_modified": "2025-03-11T17:52:14Z",
+      "resolved": "github:NixOS/nixpkgs/0d534853a55b5d02a4ababa1d71921ce8f0aee4c#infisical",
+      "source": "devbox-search",
+      "version": "0.35.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/6p1d3cwp7qrydqqp72jigpr9ywv3b946-infisical-0.35.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/6p1d3cwp7qrydqqp72jigpr9ywv3b946-infisical-0.35.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/8b5pri2xgybdnz59zj933wv0i6k4vqm4-infisical-0.35.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/8b5pri2xgybdnz59zj933wv0i6k4vqm4-infisical-0.35.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/f41lrp906n0113571k72g0n9znsnjcyj-infisical-0.35.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/f41lrp906n0113571k72g0n9znsnjcyj-infisical-0.35.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/y9x6bgfnaxic8jdczdmvq3g1hn65vi3y-infisical-0.35.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/y9x6bgfnaxic8jdczdmvq3g1hn65vi3y-infisical-0.35.0"
         }
       }
     },
@@ -518,54 +518,6 @@
             }
           ],
           "store_path": "/nix/store/d54j0f8sr1mmkwhlvq8y7148vm4qlivd-kubernetes-helm-3.16.2"
-        }
-      }
-    },
-    "kubeseal@0.28.0": {
-      "last_modified": "2025-02-07T11:26:36Z",
-      "resolved": "github:NixOS/nixpkgs/d98abf5cf5914e5e4e9d57205e3af55ca90ffc1d#kubeseal",
-      "source": "devbox-search",
-      "version": "0.28.0",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/wf3amdsqar5cjayigdrawkxnmh9r27wh-kubeseal-0.28.0",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/wf3amdsqar5cjayigdrawkxnmh9r27wh-kubeseal-0.28.0"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/i9nd60789fhgb0q8b9xd5af3x1k73w9k-kubeseal-0.28.0",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/i9nd60789fhgb0q8b9xd5af3x1k73w9k-kubeseal-0.28.0"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/x005adxcl9l1nab4jwdhja64r04cmr9j-kubeseal-0.28.0",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/x005adxcl9l1nab4jwdhja64r04cmr9j-kubeseal-0.28.0"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/q2ca2rbj9cnvpc4pz213lg2cbqdwfgka-kubeseal-0.28.0",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/q2ca2rbj9cnvpc4pz213lg2cbqdwfgka-kubeseal-0.28.0"
         }
       }
     },
