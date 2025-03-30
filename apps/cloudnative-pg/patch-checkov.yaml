@@ -8,8 +8,6 @@ metadata:
   annotations:
     checkov.io/skip1: |
       CKV_K8S_38=The controller needs to interact with the k8s API to be a cotnroller.
-    checkov.io/skip2: |
-      CKV2_K8S_6=Using a CiliumNetworkPolicy in place of a NetworkPolicy
 spec:
   template:
     spec:

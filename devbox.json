@@ -15,7 +15,8 @@
     "authelia@latest",
     "backblaze-b2@latest",
     "redis@latest",
-    "infisical@latest"
+    "infisical@latest",
+    "checkov@3.2.393"
   ],
   "shell": {
     "init_hook": [

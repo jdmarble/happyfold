@@ -1,0 +1,13 @@
+---
+directory:
+  - apps
+framework:
+  - kustomize
+quiet: true
+skip-check:
+  - CKV2_K8S_6  # Minimize the admission of pods which lack an associated NetworkPolicy
+  # This is so hard for me to get right, I just gave up.
+  # Need a tool or something to help me figure out how the apps use the network.
+  - CKV_K8S_40  # Containers should run as a high UID to avoid host conflict
+  # I'm going to ignore this one because I'm planning on enabling user namespaces.
+  # https://github.com/jdmarble/happyfold/issues/47
