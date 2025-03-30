@@ -28,11 +28,13 @@ spec:
       enableServiceLinks: true
       containers:
         - name: homepage
-          image: "ghcr.io/gethomepage/homepage:v0.10.9@sha256:b6d732817572f9af99ec168b10641b8f7820f30cfa5a5cc5c68f1e291804bec8"
+          image: "ghcr.io/gethomepage/homepage:v1.1.1@sha256:be49a60307fcce7909acdaf2f3b2f3d168a0468d62869bf72d380625dde91fb9"
           imagePullPolicy: Always
           env:
             - name: HOMEPAGE_FILE_OCTOPRINT_API_KEY
               value: /app/secrets/octoprint-api-key
+            - name: HOMEPAGE_ALLOWED_HOSTS
+              value: homepage.jdmarble.net
           ports:
             - name: http
               containerPort: 3000
@@ -42,6 +44,9 @@ spec:
               path: /api/healthcheck
               port: http
               scheme: HTTP
+              httpHeaders:
+                - name: host
+                  value: localhost:3000
             initialDelaySeconds: 0
             timeoutSeconds: 1
           readinessProbe:
@@ -49,6 +54,9 @@ spec:
               path: /api/healthcheck
               port: http
               scheme: HTTP
+              httpHeaders:
+                - name: host
+                  value: localhost:3000
             initialDelaySeconds: 0
             timeoutSeconds: 5
             periodSeconds: 10
