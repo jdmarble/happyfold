@@ -2,14 +2,16 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: volsync-system
-
 resources:
-  - https://github.com/backube/volsync//config/default/?ref=v0.12.1
-
-patches:
-  - path: patch-security-context.yaml
-
-images:
-  - name: quay.io/backube/volsync
-    newTag: 0.12.1@sha256:2dd1ef4251b3a5881ab9289dce481de3fe30da7fc8da5e4dfed2d562964c888a
+  - https://github.com/backube/volsync//config/crd?ref=v0.12.1
+  - clusterrole-volsync-manager.yaml
+  - clusterrole-volsync-metrics-reader.yaml
+  - clusterrole-volsync-proxy.yaml
+  - clusterrolebinding-volsync-manager.yaml
+  - clusterrolebinding-volsync-proxy.yaml
+  - deployment-volsync-controller-manager.yaml
+  - namespace-volsync-system.yaml
+  - role-volsync-leader-election.yaml
+  - rolebinding-volsync-leader-election.yaml
+  - service-volsync-controller-manager-metrics.yaml
+  - serviceaccount-volsync-controller-manager.yaml

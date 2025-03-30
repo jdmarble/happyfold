@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: volsync-system
+  name: volsync-controller-manager-metrics
+spec:
+  ports:
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: https
+  selector:
+    app.kubernetes.io/part-of: volsync
+    control-plane: controller-manager
