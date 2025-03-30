@@ -4,6 +4,13 @@ kind: Deployment
 metadata:
   namespace: volsync-system
   name: volsync-controller-manager
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_8=The kube-rbac-proxy does not yet support liveness probes: https://github.com/brancz/kube-rbac-proxy/issues/244
+    checkov.io/skip2: |
+      CKV_K8S_9=Maybe kube-rbac-proxy supports readiness probes? https://github.com/brancz/kube-rbac-proxy/blob/d0de5e355973200a0c9eda3d7000f2d9a7f4b270/test/e2e/allowpaths/deployment.yaml#L31
+    checkov.io/skip3: |
+      CKV_K8S_38=This is a controller that needs k8s API access
 spec:
   replicas: 1
   selector:
