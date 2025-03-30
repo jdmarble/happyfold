@@ -51,22 +51,6 @@ spec:
             - name: QUEUE_CONNECTION
               value: "redis"
 
-            # TODO Update these settings once MySQL/MariaDB support is added.
-            # Deploying the panel in Docker is still a work in progress, and the default Docker image does not currently support using MySQL databases.
-           #- name: DB_HOST
-           #  value: "mariadb"
-           #- name: DB_PORT
-           #  value: "3306"
-           #- name: DB_DATABASE
-           #  value: "pelican"
-           #- name: DB_USER
-           #  value: "pelican"
-           #- name: DB_PASSWORD
-           #  valueFrom:
-           #    secretKeyRef:
-           #      name: mariadb-pelican-password
-           #      key: password
-
             # In tonight's performance, the role of Redis will be played by Dragonfly.
             - name: REDIS_HOST
               value: "dragonfly"
