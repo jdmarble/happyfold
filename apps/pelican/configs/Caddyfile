@@ -3,7 +3,7 @@
 	auto_https off # Disable automatic HTTPS. Terminate TLS at the load balancer.
 }
 
-http://pelican.jdmarble.net {
+https://pelican.jdmarble.net http:// {
 	root * /var/www/html/public
 	encode gzip
 

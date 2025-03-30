@@ -7,6 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: dragonfly
 spec:
+  automountServiceAccountToken: false  # CKV_K8S_38
   replicas: 1
   selector:
     matchLabels:
@@ -16,17 +17,14 @@ spec:
       labels:
         app.kubernetes.io/name: dragonfly
     spec:
+      automountServiceAccountToken: false  # CKV_K8S_38
       containers:
-        - args:
-            - --alsologtostderr
-          env:
-            - name: DFLY_requirepass
-              valueFrom:
-                secretKeyRef:
-                  name: pelican-redis
-                  key: redis-password
+        - name: dragonfly
           image: ghcr.io/dragonflydb/dragonfly:v1.27.2@sha256:df160a92b7097a1d7f673facebd20a74b03c287fb7503b55380b2931d9faf120
           imagePullPolicy: Always
+          args:
+            - --alsologtostderr
+            - --flagfile=/etc/dragonfly/requirepass-flagfile.txt
           livenessProbe:
             exec:
               command:
@@ -37,7 +35,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 5
-          name: dragonfly
           ports:
             - containerPort: 6379
               name: dragonfly
@@ -59,3 +56,26 @@ spec:
             limits:
               cpu: 600m
               memory: 750Mi
+          securityContext:  # CKV_K8S_30
+            allowPrivilegeEscalation: false  # CKV_K8S_20
+            capabilities:
+              drop:
+                - ALL  # CKV_K8S_37
+            readOnlyRootFilesystem: true  # CKV_K8S_22
+          volumeMounts:
+            - name: requirepass-flagfile
+              mountPath: /etc/dragonfly
+              readOnly: true
+      securityContext:  # CKV_K8S_29
+        runAsNonRoot: true  # CKV_K8S_23
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault  # CKV_K8S_31
+      volumes:
+        - name: requirepass-flagfile
+          secret:
+            secretName: pelican-redis
+            items:
+              - key: requirepass-flagfile.txt
+                path: requirepass-flagfile.txt

@@ -4,6 +4,13 @@ kind: Deployment
 metadata:
   namespace: pelican
   name: pelican
+  annotations:
+    checkov.io/skip1: |
+      CKV_K8S_35=I do not want to work the secrets to be files.
+    checkov.io/skip2: |
+      CKV_K8S_23=This container is all about supervisord.conf
+    checkov.io/skip3: |
+      CKV_K8S_22=It wants to write to directories that are shipped in the container image.
 spec:
   selector:
     matchLabels:
@@ -18,23 +25,28 @@ spec:
       labels:
         app.kubernetes.io/name: pelican
     spec:
+      automountServiceAccountToken: false  # CKV_K8S_38
       containers:
         - name: pelican
-          image: ghcr.io/pelican-dev/panel:v1.0.0-beta17@sha256:439106d1f289fff7b3b65708bd872b31e573b48dbab179087db742167f4854b4
+          image: ghcr.io/pelican-dev/panel:v1.0.0-beta18@sha256:5c4499aff53900299cc1bc417a191b355c597c4b4b7d0d1e7df1f9cc9755fb2c  # CKV_K8S_43
           resources:
             requests:
-              memory: "128Mi"
-              cpu: "300m"
+              memory: "128Mi"  # CKV_K8S_12
+              cpu: "300m"  # CKV_K8S_10
             limits:
-              memory: "256Mi"
-              cpu: "500m"
+              memory: "256Mi"  # CKV_K8S_13
+              cpu: "500m"  # CKV_K8S_11
           ports:
-            - containerPort: 80
+            - name: http
+              containerPort: 80
+          securityContext:  # CKV_K8S_30
+            allowPrivilegeEscalation: false  # CKV_K8S_20
+            capabilities:
+              drop:
+                - ALL  # CKV_K8S_37
           env:
             # See https://pelican.dev/docs/panel/advanced/environment for documentation on these variables.
             # (docs are not merged. Use this until that happens: https://deploy-preview-113--pelica.netlify.app/docs/panel/advanced/environment)
-            - name: APP_DEBUG
-              value: "true"
             - name: APP_TIMEZONE
               value: "America/Los_Angeles"
 
@@ -64,7 +76,14 @@ spec:
 
             - name: XDG_DATA_HOME
               value: "/pelican-data"
-
+          livenessProbe:  # CKV_K8S_8
+            httpGet:
+              path: /login
+              port: http
+          readinessProbe:  # CKV_K8S_9
+            httpGet:
+              path: /login
+              port: http
           volumeMounts:
             - name: database
               mountPath: /pelican-data/database
@@ -73,6 +92,9 @@ spec:
             - name: config
               mountPath: /etc/caddy/Caddyfile
               subPath: Caddyfile
+      securityContext:  # CKV_K8S_30
+        seccompProfile:
+          type: RuntimeDefault  # CKV_K8S_31
       volumes:
         - name: database
           persistentVolumeClaim:
